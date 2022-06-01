@@ -1,4 +1,4 @@
-package com.boilerplate.newarchitecture;
+package fr.turtlecorp.serialluncher.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.boilerplate.BuildConfig;
-import com.boilerplate.newarchitecture.components.MainComponentsRegistry;
-import com.boilerplate.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import fr.turtlecorp.serialluncher.BuildConfig;
+import fr.turtlecorp.serialluncher.newarchitecture.components.MainComponentsRegistry;
+import fr.turtlecorp.serialluncher.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "real-ios": "react-native run-ios --device='iPhone de Milan'",
     "both": "npm run real-ios && npm run android",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "open:ios": "open ios/SerialLuncher.xcworkspace"
   },
   "jest": {
     "preset": "jest-expo"
@@ -42,7 +43,7 @@
     "react": "17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "16.13.1",
-    "react-native": "0.68.1",
+    "react-native": "0.68.2",
     "react-native-android-open-settings": "^1.3.0",
     "react-native-countdown-circle-timer": "^2.5.2",
     "react-native-date-picker": "^3.3.2",
