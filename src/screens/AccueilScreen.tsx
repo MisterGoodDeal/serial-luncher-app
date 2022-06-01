@@ -5,9 +5,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
 import { TextInput, Button } from "react-native";
-import { wp } from "@utils/functions";
+import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/KeyboardDismiss";
 import { selectors } from "@store/selectors";
+import { Input } from "@components/Input";
 
 interface AccueilScreenProps {
   userInfo: string;
@@ -52,35 +53,11 @@ export const AccueilScreen: React.FunctionComponent<AccueilScreenProps> = ({
     <KeyboardDismiss>
       <Container
         flex={1}
-        color={Colors.greengoGreen}
+        color={"#D5D7DB"}
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <TextInput
-          style={{
-            backgroundColor: "black",
-            height: 40,
-            color: "white",
-            width: wp("80%"),
-            padding: 10,
-          }}
-          placeholderTextColor={"white"}
-          onChangeText={(text) => setEmail(text)}
-          placeholder={"email"}
-        />
-        <TextInput
-          style={{
-            backgroundColor: "black",
-            height: 40,
-            color: "white",
-            width: wp("80%"),
-            padding: 10,
-          }}
-          placeholderTextColor={"white"}
-          onChangeText={(text) => setPassword(text)}
-          placeholder={"password"}
-        />
-        <Button title="Call API" onPress={() => handleCallApi()} />
+        <Input />
       </Container>
     </KeyboardDismiss>
   );

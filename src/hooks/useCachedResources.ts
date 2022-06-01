@@ -10,7 +10,10 @@ export default function useCachedResources() {
       try {
         // Load fonts
         await Font.loadAsync({
-          //"space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
+          "Gibson-Light": require("../assets/fonts/Gibson-Light.otf"),
+          "Gibson-Regular": require("../assets/fonts/Gibson-Regular.otf"),
+          "Gibson-SemiBold": require("../assets/fonts/Gibson-SemiBold.otf"),
+          "Gibson-Bold": require("../assets/fonts/Gibson-Bold.otf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

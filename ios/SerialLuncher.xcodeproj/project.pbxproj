@@ -12,8 +12,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		39F217D17F2F4DDF96AC7167 /* Gibson-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E18E38F7052C4844B4C45DCF /* Gibson-SemiBold.otf */; };
 		7699B88040F8A987B510C191 /* libPods-SerialLuncher-SerialLuncherTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SerialLuncher-SerialLuncherTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8F8CD853434B48729E861D94 /* Gibson-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C423C8CD68CD4D7991C675C9 /* Gibson-Light.otf */; };
+		FAFE4F809ED44D99B395676B /* Gibson-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 87DE329D907A49D59F5E6432 /* Gibson-Regular.otf */; };
+		FB91FB4C846D422EBE923156 /* Gibson-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D3F428D7C4847AC15E248 /* Gibson-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,11 +42,15 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SerialLuncher/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-SerialLuncher-SerialLuncherTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerialLuncher-SerialLuncherTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-SerialLuncher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.debug.xcconfig"; sourceTree = "<group>"; };
+		3D4D3F428D7C4847AC15E248 /* Gibson-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Bold.otf"; path = "../src/assets/fonts/Gibson-Bold.otf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-SerialLuncher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-SerialLuncher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerialLuncher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SerialLuncher/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87DE329D907A49D59F5E6432 /* Gibson-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Regular.otf"; path = "../src/assets/fonts/Gibson-Regular.otf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; sourceTree = "<group>"; };
+		C423C8CD68CD4D7991C675C9 /* Gibson-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Light.otf"; path = "../src/assets/fonts/Gibson-Light.otf"; sourceTree = "<group>"; };
+		E18E38F7052C4844B4C45DCF /* Gibson-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-SemiBold.otf"; path = "../src/assets/fonts/Gibson-SemiBold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,6 +104,17 @@
 			name = SerialLuncher;
 			sourceTree = "<group>";
 		};
+		2783C2C79ACB478AA4DDCD67 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3D4D3F428D7C4847AC15E248 /* Gibson-Bold.otf */,
+				C423C8CD68CD4D7991C675C9 /* Gibson-Light.otf */,
+				87DE329D907A49D59F5E6432 /* Gibson-Regular.otf */,
+				E18E38F7052C4844B4C45DCF /* Gibson-SemiBold.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +141,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				2783C2C79ACB478AA4DDCD67 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -242,6 +262,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				FB91FB4C846D422EBE923156 /* Gibson-Bold.otf in Resources */,
+				8F8CD853434B48729E861D94 /* Gibson-Light.otf in Resources */,
+				FAFE4F809ED44D99B395676B /* Gibson-Regular.otf in Resources */,
+				39F217D17F2F4DDF96AC7167 /* Gibson-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
