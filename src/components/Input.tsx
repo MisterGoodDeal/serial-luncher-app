@@ -7,11 +7,19 @@ import { hp, wp } from "@utils/functions";
 interface InputProps {
   width?: number;
   height?: number;
+  placeholder: string;
+  password?: boolean;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
   width,
   height,
+  placeholder,
+  password,
+  value,
+  setValue,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -20,7 +28,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
           <Path fill="none" d="M0 0h375v100H0z" />
         </ClipPath>
       </Defs>
-      <G data-name="textfield/placeholder" clipPath="url(#a)">
+      <G>
         <G>
           <Rect
             data-name="bg"
@@ -44,7 +52,10 @@ export const Input: React.FunctionComponent<InputProps> = ({
         fontSize: 15,
         color: Colors.darkgrey,
       }}
-      placeholder="Email"
+      placeholder={placeholder}
+      secureTextEntry={password}
+      value={value}
+      onChangeText={(text) => setValue(text)}
     />
   </>
 );
