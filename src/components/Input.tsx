@@ -11,6 +11,35 @@ interface InputProps {
   password?: boolean;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  type:
+    | "none"
+    | "URL"
+    | "addressCity"
+    | "addressCityAndState"
+    | "addressState"
+    | "countryName"
+    | "creditCardNumber"
+    | "emailAddress"
+    | "familyName"
+    | "fullStreetAddress"
+    | "givenName"
+    | "jobTitle"
+    | "location"
+    | "middleName"
+    | "name"
+    | "namePrefix"
+    | "nameSuffix"
+    | "nickname"
+    | "organizationName"
+    | "postalCode"
+    | "streetAddressLine1"
+    | "streetAddressLine2"
+    | "sublocality"
+    | "telephoneNumber"
+    | "username"
+    | "password"
+    | "newPassword"
+    | "oneTimeCode";
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -20,6 +49,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   password,
   value,
   setValue,
+  type,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -49,9 +79,12 @@ export const Input: React.FunctionComponent<InputProps> = ({
         zIndex: 10,
         width: width ?? wp("80%"),
         height: height ?? hp("7%"),
-        fontSize: 15,
+        fontSize: hp("2%"),
         color: Colors.darkgrey,
+        fontFamily: "Gibson",
       }}
+      textContentType={type}
+      autoCapitalize={type === "emailAddress" ? "none" : undefined}
       placeholder={placeholder}
       secureTextEntry={password}
       value={value}
