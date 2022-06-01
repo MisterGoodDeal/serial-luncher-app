@@ -1,0 +1,15 @@
+{
+  "name": "BoilerPlate",
+  "displayName": "Boilder Plate",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "fr.mistergooddeal.boilerplate",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "fr.mistergooddeal.boilerplate",
+      "versionCode": 1
+    }
+}
