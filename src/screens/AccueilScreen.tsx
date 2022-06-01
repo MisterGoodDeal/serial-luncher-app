@@ -53,11 +53,17 @@ export const AccueilScreen: React.FunctionComponent<AccueilScreenProps> = ({
     <KeyboardDismiss>
       <Container
         flex={1}
-        color={"#D5D7DB"}
+        color={Colors.darkgrey}
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Input />
+        <Input placeholder="Email" value={email} setValue={setEmail} />
+        <Input
+          placeholder="Password"
+          value={password}
+          setValue={setPassword}
+          password
+        />
       </Container>
     </KeyboardDismiss>
   );
