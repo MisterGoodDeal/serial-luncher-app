@@ -3,6 +3,7 @@ export const Colors = {
   accent: "#5773FF",
   blue: "#3497FD",
   lightblue: "#3ACCE1",
+  green: "#3cba54",
   yellow: "#FFB900",
   orange: "#FF9057",
   pink: "#FF4F9A",
@@ -11,5 +12,6 @@ export const Colors = {
   grey: "#454F63",
   darkgrey: "#2A2E43",
   black: "#000000",
+  white: "#FFFFFF",
   background: "#fafafa",
 };

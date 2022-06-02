@@ -1,8 +1,24 @@
 import * as RNLocalize from "react-native-localize";
 
 const locales = {
-  fr: {},
-  en: {},
+  fr: {
+    landing: {
+      title: "Bienvenue sur \nSerial Luncher !",
+      continue_with: "Continuer avec",
+      email: "Email",
+      apple: "Se connecter avec Apple",
+      google: "Se connecter avec Google",
+    },
+  },
+  en: {
+    landing: {
+      title: "Welcome to\nSerial Luncher !",
+      continue_with: "Continue with",
+      email: "Email",
+      apple: "Login with Apple",
+      google: "Login with Google",
+    },
+  },
 };
 
 const getLang = (languageCode: string) => {
