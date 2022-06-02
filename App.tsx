@@ -5,6 +5,7 @@ import { RootNavigator } from "./src/navigation/RootNavigator";
 import { store } from "./src/store/store";
 import GenericModal from "@components/GenericModal";
 import { Loader } from "@components/Loader";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -13,11 +14,14 @@ export default function App() {
     return null;
   } else {
     return (
-      <Provider store={store}>
-        <GenericModal />
-        <Loader />
-        <RootNavigator />
-      </Provider>
+      <>
+        <Provider store={store}>
+          <GenericModal />
+          <Loader />
+          <RootNavigator />
+        </Provider>
+        <Toast />
+      </>
     );
   }
 }
