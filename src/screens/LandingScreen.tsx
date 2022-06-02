@@ -10,7 +10,7 @@ import { KeyboardDismiss } from "@components/KeyboardDismiss";
 import { selectors } from "@store/selectors";
 import { Button } from "@components/Button";
 import { Spacer } from "@components/Spacer";
-import { CustomText } from "@components/Text";
+import { CustomText } from "@components/CustomText";
 import { Lang } from "@constants/Lang";
 import { texts } from "@constants/TextsSizes";
 import { Overlay } from "@components/Overlay";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text } from "react-native";
 import { Colors } from "../constants/Colors";
 
-interface GBTextProps {
+interface CustomTextProps {
   children?: string;
   size: number;
   color?: string;
@@ -23,7 +23,7 @@ interface GBTextProps {
     | undefined;
 }
 
-export const GBText: React.FunctionComponent<GBTextProps> = ({
+export const CustomText: React.FunctionComponent<CustomTextProps> = ({
   children,
   size,
   color,
