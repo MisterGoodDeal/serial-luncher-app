@@ -9,6 +9,30 @@ const locales = {
       apple: "Se connecter avec Apple",
       google: "Se connecter avec Google",
     },
+    enrollment: {
+      login: {
+        title: "CONNEXION",
+        email: "Adresse email",
+        password: "Mot de passe",
+        button: "Se connecter",
+      },
+      register: {
+        title: "INSCRIPTION",
+        firstname: "Prénom",
+        lastname: "Nom",
+        email: "Adresse email",
+        password: "Mot de passe",
+        profile_picture: {
+          title: "Photo de profil",
+          fromCamera: "Prendre une photo",
+          fromGallery: "Choisir une photo",
+          cancel: "Vous avez annulé la sélection...",
+          error: "Une erreur s'est produite, veuillez réessayer...",
+          success: "Image récupérée avec succès !",
+        },
+        button: "S'inscrire",
+      },
+    },
   },
   en: {
     landing: {
@@ -17,6 +41,30 @@ const locales = {
       email: "Email",
       apple: "Login with Apple",
       google: "Login with Google",
+    },
+    enrollment: {
+      login: {
+        title: "LOGIN",
+        email: "Email",
+        password: "Password",
+        button: "Login",
+      },
+      register: {
+        title: "REGISTER",
+        firstname: "Firstname",
+        lastname: "Lastname",
+        email: "Email",
+        password: "Password",
+        profile_picture: {
+          title: "Profile picture",
+          fromCamera: "Take a picture",
+          fromGallery: "Choose a picture",
+          cancel: "You've cancelled the operation...",
+          error: "There was an error, please try again...",
+          success: "Image successfully fetched!",
+        },
+        button: "Register",
+      },
     },
   },
 };

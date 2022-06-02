@@ -14,4 +14,6 @@ export const Colors = {
   black: "#000000",
   white: "#FFFFFF",
   background: "#fafafa",
+  blob_default: "rgb(102,94,255,0.3)",
+  transparent: "transparent",
 };
