@@ -10,5 +10,6 @@ export const Colors = {
   cyan: "#78849E",
   grey: "#454F63",
   darkgrey: "#2A2E43",
+  black: "#000000",
   background: "#fafafa",
 };
