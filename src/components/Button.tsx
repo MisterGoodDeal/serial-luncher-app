@@ -12,6 +12,7 @@ interface ButtonProps {
   children: string;
   fontSize?: number;
   shadow?: boolean;
+  onPress?: () => void;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -21,6 +22,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   children,
   fontSize,
   shadow,
+  onPress,
 }) => (
   <TouchableOpacity
     style={[
@@ -29,6 +31,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
       },
       shadow ? styles.shadow : {},
     ]}
+    onPress={onPress}
   >
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
       <Defs>
