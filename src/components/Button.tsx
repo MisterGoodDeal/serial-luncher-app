@@ -11,6 +11,7 @@ interface ButtonProps {
   color: string;
   children: string;
   fontSize?: number;
+  shadow?: boolean;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -19,11 +20,15 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   color,
   children,
   fontSize,
+  shadow,
 }) => (
   <TouchableOpacity
-    style={{
-      alignSelf: "center",
-    }}
+    style={[
+      {
+        alignSelf: "center",
+      },
+      shadow ? styles.shadow : {},
+    ]}
   >
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
       <Defs>
@@ -68,4 +73,15 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   </TouchableOpacity>
 );
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+});

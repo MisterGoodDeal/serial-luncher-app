@@ -84,15 +84,15 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
           {Lang.landing.continue_with}
         </CustomText>
         <Spacer direction="vertical" space={"1%"} />
-        <Button width={wp("70%")} color={Colors.main}>
+        <Button width={wp("70%")} color={Colors.main} shadow>
           {Lang.landing.email}
         </Button>
         <Spacer direction="vertical" space={"8%"} />
-        <Button width={wp("70%")} color={Colors.black}>
+        <Button width={wp("70%")} color={Colors.black} shadow>
           {Lang.landing.apple}
         </Button>
         <Spacer direction="vertical" space={"1%"} />
-        <Button width={wp("70%")} color={Colors.green}>
+        <Button width={wp("70%")} color={Colors.green} shadow>
           {Lang.landing.google}
         </Button>
       </Container>
