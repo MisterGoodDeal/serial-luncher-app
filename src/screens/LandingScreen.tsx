@@ -50,13 +50,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
   return (
     <KeyboardDismiss>
       <StatusBar barStyle="light-content" />
-      {/* <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} /> */}
-      <Container
-        flex={1}
-        alignItems={"center"}
-        justifyContent={"center"}
-        color={Colors.background}
-      >
+      <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} />
+      <Container flex={1} alignItems={"center"} justifyContent={"center"}>
         <Image
           source={require("@images/pin-selected/pin.png")}
           style={{
@@ -66,7 +61,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         />
         <Spacer direction="vertical" space={"1.5%"} />
         <CustomText
-          color={Colors.black}
+          color={Colors.white}
           fontWeight={"600"}
           size={texts.title}
           align={"center"}
@@ -75,7 +70,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         </CustomText>
         <Spacer direction="vertical" space={"15%"} />
         <CustomText
-          color={Colors.black}
+          color={Colors.white}
           fontWeight={"500"}
           transform={"uppercase"}
           size={texts.small}
