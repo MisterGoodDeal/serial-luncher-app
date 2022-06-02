@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import linking from "../linking";
 import { LandingScreen } from "@screens/LandingScreen";
+import { LoginScreen } from "@screens/LoginScreen";
+import { EnrollmentNavigator } from "./EnrollmentNavigator";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,7 @@ export const RootNavigator: React.FC<{}> = () => {
             }}
           >
             <Stack.Screen name="Landing" component={LandingScreen} />
+            <Stack.Screen name="Enrollment" component={EnrollmentNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       )}
