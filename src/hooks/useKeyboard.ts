@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Platform, Keyboard } from "react-native";
 
@@ -11,10 +12,14 @@ export const useKeyboard = (): [boolean, number] => {
       : Keyboard.addListener("keyboardDidHide", _keyboardHide);
 
     return () => {
-      Keyboard.removeListener("keyboardDidShow", _keyboardShow);
-      Keyboard.removeListener("keyboardWillShow", _keyboardShow);
-      Keyboard.removeListener("keyboardDidHide", _keyboardHide);
-      Keyboard.removeListener("keyboardWillHide", _keyboardHide);
+      try {
+        Keyboard.removeListener("keyboardDidShow", _keyboardShow);
+        Keyboard.removeListener("keyboardWillShow", _keyboardShow);
+        Keyboard.removeListener("keyboardDidHide", _keyboardHide);
+        Keyboard.removeListener("keyboardWillHide", _keyboardHide);
+      } catch (error) {
+        console.warn("Error with useKeyboard() hook", error);
+      }
     };
   }, []);
 
