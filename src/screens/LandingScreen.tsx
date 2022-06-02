@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container } from "../components/Container";
 import { Colors } from "../constants/Colors";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
 import { StatusBar, Image, View } from "react-native";
@@ -24,6 +24,7 @@ interface LandingScreenProps {
 export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
   userInfo,
 }) => {
+  const nav = useNavigation();
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
 
@@ -79,7 +80,13 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
           {Lang.landing.continue_with}
         </CustomText>
         <Spacer direction="vertical" space={"1%"} />
-        <Button width={wp("70%")} color={Colors.main} shadow>
+        <Button
+          width={wp("70%")}
+          color={Colors.main}
+          shadow
+          // @ts-ignore
+          onPress={() => nav.navigate("Enrollment")}
+        >
           {Lang.landing.email}
         </Button>
         <Spacer direction="vertical" space={"8%"} />

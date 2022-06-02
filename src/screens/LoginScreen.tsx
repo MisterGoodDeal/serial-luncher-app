@@ -15,12 +15,14 @@ import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/Spacer";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { useKeyboard } from "@hooks/useKeyboard";
 
 interface LoginScreenProps {}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
+  const [keyboardStatus] = useKeyboard();
 
   // Login data
   const [email, setEmail] = React.useState("");
@@ -55,10 +57,18 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         justifyContent={"center"}
         color={Colors.darkgrey}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
-          {Lang.enrollment.login.title}
-        </CustomText>
-        <Spacer space="8%" />
+        {!keyboardStatus && (
+          <>
+            <CustomText
+              size={texts.title}
+              fontWeight={"500"}
+              color={Colors.white}
+            >
+              {Lang.enrollment.login.title}
+            </CustomText>
+            <Spacer space="8%" />
+          </>
+        )}
         <Input
           value={email}
           setValue={setEmail}
