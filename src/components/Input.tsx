@@ -3,6 +3,7 @@ import { StyleSheet, TextInput } from "react-native";
 import { Colors } from "../constants/Colors";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, wp } from "@utils/functions";
+import { texts } from "@constants/TextsSizes";
 
 interface InputProps {
   width?: number;
@@ -40,6 +41,7 @@ interface InputProps {
     | "password"
     | "newPassword"
     | "oneTimeCode";
+  fontSize?: number;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -50,6 +52,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   value,
   setValue,
   type,
+  fontSize,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -79,7 +82,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         zIndex: 10,
         width: width ?? wp("80%"),
         height: height ?? hp("7%"),
-        fontSize: hp("2%"),
+        fontSize: fontSize ?? texts.input,
         color: Colors.darkgrey,
         fontFamily: "Gibson",
       }}

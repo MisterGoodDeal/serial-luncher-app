@@ -3,12 +3,14 @@ import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, textColor, wp } from "@utils/functions";
+import { texts } from "@constants/TextsSizes";
 
 interface ButtonProps {
   width?: number;
   height?: number;
   color: string;
   children: string;
+  fontSize?: number;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -16,6 +18,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   height,
   color,
   children,
+  fontSize,
 }) => (
   <TouchableOpacity
     style={{
@@ -53,7 +56,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
     >
       <Text
         style={{
-          fontSize: hp("2.3%"),
+          fontSize: fontSize ?? texts.button,
           color: textColor(color),
           fontFamily: "Gibson",
           fontWeight: "500",
