@@ -44,13 +44,13 @@ const locales = {
     },
     enrollment: {
       login: {
-        title: "LOGIN",
+        title: "SIGN IN",
         email: "Email",
         password: "Password",
-        button: "Login",
+        button: "SIGN IN",
       },
       register: {
-        title: "REGISTER",
+        title: "SIGN UP",
         firstname: "Firstname",
         lastname: "Lastname",
         email: "Email",
@@ -63,7 +63,7 @@ const locales = {
           error: "There was an error, please try again...",
           success: "Image successfully fetched!",
         },
-        button: "Register",
+        button: "Sign up",
       },
     },
   },

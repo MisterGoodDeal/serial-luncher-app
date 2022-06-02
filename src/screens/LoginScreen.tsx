@@ -4,25 +4,22 @@ import { Colors } from "../constants/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
-import { StatusBar, Image, View, ScrollView } from "react-native";
-import { hp, wp } from "@utils/functions";
+import { StatusBar } from "react-native";
+import { wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/KeyboardDismiss";
 import { selectors } from "@store/selectors";
-import { BlobsSVG } from "../assets/svg/BlobsSVG";
 import { CustomText } from "@components/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/Spacer";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
-import { useKeyboard } from "@hooks/useKeyboard";
 
 interface LoginScreenProps {}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
-  const [keyboardStatus] = useKeyboard();
 
   // Login data
   const [email, setEmail] = React.useState("");
@@ -57,18 +54,10 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         justifyContent={"center"}
         color={Colors.darkgrey}
       >
-        {!keyboardStatus && (
-          <>
-            <CustomText
-              size={texts.title}
-              fontWeight={"500"}
-              color={Colors.white}
-            >
-              {Lang.enrollment.login.title}
-            </CustomText>
-            <Spacer space="8%" />
-          </>
-        )}
+        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+          {Lang.enrollment.login.title}
+        </CustomText>
+        <Spacer space="8%" />
         <Input
           value={email}
           setValue={setEmail}
