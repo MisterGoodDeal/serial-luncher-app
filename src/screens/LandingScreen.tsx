@@ -50,8 +50,13 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
   return (
     <KeyboardDismiss>
       <StatusBar barStyle="light-content" />
-      <Overlay image={require("@images/landing_bg.jpeg")} />
-      <Container flex={1} alignItems={"center"} justifyContent={"center"}>
+      {/* <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} /> */}
+      <Container
+        flex={1}
+        alignItems={"center"}
+        justifyContent={"center"}
+        color={Colors.background}
+      >
         <Image
           source={require("@images/pin-selected/pin.png")}
           style={{
@@ -61,7 +66,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         />
         <Spacer direction="vertical" space={"1.5%"} />
         <CustomText
-          color={Colors.white}
+          color={Colors.black}
           fontWeight={"600"}
           size={texts.title}
           align={"center"}
@@ -70,8 +75,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         </CustomText>
         <Spacer direction="vertical" space={"15%"} />
         <CustomText
-          color={Colors.white}
-          fontWeight={"600"}
+          color={Colors.black}
+          fontWeight={"500"}
           transform={"uppercase"}
           size={texts.small}
           align={"center"}
@@ -82,7 +87,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         <Button width={wp("70%")} color={Colors.main}>
           {Lang.landing.email}
         </Button>
-        <Spacer direction="vertical" space={"4%"} />
+        <Spacer direction="vertical" space={"8%"} />
         <Button width={wp("70%")} color={Colors.black}>
           {Lang.landing.apple}
         </Button>
