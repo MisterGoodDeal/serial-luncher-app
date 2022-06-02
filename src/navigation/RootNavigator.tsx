@@ -2,7 +2,7 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import linking from "../linking";
-import { AccueilScreen } from "@screens/AccueilScreen";
+import { LandingScreen } from "@screens/LandingScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,12 +19,12 @@ export const RootNavigator: React.FC<{}> = () => {
       {loaded && (
         <NavigationContainer linking={linking}>
           <Stack.Navigator
-            initialRouteName={"Accueil"}
+            initialRouteName={"Landing"}
             screenOptions={{
               headerShown: false,
             }}
           >
-            <Stack.Screen name="Accueil" component={AccueilScreen} />
+            <Stack.Screen name="Landing" component={LandingScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       )}
