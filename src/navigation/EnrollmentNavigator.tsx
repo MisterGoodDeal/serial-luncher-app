@@ -38,10 +38,10 @@ export const EnrollmentNavigator: React.FC<{}> = () => {
         tabBarStyle: {
           backgroundColor: Colors.transparent,
           position: "absolute",
-          top: hp("6%"),
+          top: hp("15%"),
           borderTopWidth: 0,
           paddingHorizontal: wp("15%"),
-          height: hp("10%"),
+          height: hp("1%"),
           alignItems: "flex-end",
           justifyContent: "space-evenly",
         },
