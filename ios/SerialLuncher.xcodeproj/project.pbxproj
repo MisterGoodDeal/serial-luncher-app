@@ -512,7 +512,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.serialluncher;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
