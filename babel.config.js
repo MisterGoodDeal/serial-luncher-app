@@ -14,6 +14,7 @@ const MODULE_RESOLVER = [
       "@store": "./src/store",
       "@api": "./src/api",
       "@contexts": "./src/contexts",
+      "@themes": "./src/themes",
     },
   },
 ];
