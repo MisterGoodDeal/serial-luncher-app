@@ -1,2 +1,0 @@
-// Enrollment
-export * from "./login";

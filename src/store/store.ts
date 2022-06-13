@@ -1,26 +1,20 @@
-import { configureStore, Store } from "@reduxjs/toolkit";
-import { actions } from "./actions";
-import { getThunkGreengoApi } from "./api";
+import { configureStore } from "@reduxjs/toolkit";
+import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
 import { reducers } from "./reducers";
-import { selectors } from "./selectors";
-
-// hack to inject store in thunk from store definition
-let _store: Store;
+import { applicationAPI } from "./application/slice";
 
 export const store = configureStore({
   reducer: reducers,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-      thunk: {
-        extraArgument: {
-          greengoApi: getThunkGreengoApi(() => _store, selectors, actions),
-          actions,
-        },
-      },
-    }),
+    getDefaultMiddleware().concat(applicationAPI.middleware),
 });
 
-_store = store;
-
+export type AppDispatch = typeof store.dispatch;
 export type AppState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action<string>
+>;

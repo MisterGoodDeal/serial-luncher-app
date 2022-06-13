@@ -1,7 +1,5 @@
-import { userSlice } from "./userSlice";
-import { applicationSlice } from "./application/applicationSlice";
+import { applicationAPI } from "./application/slice";
 
 export const reducers = {
-  [userSlice.name]: userSlice.reducer,
-  [applicationSlice.name]: applicationSlice.reducer,
-};
+  [applicationAPI.reducerPath]: applicationAPI.reducer,
+} as const;
