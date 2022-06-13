@@ -11,8 +11,8 @@ interface LoaderProps {
 }
 
 const animations = {
-  dark: require("../assets/lottie/loading_dark.json"),
-  light: require("../assets/lottie/loading_light.json"),
+  dark: require("../../../assets/lottie/loading_dark.json"),
+  light: require("../../../assets/lottie/loading_light.json"),
 };
 
 export const Loader: React.FunctionComponent<LoaderProps> = ({
