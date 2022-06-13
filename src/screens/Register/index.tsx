@@ -3,17 +3,8 @@ import { Container } from "@components/common/Container";
 import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
-import {
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StatusBar, FlatList } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { selectors } from "@store/selectors";
 import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";
 import { JoinGroupScreen } from "./JoinGroup";
@@ -25,7 +16,6 @@ export const RegisterScreen: React.FunctionComponent<
   RegisterScreenProps
 > = ({}) => {
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
 
   const ref = React.useRef<FlatList>(null);
   const [index, setIndex] = React.useState(0);
@@ -35,20 +25,6 @@ export const RegisterScreen: React.FunctionComponent<
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   const nextStep = () => {
     if (index < data.length - 1) {

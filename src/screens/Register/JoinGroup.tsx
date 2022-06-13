@@ -3,23 +3,13 @@ import { Container } from "@components/common/Container";
 import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
-import {
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { selectors } from "@store/selectors";
 import { CustomText } from "@components/ui/Molecules/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/common/Spacer";
-import { Input } from "@components/ui/Atoms/Input";
-import { Button } from "@components/ui/Atoms/Button";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { Loader } from "@components/ui/Molecules/Loader";
@@ -34,32 +24,12 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
   previousStep,
 }) => {
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
-
-  // Register infos
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordConfirm, setPasswordConfirm] = React.useState("");
 
   useFocusEffect(
     React.useCallback(() => {
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   return (
     <KeyboardDismiss>

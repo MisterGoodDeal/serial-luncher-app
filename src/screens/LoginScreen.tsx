@@ -3,11 +3,9 @@ import { Container } from "../components/common/Container";
 import { Colors } from "../themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
 import { StatusBar } from "react-native";
 import { wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { selectors } from "@store/selectors";
 import { CustomText } from "@components/ui/Molecules/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
@@ -19,7 +17,6 @@ interface LoginScreenProps {}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
 
   // Login data
   const [email, setEmail] = React.useState("");
@@ -30,20 +27,6 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   return (
     <KeyboardDismiss>

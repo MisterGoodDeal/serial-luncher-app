@@ -1,20 +1,10 @@
 import * as React from "react";
-import { Container } from "@components/Container";
-import { Colors } from "@constants/Colors";
 import { useFocusEffect } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
+import { useDispatch } from "react-redux";
 import { Image, TouchableOpacity } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/KeyboardDismiss";
-import { selectors } from "@store/selectors";
-import { CustomText } from "@components/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
-import { Spacer } from "@components/Spacer";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { Popup } from "@components/Popup";
 import {
   ImageLibraryOptions,
   ImagePickerResponse,
@@ -22,7 +12,15 @@ import {
   launchImageLibrary,
 } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
-import { Arrow } from "@components/Arrow";
+import { Container } from "@components/common/Container";
+import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
+import { Spacer } from "@components/common/Spacer";
+import { Arrow } from "@components/ui/Atoms/Arrow";
+import { Input } from "@components/ui/Atoms/Input";
+import { CustomText } from "@components/ui/Molecules/CustomText";
+import { Popup } from "@components/ui/Molecules/Popup";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Button } from "@components/ui/Atoms/Button";
 
 interface CreateGroupScreenProps {
   nextStep: () => void;
@@ -33,7 +31,6 @@ export const CreateGroupScreen: React.FunctionComponent<
   CreateGroupScreenProps
 > = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
 
   // Register infos
   const [groupName, setGroupName] = React.useState("");
@@ -46,20 +43,6 @@ export const CreateGroupScreen: React.FunctionComponent<
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   const profilePictureOptions: ImageLibraryOptions = {
     mediaType: "photo",

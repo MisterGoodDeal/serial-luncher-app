@@ -3,11 +3,9 @@ import { Container } from "../components/common/Container";
 import { Colors } from "../themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
 import { StatusBar, Image, View } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { selectors } from "@store/selectors";
 import { Button } from "@components/ui/Atoms/Button";
 import { Spacer } from "@components/common/Spacer";
 import { CustomText } from "@components/ui/Molecules/CustomText";
@@ -26,27 +24,12 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
 }) => {
   const nav = useNavigation();
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
 
   useFocusEffect(
     React.useCallback(() => {
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   return (
     <KeyboardDismiss>

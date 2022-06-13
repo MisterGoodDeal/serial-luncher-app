@@ -3,11 +3,8 @@ import { Container } from "@components/common/Container";
 import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@store/actions";
-import { StatusBar, Image, TouchableOpacity, ScrollView } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { selectors } from "@store/selectors";
 import { CustomText } from "@components/ui/Molecules/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
@@ -25,7 +22,6 @@ export const CredentialsScreen: React.FunctionComponent<
   CredentialsScreenProps
 > = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
-  const { buttons } = useSelector(selectors.application.info);
 
   // Register infos
   const [email, setEmail] = React.useState("");
@@ -37,20 +33,6 @@ export const CredentialsScreen: React.FunctionComponent<
       return () => null;
     }, [])
   );
-
-  React.useEffect(() => {
-    if (buttons?.valid?.action === "connected") {
-      dispatch(
-        actions.application.setAction({
-          function: () => {
-            alert("Vous êtes connecté");
-            dispatch(actions.application.clean());
-          },
-          type: "valid",
-        })
-      );
-    }
-  }, [buttons]);
 
   return (
     <KeyboardDismiss>
