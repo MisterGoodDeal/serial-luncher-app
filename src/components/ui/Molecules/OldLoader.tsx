@@ -5,7 +5,7 @@ import { View } from "react-native";
 
 import Spinner from "react-native-spinkit";
 import { useSelector } from "react-redux";
-import { Colors } from "../constants/Colors";
+import { Colors } from "themes/Colors";
 
 export const OldLoader = () => {
   const pending = useSelector(selectors.application.pending);

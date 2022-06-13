@@ -1,19 +1,19 @@
 import * as React from "react";
-import { Container } from "../components/Container";
-import { Colors } from "../constants/Colors";
+import { Container } from "../components/common/Container";
+import { Colors } from "../themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
 import { StatusBar, Image, View } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/KeyboardDismiss";
+import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { selectors } from "@store/selectors";
-import { Button } from "@components/Button";
-import { Spacer } from "@components/Spacer";
-import { CustomText } from "@components/CustomText";
+import { Button } from "@components/ui/Atoms/Button";
+import { Spacer } from "@components/common/Spacer";
+import { CustomText } from "@components/ui/Molecules/CustomText";
 import { Lang } from "@constants/Lang";
 import { texts } from "@constants/TextsSizes";
-import { Overlay } from "@components/Overlay";
+import { Overlay } from "@components/ui/Molecules/Overlay";
 
 interface LandingScreenProps {
   userInfo: string;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
-import { hp, wp } from "../utils/functions";
+import { hp, wp } from "../../utils/functions";
 
 interface SpacerProps {
   space: string;

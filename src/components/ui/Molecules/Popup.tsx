@@ -1,8 +1,8 @@
 import { hp, textColor, wp } from "@utils/functions";
 import * as React from "react";
 import { Image, Modal, StyleSheet, TouchableOpacity } from "react-native";
-import { Colors } from "../constants/Colors";
-import { Container } from "./Container";
+import { Colors } from "themes/Colors";
+import { Container } from "@components/common/Container";
 
 interface PopupProps {
   animation?: "none" | "slide" | "fade";

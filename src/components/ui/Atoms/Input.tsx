@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { Colors } from "../constants/Colors";
+import { Colors } from "themes/Colors";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";

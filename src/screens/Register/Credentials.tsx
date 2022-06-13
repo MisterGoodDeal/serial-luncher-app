@@ -1,30 +1,29 @@
 import * as React from "react";
-import { Container } from "@components/Container";
-import { Colors } from "@constants/Colors";
+import { Container } from "@components/common/Container";
+import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
 import { StatusBar, Image, TouchableOpacity, ScrollView } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/KeyboardDismiss";
+import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { selectors } from "@store/selectors";
-import { CustomText } from "@components/CustomText";
+import { CustomText } from "@components/ui/Molecules/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
-import { Spacer } from "@components/Spacer";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { Arrow } from "@components/Arrow";
+import { Spacer } from "@components/common/Spacer";
+import { Input } from "@components/ui/Atoms/Input";
+import { Button } from "@components/ui/Atoms/Button";
+import { Arrow } from "@components/ui/Atoms/Arrow";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
   previousStep: () => void;
 }
 
-export const CredentialsScreen: React.FunctionComponent<CredentialsScreenProps> = ({
-  nextStep,
-  previousStep,
-}) => {
+export const CredentialsScreen: React.FunctionComponent<
+  CredentialsScreenProps
+> = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
 

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Container } from "@components/Container";
-import { Colors } from "@constants/Colors";
+import { Container } from "@components/common/Container";
+import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
@@ -12,7 +12,7 @@ import {
   FlatList,
 } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/KeyboardDismiss";
+import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { selectors } from "@store/selectors";
 import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";

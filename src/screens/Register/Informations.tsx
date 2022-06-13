@@ -1,20 +1,20 @@
 import * as React from "react";
-import { Container } from "@components/Container";
-import { Colors } from "@constants/Colors";
+import { Container } from "@components/common/Container";
+import { Colors } from "themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";
 import { StatusBar, Image, TouchableOpacity, ScrollView } from "react-native";
 import { hp, wp } from "@utils/functions";
-import { KeyboardDismiss } from "@components/KeyboardDismiss";
+import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { selectors } from "@store/selectors";
-import { CustomText } from "@components/CustomText";
+import { CustomText } from "@components/ui/Molecules/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
-import { Spacer } from "@components/Spacer";
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { Popup } from "@components/Popup";
+import { Spacer } from "@components/common/Spacer";
+import { Input } from "@components/ui/Atoms/Input";
+import { Button } from "@components/ui/Atoms/Button";
+import { Popup } from "@components/ui/Molecules/Popup";
 import {
   ImageLibraryOptions,
   ImagePickerResponse,
@@ -27,19 +27,17 @@ interface InformationsScreenProps {
   nextStep: () => void;
 }
 
-export const InformationsScreen: React.FunctionComponent<InformationsScreenProps> = ({
-  nextStep,
-}) => {
+export const InformationsScreen: React.FunctionComponent<
+  InformationsScreenProps
+> = ({ nextStep }) => {
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
 
   // Register infos
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
-  const [
-    profilePicture,
-    setProfilePicture,
-  ] = React.useState<ImagePickerResponse | null>(null);
+  const [profilePicture, setProfilePicture] =
+    React.useState<ImagePickerResponse | null>(null);
   const [modalPP, setModalPP] = React.useState(false);
 
   useFocusEffect(

@@ -3,10 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen } from "@screens/LoginScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RegisterScreen } from "@screens/Register";
-import { Colors } from "@constants/Colors";
+import { Colors } from "themes/Colors";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
-import { MenuBadge } from "@components/MenuBadge";
+import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
 import { Lang } from "@constants/Lang";
 import { useKeyboard } from "@hooks/useKeyboard";
 

@@ -2,8 +2,8 @@ import { texts } from "@constants/TextsSizes";
 import { hp } from "@utils/functions";
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "../constants/Colors";
-import { CustomText } from "./CustomText";
+import { Colors } from "themes/Colors";
+import { CustomText } from "../Molecules/CustomText";
 
 interface MenuBadgeProps {
   children: string;

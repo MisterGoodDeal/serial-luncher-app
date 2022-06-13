@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Colors } from "../constants/Colors";
+import { Colors } from "themes/Colors";
 
 interface CustomTextProps {
   children?: string;

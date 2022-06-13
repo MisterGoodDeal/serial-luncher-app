@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Svg, { G, Path, Defs, Mask } from "react-native-svg";
-import { Colors } from "../../constants/Colors";
+import { Colors } from "themes/Colors";
 
 interface BlobsSVGProps {
   color?: string;

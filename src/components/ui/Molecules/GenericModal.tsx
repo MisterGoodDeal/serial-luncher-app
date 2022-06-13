@@ -9,9 +9,9 @@ import {
   Button,
   Text,
 } from "react-native";
-import { Colors } from "@constants/Colors";
+import { Colors } from "themes/Colors";
 import { hp, wp } from "@utils/functions";
-import { Container } from "./Container";
+import { Container } from "../../common/Container";
 import Layout from "@constants/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "@store/actions";

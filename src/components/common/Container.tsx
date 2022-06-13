@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FlexAlignType, View, Platform, ViewStyle } from "react-native";
 import { heightPercentageToDP } from "react-native-responsive-screen";
-import { Colors } from "../constants/Colors";
+import { Colors } from "themes/Colors";
 
 interface ContainerProps {
   flex?: number;
