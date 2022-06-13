@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
-import { Colors } from "themes/Colors";
+import { Colors } from "@themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar, FlatList } from "react-native";

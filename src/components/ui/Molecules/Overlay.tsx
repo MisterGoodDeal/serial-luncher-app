@@ -1,7 +1,7 @@
 import { hp, wp } from "@utils/functions";
 import * as React from "react";
 import { ImageSourcePropType, View, Image } from "react-native";
-import { Colors } from "themes/Colors";
+import { Colors } from "@themes/Colors";
 
 interface OverlayProps {
   color?: string;

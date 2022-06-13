@@ -1,7 +1,7 @@
 import { hp } from "@utils/functions";
 import * as React from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
-import { Colors } from "themes/Colors";
+import { Colors } from "@themes/Colors";
 
 interface ArrowProps {
   onPress: () => void;

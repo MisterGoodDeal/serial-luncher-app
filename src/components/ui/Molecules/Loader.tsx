@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "themes/Colors";
+import { Colors } from "@themes/Colors";
 import LottieView from "lottie-react-native";
 import { hp } from "@utils/functions";
 

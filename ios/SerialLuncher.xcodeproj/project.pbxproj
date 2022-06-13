@@ -478,7 +478,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 222S5V99YT;
+				DEVELOPMENT_TEAM = GC4RN35B82;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = SerialLuncher/Info.plist;
@@ -493,7 +493,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fr.seriallunchers.app;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -511,7 +511,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 222S5V99YT;
+				DEVELOPMENT_TEAM = GC4RN35B82;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = SerialLuncher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

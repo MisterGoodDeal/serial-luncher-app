@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen } from "@screens/LoginScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RegisterScreen } from "@screens/Register";
-import { Colors } from "themes/Colors";
+import { Colors } from "@themes/Colors";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
