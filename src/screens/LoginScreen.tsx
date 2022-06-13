@@ -47,7 +47,7 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
 
   return (
     <KeyboardDismiss>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Container
         flex={1}
         alignItems={"center"}
