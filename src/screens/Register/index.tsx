@@ -17,6 +17,7 @@ import { selectors } from "@store/selectors";
 import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";
 import { JoinGroupScreen } from "./JoinGroup";
+import { CreateGroupScreen } from "./CreateGroup";
 
 interface RegisterScreenProps {}
 
@@ -68,8 +69,9 @@ export const RegisterScreen: React.FunctionComponent<
       previousStep={previousStep}
       nextStep={nextStep}
     />,
-    <JoinGroupScreen
-      key={2}
+    <JoinGroupScreen key={2} previousStep={previousStep} nextStep={nextStep} />,
+    <CreateGroupScreen
+      key={3}
       previousStep={previousStep}
       nextStep={() => null}
     />,

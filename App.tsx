@@ -17,7 +17,6 @@ export default function App() {
       <>
         <Provider store={store}>
           <GenericModal />
-          <Loader />
           <RootNavigator />
         </Provider>
         <Toast />
