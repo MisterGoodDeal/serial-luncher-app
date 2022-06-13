@@ -16,10 +16,13 @@ import { KeyboardDismiss } from "@components/KeyboardDismiss";
 import { selectors } from "@store/selectors";
 import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";
+import { JoinGroupScreen } from "./JoinGroup";
 
 interface RegisterScreenProps {}
 
-export const RegisterScreen: React.FunctionComponent<RegisterScreenProps> = ({}) => {
+export const RegisterScreen: React.FunctionComponent<
+  RegisterScreenProps
+> = ({}) => {
   const dispatch = useDispatch();
   const { buttons } = useSelector(selectors.application.info);
 
@@ -59,8 +62,17 @@ export const RegisterScreen: React.FunctionComponent<RegisterScreenProps> = ({})
   };
 
   const data = [
-    <InformationsScreen nextStep={nextStep} />,
-    <CredentialsScreen previousStep={previousStep} nextStep={() => null} />,
+    <InformationsScreen key={0} nextStep={nextStep} />,
+    <CredentialsScreen
+      key={1}
+      previousStep={previousStep}
+      nextStep={nextStep}
+    />,
+    <JoinGroupScreen
+      key={2}
+      previousStep={previousStep}
+      nextStep={() => null}
+    />,
   ];
 
   React.useEffect(() => {
