@@ -54,10 +54,11 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} />
       <Container flex={1} alignItems={"center"} justifyContent={"center"}>
         <Image
-          source={require("@images/pin-selected/pin.png")}
+          source={require("@images/pin/1024.png")}
           style={{
             width: hp("10%"),
             height: hp("10%"),
+            borderRadius: 15,
           }}
         />
         <Spacer direction="vertical" space={"1.5%"} />

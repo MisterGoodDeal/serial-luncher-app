@@ -49,6 +49,7 @@ Then you can start the project with the following commands
     npm run mobile // Run the app on both devices/emulator
 
 If when you start iOS app you have the error `RNGestureHandlerManager.h:9:52: error: expected a type `, add `#import <React/RCTEventDispatcher.h>` to the top of the errored file.
+If you encounter the error `Expected a type RNGestureHandlerManager.h` just add `#import <React/RCTEventDispatcher.h>` to the top of the errored file.
 
 ## Before starting
 
