@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Colors } from "../constants/Colors";
 
 interface CustomTextProps {
@@ -21,6 +21,7 @@ interface CustomTextProps {
     | "800"
     | "900"
     | undefined;
+  onPress?: () => void;
 }
 
 export const CustomText: React.FunctionComponent<CustomTextProps> = ({
@@ -30,19 +31,23 @@ export const CustomText: React.FunctionComponent<CustomTextProps> = ({
   fontWeight,
   align,
   transform,
+  onPress,
 }) => (
-  <Text
-    style={[
-      { fontSize: size },
-      { color: color !== undefined ? color : Colors.black },
-      { textAlign: align !== undefined ? align : undefined },
-      { textTransform: transform !== undefined ? transform : undefined },
-      { fontWeight },
-      { fontFamily: "Gibson" },
-    ]}
-  >
-    {children === undefined ? "" : children}
-  </Text>
+  <TouchableOpacity disabled={onPress === undefined} onPress={onPress}>
+    <Text
+      style={[
+        { fontSize: size },
+        { color: color !== undefined ? color : Colors.black },
+        { textAlign: align !== undefined ? align : undefined },
+        { textTransform: transform !== undefined ? transform : undefined },
+        { fontWeight },
+        { fontFamily: "Gibson" },
+        { textDecorationLine: onPress === undefined ? "none" : "underline" },
+      ]}
+    >
+      {children === undefined ? "" : children}
+    </Text>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({});
