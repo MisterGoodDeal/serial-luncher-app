@@ -3,8 +3,6 @@ import { Provider } from "react-redux";
 import useCachedResources from "./src/hooks/useCachedResources";
 import { RootNavigator } from "./src/navigation/RootNavigator";
 import { store } from "./src/store/store";
-import GenericModal from "@components/ui/Molecules/GenericModal";
-import { Loader } from "@components/ui/Molecules/Loader";
 import Toast from "react-native-toast-message";
 
 export default function App() {
@@ -16,7 +14,6 @@ export default function App() {
     return (
       <>
         <Provider store={store}>
-          <GenericModal />
           <RootNavigator />
         </Provider>
         <Toast />
