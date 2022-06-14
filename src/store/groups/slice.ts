@@ -8,7 +8,7 @@ import {
   GetAndJoinGroup,
   LeaveAndDeleteGroup,
 } from "@store/model/groups";
-import { Token } from "@store/model/application";
+import { GenericApiReponse, Token } from "@store/model/application";
 
 export const groupsApi = createApi({
   reducerPath,
@@ -16,7 +16,10 @@ export const groupsApi = createApi({
     baseUrl: SERIAL_LUNCHER_API,
   }),
   endpoints: (builder) => ({
-    getGroup: builder.query<Groups, GetAndJoinGroup & Token>({
+    getGroup: builder.query<
+      Groups | GenericApiReponse,
+      GetAndJoinGroup & Token
+    >({
       query: ({ group_key, token }) => ({
         url: `${endpoint.get}/${group_key}`,
         method: "GET",
@@ -25,7 +28,10 @@ export const groupsApi = createApi({
         },
       }),
     }),
-    createGroup: builder.mutation<Groups, CreateGroup & Token>({
+    createGroup: builder.mutation<
+      Groups | GenericApiReponse,
+      CreateGroup & Token
+    >({
       query: ({ token, ...group }) => ({
         url: `${endpoint.create}`,
         method: "POST",
@@ -35,10 +41,16 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Groups }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: { data: Groups | GenericApiReponse },
+        meta,
+        arg
+      ) => response.data,
     }),
-    joinGroup: builder.mutation<Groups, GetAndJoinGroup & Token>({
+    joinGroup: builder.mutation<
+      Groups | GenericApiReponse,
+      GetAndJoinGroup & Token
+    >({
       query: ({ token, group_key }) => ({
         url: `${endpoint.join}/${group_key}`,
         method: "POST",
@@ -47,10 +59,16 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Groups }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: { data: Groups | GenericApiReponse },
+        meta,
+        arg
+      ) => response.data,
     }),
-    leaveGroup: builder.mutation<Groups, LeaveAndDeleteGroup & Token>({
+    leaveGroup: builder.mutation<
+      GenericApiReponse,
+      LeaveAndDeleteGroup & Token
+    >({
       query: ({ token, id }) => ({
         url: `${endpoint.leave}/${id}`,
         method: "DELETE",
@@ -59,10 +77,13 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Groups }, meta, arg) =>
+      transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
     }),
-    deleteGroup: builder.mutation<Groups, LeaveAndDeleteGroup & Token>({
+    deleteGroup: builder.mutation<
+      GenericApiReponse,
+      LeaveAndDeleteGroup & Token
+    >({
       query: ({ token, id }) => ({
         url: `${endpoint.delete}/${id}`,
         method: "DELETE",
@@ -71,7 +92,7 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Groups }, meta, arg) =>
+      transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
     }),
   }),

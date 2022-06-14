@@ -22,7 +22,7 @@ export const placesApi = createApi({
     /**
      * Place endpoints
      */
-    getPlaces: builder.query<Place[], GetPlaces & Token>({
+    getPlaces: builder.query<Place[] | GenericApiReponse, GetPlaces & Token>({
       query: ({ group_key, token }) => ({
         url: `${endpoint.places.get}/${group_key}`,
         method: "GET",
@@ -31,7 +31,7 @@ export const placesApi = createApi({
         },
       }),
     }),
-    addPlace: builder.mutation<Place, CreatePlace & Token>({
+    addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace & Token>({
       query: ({ token, ...place }) => ({
         url: `${endpoint.places.create}`,
         method: "POST",
@@ -40,8 +40,11 @@ export const placesApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Place }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: { data: Place | GenericApiReponse },
+        meta,
+        arg
+      ) => response.data,
     }),
     deletePlace: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
@@ -57,7 +60,7 @@ export const placesApi = createApi({
     /**
      * Favorite endpoints
      */
-    getFavorites: builder.query<Place[], Token>({
+    getFavorites: builder.query<Place[] | GenericApiReponse, Token>({
       query: ({ token }) => ({
         url: `${endpoint.favorites.get}`,
         method: "GET",
@@ -66,7 +69,7 @@ export const placesApi = createApi({
         },
       }),
     }),
-    addFavorite: builder.mutation<Place, PlaceId & Token>({
+    addFavorite: builder.mutation<Place | GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
         url: `${endpoint.favorites.add(id)}`,
         method: "POST",
@@ -74,8 +77,11 @@ export const placesApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Place }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: { data: Place | GenericApiReponse },
+        meta,
+        arg
+      ) => response.data,
     }),
     deleteFavorite: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
@@ -91,7 +97,7 @@ export const placesApi = createApi({
     /**
      * Comments endpoints
      */
-    getComments: builder.query<Place[], PlaceId & Token>({
+    getComments: builder.query<Comment[] | GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
         url: `${endpoint.comments.get(id)}`,
         method: "GET",
@@ -100,7 +106,10 @@ export const placesApi = createApi({
         },
       }),
     }),
-    addComment: builder.mutation<Comment[], AddComment & PlaceId & Token>({
+    addComment: builder.mutation<
+      Comment | GenericApiReponse,
+      AddComment & PlaceId & Token
+    >({
       query: ({ token, id, ...comment }) => ({
         url: `${endpoint.favorites.add(id)}`,
         method: "POST",
@@ -109,8 +118,11 @@ export const placesApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (response: { data: Comment[] }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: { data: Comment | GenericApiReponse },
+        meta,
+        arg
+      ) => response.data,
     }),
     deleteComment: builder.mutation<
       GenericApiReponse,
@@ -129,4 +141,14 @@ export const placesApi = createApi({
   }),
 });
 
-export const {} = placesApi;
+export const {
+  useGetPlacesQuery,
+  useGetCommentsQuery,
+  useGetFavoritesQuery,
+  useAddPlaceMutation,
+  useAddCommentMutation,
+  useAddFavoriteMutation,
+  useDeletePlaceMutation,
+  useDeleteCommentMutation,
+  useDeleteFavoriteMutation,
+} = placesApi;
