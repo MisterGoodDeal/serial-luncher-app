@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { endpoint, reducerPath } from "./constants";
-import { SERIAL_LUNCHER_API } from "environments/test.environment";
+import { SERIAL_LUNCHER_API } from "@environments/test.environment";
 import { Login, LoginOAuth, User, UserRegister } from "@store/model/enrollment";
 import { GenericApiReponse } from "@store/model/application";
 

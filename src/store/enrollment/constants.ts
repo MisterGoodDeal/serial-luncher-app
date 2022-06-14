@@ -1,6 +1,6 @@
-import { Faker } from "@store/model/fake";
+import { Enrollment } from "@store/model/enrollment";
 
-export const initialState: Faker = {};
+export const initialState: Enrollment = {};
 
 export const reducerPath = "enrollmentApi";
 
