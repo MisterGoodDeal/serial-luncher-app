@@ -67,6 +67,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
           color: textColor(color ?? "#000000"),
           fontFamily: "Gibson",
           fontWeight: "500",
+          textAlign: "center",
         }}
       >
         {children}
