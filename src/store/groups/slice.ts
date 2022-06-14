@@ -1,0 +1,87 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
+import { endpoint, reducerPath } from "./constants";
+import { SERIAL_LUNCHER_API } from "environments/test.environment";
+import { Login, LoginOAuth, User, UserRegister } from "@store/model/enrollment";
+import {
+  CreateGroup,
+  Groups,
+  GetAndJoinGroup,
+  LeaveAndDeleteGroup,
+} from "@store/model/groups";
+import { Token } from "@store/model/application";
+
+export const groupsApi = createApi({
+  reducerPath,
+  baseQuery: fetchBaseQuery({
+    baseUrl: SERIAL_LUNCHER_API,
+  }),
+  endpoints: (builder) => ({
+    getGroup: builder.query<Groups, GetAndJoinGroup & Token>({
+      query: ({ group_key, token }) => ({
+        url: `${endpoint.get}/${group_key}`,
+        method: "GET",
+        headers: {
+          "x-auth": token,
+        },
+      }),
+    }),
+    createGroup: builder.mutation<Groups, CreateGroup & Token>({
+      query: ({ token, ...group }) => ({
+        url: `${endpoint.create}`,
+        method: "POST",
+        body: group,
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth": token,
+        },
+      }),
+      transformResponse: (response: { data: Groups }, meta, arg) =>
+        response.data,
+    }),
+    joinGroup: builder.mutation<Groups, GetAndJoinGroup & Token>({
+      query: ({ token, group_key }) => ({
+        url: `${endpoint.join}/${group_key}`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth": token,
+        },
+      }),
+      transformResponse: (response: { data: Groups }, meta, arg) =>
+        response.data,
+    }),
+    leaveGroup: builder.mutation<Groups, LeaveAndDeleteGroup & Token>({
+      query: ({ token, id }) => ({
+        url: `${endpoint.leave}/${id}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth": token,
+        },
+      }),
+      transformResponse: (response: { data: Groups }, meta, arg) =>
+        response.data,
+    }),
+    deleteGroup: builder.mutation<Groups, LeaveAndDeleteGroup & Token>({
+      query: ({ token, id }) => ({
+        url: `${endpoint.delete}/${id}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth": token,
+        },
+      }),
+      transformResponse: (response: { data: Groups }, meta, arg) =>
+        response.data,
+    }),
+  }),
+});
+
+export const {
+  useGetGroupQuery,
+  useCreateGroupMutation,
+  useJoinGroupMutation,
+  useLeaveGroupMutation,
+  useDeleteGroupMutation,
+} = groupsApi;
