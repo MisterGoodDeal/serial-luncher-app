@@ -1,6 +1,6 @@
-import { Faker } from "@store/model/fake";
+import { Groups } from "@store/model/groups";
 
-export const initialState: Faker = {};
+export const initialState: Groups = {};
 
 export const reducerPath = "groupsApi";
 
