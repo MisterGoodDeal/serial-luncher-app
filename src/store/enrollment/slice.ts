@@ -1,9 +1,16 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
-import { endpoint, reducerPath } from "./constants";
+import { endpoint, initialState, reducerPath } from "./constants";
 import { SERIAL_LUNCHER_API } from "@environments/test.environment";
-import { Login, LoginOAuth, User, UserRegister } from "@store/model/enrollment";
+import {
+  Enrollment,
+  Login,
+  LoginOAuth,
+  User,
+  UserRegister,
+} from "@store/model/enrollment";
 import { GenericApiReponse } from "@store/model/application";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const enrollmentApi = createApi({
   reducerPath,
@@ -34,6 +41,18 @@ export const enrollmentApi = createApi({
     }),
   }),
 });
+
+export const enrollmentSlice = createSlice({
+  name: "enrollment",
+  initialState,
+  reducers: {
+    setEnrollment: (state, action: PayloadAction<Enrollment>) => {
+      state = action.payload;
+    },
+  },
+});
+
+export const { setEnrollment } = enrollmentSlice.actions;
 
 export const { useRegisterMutation, useLoginMutation, useLoginOAuthMutation } =
   enrollmentApi;
