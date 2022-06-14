@@ -40,11 +40,6 @@ export const placesApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (
-        response: { data: Place | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     deletePlace: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
@@ -77,11 +72,6 @@ export const placesApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (
-        response: { data: Place | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     deleteFavorite: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({

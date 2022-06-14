@@ -41,11 +41,6 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (
-        response: { data: Groups | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     joinGroup: builder.mutation<
       Groups | GenericApiReponse,
@@ -59,11 +54,6 @@ export const groupsApi = createApi({
           "x-auth": token,
         },
       }),
-      transformResponse: (
-        response: { data: Groups | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     leaveGroup: builder.mutation<
       GenericApiReponse,

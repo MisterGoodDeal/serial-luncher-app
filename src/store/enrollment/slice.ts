@@ -17,11 +17,6 @@ export const enrollmentApi = createApi({
         method: "POST",
         body: user,
       }),
-      transformResponse: (
-        response: { data: User | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     login: builder.mutation<User | GenericApiReponse, Login>({
       query: (loginPayload) => ({
@@ -29,11 +24,6 @@ export const enrollmentApi = createApi({
         method: "POST",
         body: loginPayload,
       }),
-      transformResponse: (
-        response: { data: User | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     loginOAuth: builder.mutation<User | GenericApiReponse, LoginOAuth>({
       query: (loginPayload) => ({
@@ -41,11 +31,6 @@ export const enrollmentApi = createApi({
         method: "POST",
         body: loginPayload,
       }),
-      transformResponse: (
-        response: { data: User | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
   }),
 });
