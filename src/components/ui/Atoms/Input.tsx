@@ -89,6 +89,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
       textContentType={type}
       autoCapitalize={type === "emailAddress" ? "none" : undefined}
       placeholder={placeholder}
+      placeholderTextColor={Colors.grey}
       secureTextEntry={password}
       value={value}
       onChangeText={(text) => setValue(text)}
