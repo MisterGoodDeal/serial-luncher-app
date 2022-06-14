@@ -1,7 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
-import { endpoint, reducerPath } from "./constants";
+import { endpoint, initialState, reducerPath } from "./constants";
 import { BASE_URL } from "@environments/test.environment";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "@store/model/enrollment";
 
 //Implementation fake with pokemonAPI
 export const applicationAPI = createApi({
@@ -13,5 +15,20 @@ export const applicationAPI = createApi({
     }),
   }),
 });
+
+export const applicationSlice = createSlice({
+  name: "applicationSlice",
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.userInfos = action.payload;
+    },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+    },
+  },
+});
+
+export const { setUser, setToken } = applicationSlice.actions;
 
 export const { useGetPokemonByNameQuery } = applicationAPI;

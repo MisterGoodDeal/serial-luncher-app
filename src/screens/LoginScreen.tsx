@@ -13,15 +13,25 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { useLoginMutation } from "@store/enrollment/slice";
+import {
+  GenericApiReponse,
+  GenericApiReponseType,
+} from "@store/model/application";
+import { setToken, setUser } from "@store/application/slice";
+import { assert } from "@utils/assert";
+import { User } from "@store/model/enrollment";
+import { initialState } from "@store/application/constants";
+import { applicationState } from "@store/application/selector";
 
 interface LoginScreenProps {}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
+  const { userInfos, token } = useSelector(applicationState);
   const [login, result] = useLoginMutation();
 
   // Login data
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState(userInfos.email);
   const [password, setPassword] = React.useState("");
 
   useFocusEffect(
@@ -38,7 +48,15 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   };
 
   React.useEffect(() => {
-    console.log(result);
+    if (result.status === "fulfilled") {
+      const res = result.data as User;
+      dispatch(setUser(res));
+      dispatch(setToken(res.token));
+    } else {
+      console.log(result.error);
+      dispatch(setUser(initialState.userInfos));
+      dispatch(setToken(initialState.token));
+    }
   }, [result]);
 
   return (

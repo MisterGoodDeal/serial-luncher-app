@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import linking from "../linking";
 import { LandingScreen } from "@screens/LandingScreen";
-import { LoginScreen } from "@screens/LoginScreen";
 import { EnrollmentNavigator } from "./EnrollmentNavigator";
 
 const Stack = createStackNavigator();
@@ -20,6 +19,7 @@ export const RootNavigator: React.FC<{}> = () => {
     <>
       {loaded && (
         <NavigationContainer linking={linking}>
+          {/* @ts-ignore */}
           <Stack.Navigator
             initialRouteName={"Landing"}
             screenOptions={{
