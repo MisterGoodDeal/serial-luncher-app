@@ -16,7 +16,7 @@ export const groupsApi = createApi({
     baseUrl: SERIAL_LUNCHER_API,
   }),
   endpoints: (builder) => ({
-    getGroup: builder.query<
+    getGroup: builder.mutation<
       Groups | GenericApiReponse,
       GetAndJoinGroup & Token
     >({
@@ -89,7 +89,7 @@ export const groupsApi = createApi({
 });
 
 export const {
-  useGetGroupQuery,
+  useGetGroupMutation,
   useCreateGroupMutation,
   useJoinGroupMutation,
   useLeaveGroupMutation,

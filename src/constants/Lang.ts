@@ -39,9 +39,22 @@ const locales = {
         },
         step3: {
           title: "Rejoignez\nvotre groupe",
-          description: "Saisissez le code à 9 chiffres de votre groupe",
+          description: "Saisissez le code à 6 chiffres de votre groupe",
           no_group: "Vous n'avez pas de groupe ?",
           create_group: "Créez un groupe",
+          error: {
+            not_found: {
+              title: "Ce groupe n'existe pas",
+              content:
+                "Le code que vous avez saisi pour votre groupe n'existe pas.",
+            },
+            unknown: {
+              title: "Une erreur est survenue",
+              content:
+                "Une erreur inconnue s'est produite. Veuillez réessayer.",
+            },
+          },
+          success: {},
         },
         step4: {
           title: "Créez votre groupe",
@@ -92,9 +105,19 @@ const locales = {
         },
         step3: {
           title: "Join\nyour group",
-          description: "Enter the 9-digit code of your group",
+          description: "Enter the 6-digit code of your group",
           no_group: "You don't have a group ?",
           create_group: "Create a group",
+          error: {
+            not_found: {
+              title: "This group doesn't exist",
+              content: "The code you entered for your group doesn't exist.",
+            },
+            unknown: {
+              title: "An error has occurred",
+              content: "An unknown error has occurred. Please try again.",
+            },
+          },
         },
         step4: {
           title: "Create your group",
