@@ -2,7 +2,7 @@ import { Places } from "@store/model/places";
 
 export const initialState: Places = {};
 
-export const reducerPath = "enrollmentApi";
+export const reducerPath = "placesApi";
 
 export const endpoint = {
   places: {
