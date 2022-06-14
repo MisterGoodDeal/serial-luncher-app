@@ -12,7 +12,6 @@ import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/common/Spacer";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
-import { Loader } from "@components/ui/Molecules/Loader";
 
 interface JoinGroupScreenProps {
   nextStep: () => void;
@@ -41,7 +40,6 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           width: wp(100),
         }}
       >
-        <Loader loading mode="dark" />
         <Arrow onPress={() => previousStep()} />
 
         <CustomText

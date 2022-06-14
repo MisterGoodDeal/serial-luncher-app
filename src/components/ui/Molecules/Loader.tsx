@@ -8,22 +8,24 @@ interface LoaderProps {
   loading: boolean;
   size?: number;
   mode: "dark" | "light";
+  top?: number;
 }
 
 const animations = {
-  dark: require("../../../assets/lottie/loading_dark.json"),
-  light: require("../../../assets/lottie/loading_light.json"),
+  dark: require("../../../assets/lottie/loader_black.json"),
+  light: require("../../../assets/lottie/loader_white.json"),
 };
 
 export const Loader: React.FunctionComponent<LoaderProps> = ({
   loading,
   size,
   mode,
+  top,
 }) => (
   <View
     style={{
       position: "absolute",
-      top: -hp("2%"),
+      top: top ?? hp("1%"),
       zIndex: 99,
       width: "100%",
       alignItems: "center",
@@ -37,8 +39,8 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
       autoPlay
       loop
       style={{
-        width: size ?? hp("12%"),
-        height: size ?? hp("12%"),
+        width: size ?? hp("15%"),
+        height: size ?? hp("15%"),
       }}
     />
   </View>

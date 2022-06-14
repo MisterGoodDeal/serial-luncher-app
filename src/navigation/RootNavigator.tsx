@@ -4,6 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import linking from "../linking";
 import { LandingScreen } from "@screens/LandingScreen";
 import { EnrollmentNavigator } from "./EnrollmentNavigator";
+import { Loader } from "@components/ui/Molecules/Loader";
+import { useSelector } from "react-redux";
+import { applicationState } from "@store/application/selector";
 
 const Stack = createStackNavigator();
 
@@ -15,10 +18,13 @@ export const RootNavigator: React.FC<{}> = () => {
     })();
   }, []);
 
+  const { loading } = useSelector(applicationState);
+
   return (
     <>
       {loaded && (
         <NavigationContainer linking={linking}>
+          <Loader loading={loading} mode="dark" />
           {/* @ts-ignore */}
           <Stack.Navigator
             initialRouteName={"Landing"}
