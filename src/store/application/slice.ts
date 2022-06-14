@@ -26,9 +26,12 @@ export const applicationSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { setUser, setToken } = applicationSlice.actions;
+export const { setUser, setToken, setLoading } = applicationSlice.actions;
 
 export const { useGetPokemonByNameQuery } = applicationAPI;

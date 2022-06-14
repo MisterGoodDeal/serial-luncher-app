@@ -15,6 +15,7 @@ export const initialState: Application = {
     updated_at: new Date(),
   },
   token: "",
+  loading: false,
 };
 
 export const reducerPath = "applicationApi";

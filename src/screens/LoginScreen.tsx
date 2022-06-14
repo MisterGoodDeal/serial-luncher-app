@@ -13,12 +13,7 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { useLoginMutation } from "@store/enrollment/slice";
-import {
-  GenericApiReponse,
-  GenericApiReponseType,
-} from "@store/model/application";
-import { setToken, setUser } from "@store/application/slice";
-import { assert } from "@utils/assert";
+import { setLoading, setToken, setUser } from "@store/application/slice";
 import { User } from "@store/model/enrollment";
 import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
@@ -48,6 +43,9 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   };
 
   React.useEffect(() => {
+    result.status === "pending"
+      ? dispatch(setLoading(true))
+      : dispatch(setLoading(false));
     if (result.status === "fulfilled") {
       const res = result.data as User;
       dispatch(setUser(res));
