@@ -21,7 +21,8 @@
       "@store/*": ["store/*"],
       "@api/*": ["api/*"],
       "@contexts/*": ["contexts/*"],
-      "@themes/*": ["themes/*"]
+      "@themes/*": ["themes/*"],
+      "@environments/*": ["environments/*"]
     },
   }
 }
