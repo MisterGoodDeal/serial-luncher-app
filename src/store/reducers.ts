@@ -1,7 +1,7 @@
 import { applicationAPI } from "./application/slice";
-import { fakeApi } from "./faker/slice";
+import { enrollmentApi } from "./enrollment/slice";
 
 export const reducers = {
   [applicationAPI.reducerPath]: applicationAPI.reducer,
-  [fakeApi.reducerPath]: fakeApi.reducer,
+  [enrollmentApi.reducerPath]: enrollmentApi.reducer,
 } as const;
