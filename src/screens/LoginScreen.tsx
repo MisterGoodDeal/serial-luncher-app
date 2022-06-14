@@ -12,11 +12,13 @@ import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
+import { useLoginMutation } from "@store/enrollment/slice";
 
 interface LoginScreenProps {}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
+  const [login, result] = useLoginMutation();
 
   // Login data
   const [email, setEmail] = React.useState("");
@@ -27,6 +29,17 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
       return () => null;
     }, [])
   );
+
+  const handleLogin = () => {
+    login({
+      email: email,
+      password: password,
+    });
+  };
+
+  React.useEffect(() => {
+    console.log(result);
+  }, [result]);
 
   return (
     <KeyboardDismiss>
@@ -56,7 +69,11 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
           password
         />
         <Spacer space="5%" />
-        <Button color={Colors.blue} width={wp("50%")}>
+        <Button
+          color={Colors.blue}
+          width={wp("50%")}
+          onPress={() => handleLogin()}
+        >
           {Lang.enrollment.login.button}
         </Button>
       </Container>
