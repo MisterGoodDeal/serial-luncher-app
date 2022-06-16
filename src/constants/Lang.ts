@@ -3,7 +3,7 @@ import * as RNLocalize from "react-native-localize";
 const locales = {
   fr: {
     landing: {
-      title: "Bienvenue sur \nSerial Luncher !",
+      title: "Bienvenue sur\nSerial Luncher !",
       continue_with: "Continuer avec",
       email: "Email",
       apple: "Se connecter avec Apple",
