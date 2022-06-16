@@ -11,12 +11,11 @@ import {
 } from "@store/model/enrollment";
 import { GenericApiReponse } from "@store/model/application";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { baseQuery } from "@store/api";
 
 export const enrollmentApi = createApi({
   reducerPath,
-  baseQuery: fetchBaseQuery({
-    baseUrl: SERIAL_LUNCHER_API,
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     register: builder.mutation<User | GenericApiReponse, UserRegister>({
       query: (user) => ({

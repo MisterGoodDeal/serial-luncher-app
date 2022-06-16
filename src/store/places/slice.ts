@@ -1,7 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { endpoint, reducerPath } from "./constants";
-import { SERIAL_LUNCHER_API } from "@environments/test.environment";
 import {
   CreatePlace,
   PlaceId,
@@ -12,12 +10,11 @@ import {
   CommentId,
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
+import { baseQuery } from "@store/api";
 
 export const placesApi = createApi({
   reducerPath,
-  baseQuery: fetchBaseQuery({
-    baseUrl: SERIAL_LUNCHER_API,
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     /**
      * Place endpoints
