@@ -57,7 +57,7 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
       });
       dispatch(setUser(res));
       dispatch(setToken(res.token));
-    } else {
+    } else if (result.status === "rejected") {
       // @ts-ignore
       const error = errorHandler(result?.error?.data?.title);
       Toast.show({
@@ -65,7 +65,6 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         text1: error.title,
         text2: error.content,
       });
-      console.log(result.status === "rejected");
       dispatch(setUser(initialState.userInfos));
       dispatch(setToken(initialState.token));
     }
