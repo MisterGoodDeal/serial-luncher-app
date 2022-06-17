@@ -15,6 +15,18 @@ const locales = {
         email: "Adresse email",
         password: "Mot de passe",
         button: "Se connecter",
+        success: {
+          hello: "Salut",
+          connected: "Vous êtes connecté avec succès !",
+        },
+        error: {
+          oops: "Oups !",
+          doesnt_exist: "Cette adresse email n'existe pas.",
+          wrong_credentials:
+            "Ces identifiants sont incorrects. Veuillez réessayer.",
+          missing_parameters: "Veuillez remplir tous les champs.",
+          unknown: "Une erreur est survenue. Veuillez réessayer.",
+        },
       },
       register: {
         title: "INSCRIPTION",
@@ -81,6 +93,17 @@ const locales = {
         email: "Email",
         password: "Password",
         button: "SIGN IN",
+        success: {
+          hello: "Hello",
+          connected: "You are successfully connected!",
+        },
+        error: {
+          oops: "Oops",
+          doesnt_exist: "This user can't be found!",
+          wrong_credentials: "Wrong credentials, please check again!",
+          unknown: "An unknown error has occurred, please try again!",
+          missing_parameters: "Please fill all fields.",
+        },
       },
       register: {
         title: "SIGN UP",
