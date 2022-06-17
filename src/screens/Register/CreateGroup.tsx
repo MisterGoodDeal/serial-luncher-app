@@ -17,7 +17,7 @@ import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Spacer } from "@components/common/Spacer";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import { Input } from "@components/ui/Atoms/Input";
-import { CustomText } from "@components/ui/Molecules/CustomText";
+import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Button } from "@components/ui/Atoms/Button";

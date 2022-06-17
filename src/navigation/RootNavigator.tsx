@@ -7,6 +7,7 @@ import { EnrollmentNavigator } from "./EnrollmentNavigator";
 import { Loader } from "@components/ui/Molecules/Loader";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
+import { Map } from "@screens/App/Map";
 
 const Stack = createStackNavigator();
 
@@ -18,23 +19,31 @@ export const RootNavigator: React.FC<{}> = () => {
     })();
   }, []);
 
-  const { loading } = useSelector(applicationState);
+  const { loading, token } = useSelector(applicationState);
 
   return (
     <>
       {loaded && (
         <NavigationContainer linking={linking}>
-          <Loader loading={loading} mode="dark" />
-          {/* @ts-ignore */}
-          <Stack.Navigator
-            initialRouteName={"Landing"}
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Landing" component={LandingScreen} />
-            <Stack.Screen name="Enrollment" component={EnrollmentNavigator} />
-          </Stack.Navigator>
+          {token === "" && (
+            <>
+              <Loader loading={loading} mode="dark" />
+              {/* @ts-ignore */}
+              <Stack.Navigator
+                initialRouteName={"Landing"}
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="Landing" component={LandingScreen} />
+                <Stack.Screen
+                  name="Enrollment"
+                  component={EnrollmentNavigator}
+                />
+              </Stack.Navigator>
+            </>
+          )}
+          {token !== "" && <Map />}
         </NavigationContainer>
       )}
     </>

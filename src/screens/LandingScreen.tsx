@@ -8,7 +8,7 @@ import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Button } from "@components/ui/Atoms/Button";
 import { Spacer } from "@components/common/Spacer";
-import { CustomText } from "@components/ui/Molecules/CustomText";
+import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Lang } from "@constants/Lang";
 import { texts } from "@constants/TextsSizes";
 import { Overlay } from "@components/ui/Molecules/Overlay";

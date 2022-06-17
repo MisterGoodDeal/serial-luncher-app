@@ -3,7 +3,7 @@
     "start": "react-native start",
     "android": "npx react-native run-android",
     "link-pods": "cd ios && pod install && cd ..",
-    "reset-pods": "cd ios && pod deintegrate && cd .. && npm run link-pods",
+    "reset-pods": "cd ios && pod deintegrate && cd .. && yarn link-pods",
     "ios": "react-native run-ios",
     "real-ios": "react-native run-ios --device='iPhone de Milan'",
     "both": "npm run real-ios && npm run android",

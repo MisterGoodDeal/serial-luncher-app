@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "react-native";
 import { wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { CustomText } from "@components/ui/Molecules/CustomText";
+import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/common/Spacer";
@@ -17,6 +17,8 @@ import { setLoading, setToken, setUser } from "@store/application/slice";
 import { User } from "@store/model/enrollment";
 import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
+import Toast from "react-native-toast-message";
+import { errorHandler } from "@utils/errors/register";
 
 interface LoginScreenProps {}
 
@@ -48,10 +50,21 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
       : dispatch(setLoading(false));
     if (result.status === "fulfilled") {
       const res = result.data as User;
+      Toast.show({
+        type: "success",
+        text1: `${Lang.enrollment.login.success.hello} ${res.firstname} 👋`,
+        text2: Lang.enrollment.login.success.connected,
+      });
       dispatch(setUser(res));
       dispatch(setToken(res.token));
-    } else {
-      console.log(result.error);
+    } else if (result.status === "rejected") {
+      // @ts-ignore
+      const error = errorHandler(result?.error?.data?.title);
+      Toast.show({
+        type: "error",
+        text1: error.title,
+        text2: error.content,
+      });
       dispatch(setUser(initialState.userInfos));
       dispatch(setToken(initialState.token));
     }

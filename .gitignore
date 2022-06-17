@@ -95,3 +95,7 @@ android/app/release/output.json
 src/environment/index.ts.back
 
 android/app/release/
+
+ios/Podfile
+
+ios/Podfile.lock
