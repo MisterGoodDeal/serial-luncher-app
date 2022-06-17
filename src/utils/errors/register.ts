@@ -22,6 +22,11 @@ export const errorHandler = (error: string): ErrorMessagePayload => {
         title: Lang.enrollment.login.error.oops,
         content: Lang.enrollment.login.error.doesnt_exist,
       };
+    case "user_already_exists":
+      return {
+        title: Lang.enrollment.register.error.oops,
+        content: Lang.enrollment.register.error.already_exists,
+      };
 
     default:
       return {

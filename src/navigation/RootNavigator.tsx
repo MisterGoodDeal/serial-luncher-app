@@ -8,6 +8,7 @@ import { Loader } from "@components/ui/Molecules/Loader";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
 import { Map } from "@screens/App/Map";
+import { initialState } from "@store/application/constants";
 
 const Stack = createStackNavigator();
 
@@ -19,15 +20,15 @@ export const RootNavigator: React.FC<{}> = () => {
     })();
   }, []);
 
-  const { loading, token } = useSelector(applicationState);
+  const { loading, token, userInfos } = useSelector(applicationState);
 
   return (
     <>
+      <Loader loading={loading} mode="dark" />
       {loaded && (
         <NavigationContainer linking={linking}>
-          {token === "" && (
+          {userInfos.id === -1 && (
             <>
-              <Loader loading={loading} mode="dark" />
               {/* @ts-ignore */}
               <Stack.Navigator
                 initialRouteName={"Landing"}
@@ -43,7 +44,7 @@ export const RootNavigator: React.FC<{}> = () => {
               </Stack.Navigator>
             </>
           )}
-          {token !== "" && <Map />}
+          {userInfos.id !== -1 && <Map />}
         </NavigationContainer>
       )}
     </>

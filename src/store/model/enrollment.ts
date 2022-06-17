@@ -1,20 +1,20 @@
 export type Enrollment = {
   user: UserRegister;
-  groupId?: string;
+  groupId: string;
   group: {
-    name?: string;
-    picture?: string;
+    name: string;
+    picture: string;
   };
 };
 
 export interface UserRegister {
-  firstname?: string;
-  lastname?: string;
-  email?: string;
-  password?: string;
-  profile_picture?: string;
-  oauth_service?: string;
-  oauth_service_id?: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  profile_picture: string;
+  oauth_service: string;
+  oauth_service_id: string;
 }
 
 export interface Login {

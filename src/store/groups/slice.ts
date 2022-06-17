@@ -1,23 +1,25 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { endpoint, reducerPath } from "./constants";
+import { endpoint, initialState, reducerPath } from "./constants";
 
 import {
   CreateGroup,
   Groups,
   GetAndJoinGroup,
   LeaveAndDeleteGroup,
+  Group,
 } from "@store/model/groups";
 
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const groupsApi = createApi({
   reducerPath,
   baseQuery,
   endpoints: (builder) => ({
     getGroup: builder.mutation<
-      Groups | GenericApiReponse,
+      Group | GenericApiReponse,
       GetAndJoinGroup & Token
     >({
       query: ({ group_key }) => ({
@@ -27,7 +29,7 @@ export const groupsApi = createApi({
     }),
 
     createGroup: builder.mutation<
-      Groups | GenericApiReponse,
+      Group | GenericApiReponse,
       CreateGroup & Token
     >({
       query: ({ token, ...group }) => ({
@@ -37,10 +39,7 @@ export const groupsApi = createApi({
       }),
     }),
 
-    joinGroup: builder.mutation<
-      Groups | GenericApiReponse,
-      GetAndJoinGroup & Token
-    >({
+    joinGroup: builder.mutation<Group | GenericApiReponse, GetAndJoinGroup>({
       query: ({ group_key }) => ({
         url: `${endpoint.join}/${group_key}`,
         method: "POST",
@@ -75,14 +74,22 @@ export const groupsApi = createApi({
   }),
 });
 
+export const groupSlice = createSlice({
+  name: "group",
+  initialState,
+  reducers: {
+    setGroup: (state, action: PayloadAction<Group>) => {
+      state = action.payload;
+    },
+  },
+});
+
+export const { setGroup } = groupSlice.actions;
+
 export const {
   useGetGroupMutation,
-
   useCreateGroupMutation,
-
   useJoinGroupMutation,
-
   useLeaveGroupMutation,
-
   useDeleteGroupMutation,
 } = groupsApi;

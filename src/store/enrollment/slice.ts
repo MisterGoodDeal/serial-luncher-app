@@ -1,7 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { endpoint, initialState, reducerPath } from "./constants";
-import { SERIAL_LUNCHER_API } from "@environments/test.environment";
 import {
   Enrollment,
   Login,
@@ -95,6 +93,7 @@ export const {
   setSecondStep,
   setGroupCode,
   setGroup,
+  resetRegister,
 } = enrollmentSlice.actions;
 
 export const { useRegisterMutation, useLoginMutation, useLoginOAuthMutation } =

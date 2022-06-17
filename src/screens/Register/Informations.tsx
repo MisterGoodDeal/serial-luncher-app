@@ -20,6 +20,8 @@ import {
   launchImageLibrary,
 } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
+import { resetRegister, setFirstStep } from "@store/enrollment/slice";
+import { setLoading } from "@store/application/slice";
 
 interface InformationsScreenProps {
   nextStep: () => void;
@@ -50,6 +52,7 @@ export const InformationsScreen: React.FunctionComponent<
   };
 
   const handleTakePicture = async () => {
+    dispatch(setLoading(true));
     const result = await launchCamera(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
@@ -57,24 +60,28 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
+      dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
         type: "error",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
+      dispatch(setLoading(false));
     } else {
       Toast.show({
         type: "success",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
+      dispatch(setLoading(false));
       setProfilePicture(result);
       setModalPP(false);
     }
   };
 
   const handleOpenGallery = async () => {
+    dispatch(setLoading(true));
     const result = await launchImageLibrary(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
@@ -82,20 +89,43 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
+      dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
         type: "error",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
+      dispatch(setLoading(false));
     } else {
       Toast.show({
         type: "success",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
+      dispatch(setLoading(false));
       setProfilePicture(result);
       setModalPP(false);
+    }
+  };
+
+  const handleNextStep = () => {
+    dispatch(resetRegister());
+    if (firstname.length > 0 && lastname.length > 0) {
+      dispatch(
+        setFirstStep({
+          firstname,
+          lastname,
+          picture: profilePicture?.assets![0].base64 ?? "",
+        })
+      );
+      nextStep();
+    } else {
+      Toast.show({
+        type: "error",
+        text1: `${Lang.enrollment.register.error.oops}`,
+        text2: Lang.enrollment.register.error.missing_fields,
+      });
     }
   };
 
@@ -174,7 +204,7 @@ export const InformationsScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => nextStep()}
+          onPress={() => handleNextStep()}
         >
           {Lang.enrollment.register.next}
         </Button>

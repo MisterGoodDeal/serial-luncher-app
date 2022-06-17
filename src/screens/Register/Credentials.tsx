@@ -12,6 +12,8 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { Arrow } from "@components/ui/Atoms/Arrow";
+import Toast from "react-native-toast-message";
+import { setSecondStep } from "@store/enrollment/slice";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
@@ -28,11 +30,52 @@ export const CredentialsScreen: React.FunctionComponent<
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
 
+  const emailRegex = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+.[^@ \t\r\n]+");
+  const passwordRegex = new RegExp(
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+  );
+
   useFocusEffect(
     React.useCallback(() => {
       return () => null;
     }, [])
   );
+
+  const handleNextStep = () => {
+    if (!email || !password || !passwordConfirm) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.missing_fields,
+      });
+    } else if (!emailRegex.test(email)) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.invalid_email,
+      });
+    } else if (password !== passwordConfirm) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.password_mismatch,
+      });
+    } else if (!passwordRegex.test(password)) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.invalid_password,
+      });
+    } else {
+      dispatch(
+        setSecondStep({
+          email,
+          password,
+        })
+      );
+      nextStep();
+    }
+  };
 
   return (
     <KeyboardDismiss>
@@ -79,9 +122,9 @@ export const CredentialsScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => nextStep()}
+          onPress={() => handleNextStep()}
         >
-          {Lang.enrollment.register.button}
+          {Lang.enrollment.register.next}
         </Button>
       </Container>
     </KeyboardDismiss>
