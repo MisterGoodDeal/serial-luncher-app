@@ -1,15 +1,12 @@
 import React from "react";
 import { Colors } from "@themes/Colors";
-import { CustomTextProps } from "./CustomText";
+import { CustomText, CustomTextProps } from "../Atoms/CustomText";
 import { StyleSheet, Text, TextProps, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-interface LinkProps extends CustomTextProps {}
-
-const CustomText = styled.Text`
-  font-size: 14px;
-  color: #333;
-`;
+interface LinkProps extends CustomTextProps {
+  onPress: () => void;
+}
 
 const Link: React.FC<LinkProps> = ({
   fontWeight,
@@ -23,15 +20,12 @@ const Link: React.FC<LinkProps> = ({
   return (
     <TouchableOpacity disabled={onPress === undefined} onPress={onPress}>
       <CustomText
-        style={[
-          { fontSize: size },
-          { color: color !== undefined ? color : Colors.black },
-          { textAlign: align !== undefined ? align : undefined },
-          { textTransform: transform !== undefined ? transform : undefined },
-          { fontWeight },
-          { fontFamily: "Gibson" },
-          { textDecorationLine: onPress === undefined ? "none" : "underline" },
-        ]}
+        size={size}
+        color={color}
+        align={align}
+        fontWeight={fontWeight}
+        transform={transform}
+        underline={true}
       >
         {children === undefined ? "" : children}
       </CustomText>

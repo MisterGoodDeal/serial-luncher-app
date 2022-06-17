@@ -3,7 +3,7 @@ import { hp } from "@utils/functions";
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import { Colors } from "@themes/Colors";
-import { CustomText } from "../Molecules/CustomText";
+import { CustomText } from "../Atoms/CustomText";
 
 interface MenuBadgeProps {
   children: string;

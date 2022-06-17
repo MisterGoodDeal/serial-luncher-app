@@ -5,7 +5,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
-import { CustomText } from "@components/ui/Molecules/CustomText";
+import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
 import { Spacer } from "@components/common/Spacer";
