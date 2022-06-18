@@ -89,6 +89,11 @@ const locales = {
         },
       },
     },
+    navigation: {
+      group: "Groupe",
+      map: "Carte",
+      settings: "Paramètres",
+    },
   },
   en: {
     landing: {
@@ -172,6 +177,11 @@ const locales = {
           already_exists: "This user already exists. Please change your email.",
         },
       },
+    },
+    navigation: {
+      group: "Group",
+      map: "Map",
+      settings: "Settings",
     },
   },
 };
