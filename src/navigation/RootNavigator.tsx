@@ -32,7 +32,6 @@ export const RootNavigator: React.FC<{}> = () => {
         <NavigationContainer linking={linking}>
           {userInfos.id === -1 && (
             <>
-              <Loader loading={loading} mode="dark" />
               <Stack.Navigator
                 initialRouteName={Routes.LANDING}
                 screenOptions={{
