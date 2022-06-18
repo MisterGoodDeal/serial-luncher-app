@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container } from "../components/common/Container";
 import { Colors } from "@themes/Colors";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "react-native";
 import { wp } from "@utils/functions";
@@ -19,30 +19,30 @@ import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
 import Toast from "react-native-toast-message";
 import { errorHandler } from "@utils/errors/register";
+import Link from "@components/ui/Molecules/Link";
+import { useFormik } from "formik";
+import { Routes } from "@navigation/Routes";
 
 interface LoginScreenProps {}
+interface LoginForm {
+  email: string;
+  password: string;
+}
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
   const dispatch = useDispatch();
+  const nav = useNavigation();
   const { userInfos, token } = useSelector(applicationState);
   const [login, result] = useLoginMutation();
+  const initialValues: LoginForm = { email: userInfos.email, password: "" };
 
   // Login data
-  const [email, setEmail] = React.useState(userInfos.email);
-  const [password, setPassword] = React.useState("");
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => null;
-    }, [])
-  );
-
-  const handleLogin = () => {
-    login({
-      email: email,
-      password: password,
-    });
-  };
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, helpers) => {
+      login(values);
+    },
+  });
 
   React.useEffect(() => {
     result.status === "pending"
@@ -84,24 +84,27 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         </CustomText>
         <Spacer space="8%" />
         <Input
-          value={email}
-          setValue={setEmail}
+          value={formik.values.email}
+          setValue={formik.handleChange("email")}
           placeholder={Lang.enrollment.login.email}
           type={"emailAddress"}
         />
         <Spacer space="2%" />
         <Input
-          value={password}
-          setValue={setPassword}
+          value={formik.values.password}
+          setValue={formik.handleChange("password")}
           placeholder={Lang.enrollment.login.password}
           type={"password"}
           password
         />
-        <Spacer space="5%" />
+        <Link onPress={() => nav.navigate(Routes.FORGOTTEN_PASSWORD)}>
+          {Lang.enrollment.login.forgotPassword}
+        </Link>
+        <Spacer space="4%" />
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => handleLogin()}
+          onPress={formik.handleSubmit}
         >
           {Lang.enrollment.login.button}
         </Button>

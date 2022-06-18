@@ -20,21 +20,23 @@ import {
   launchImageLibrary,
 } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
+import { useFormik } from "formik";
 
 interface InformationsScreenProps {
   nextStep: () => void;
+}
+
+interface InformationsForm {
+  firstName: string;
+  lastName: string;
+  profilePicture: ImagePickerResponse | null;
 }
 
 export const InformationsScreen: React.FunctionComponent<
   InformationsScreenProps
 > = ({ nextStep }) => {
   const dispatch = useDispatch();
-
   // Register infos
-  const [firstname, setFirstname] = React.useState("");
-  const [lastname, setLastname] = React.useState("");
-  const [profilePicture, setProfilePicture] =
-    React.useState<ImagePickerResponse | null>(null);
   const [modalPP, setModalPP] = React.useState(false);
 
   useFocusEffect(
@@ -42,6 +44,19 @@ export const InformationsScreen: React.FunctionComponent<
       return () => null;
     }, [])
   );
+
+  const initialValues: InformationsForm = {
+    firstName: "",
+    lastName: "",
+    profilePicture: null,
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, helpers) => {
+      nextStep();
+    },
+  });
 
   const profilePictureOptions: ImageLibraryOptions = {
     mediaType: "photo",
@@ -69,7 +84,7 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
-      setProfilePicture(result);
+      formik.setFieldValue("profilePicture", result);
       setModalPP(false);
     }
   };
@@ -94,7 +109,7 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
-      setProfilePicture(result);
+      formik.setFieldValue("profilePicture", result);
       setModalPP(false);
     }
   };
@@ -142,9 +157,9 @@ export const InformationsScreen: React.FunctionComponent<
         <TouchableOpacity onPress={() => setModalPP(true)}>
           <Image
             source={
-              profilePicture === null
+              formik.values.profilePicture === null
                 ? require("@images/default_avatar.webp")
-                : { uri: profilePicture.assets![0].uri }
+                : { uri: formik.values.profilePicture.assets![0].uri }
             }
             style={{
               width: hp("12.5%"),
@@ -156,16 +171,16 @@ export const InformationsScreen: React.FunctionComponent<
         <Spacer space="5%" />
 
         <Input
-          value={firstname}
-          setValue={setFirstname}
+          value={formik.values.firstName}
+          setValue={formik.handleChange("firstName")}
           placeholder={Lang.enrollment.register.step1.firstname}
           type={"givenName"}
           height={hp("6%")}
         />
         <Spacer space="2%" />
         <Input
-          value={lastname}
-          setValue={setLastname}
+          value={formik.values.lastName}
+          setValue={formik.handleChange("lastName")}
           placeholder={Lang.enrollment.register.step1.lastname}
           type={"familyName"}
           height={hp("6%")}
@@ -174,7 +189,7 @@ export const InformationsScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => nextStep()}
+          onPress={formik.handleSubmit}
         >
           {Lang.enrollment.register.next}
         </Button>

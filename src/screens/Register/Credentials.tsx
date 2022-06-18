@@ -12,10 +12,17 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { Arrow } from "@components/ui/Atoms/Arrow";
+import { useFormik } from "formik";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
   previousStep: () => void;
+}
+
+interface CredentialsForm {
+  email: string;
+  password: string;
+  passwordConfirm: string;
 }
 
 export const CredentialsScreen: React.FunctionComponent<
@@ -24,9 +31,18 @@ export const CredentialsScreen: React.FunctionComponent<
   const dispatch = useDispatch();
 
   // Register infos
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordConfirm, setPasswordConfirm] = React.useState("");
+  const initialValues: CredentialsForm = {
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, formikHelpers) => {
+      nextStep();
+    },
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -51,16 +67,16 @@ export const CredentialsScreen: React.FunctionComponent<
         </CustomText>
         <Spacer space="5%" />
         <Input
-          value={email}
-          setValue={setEmail}
+          value={formik.values.email}
+          setValue={formik.handleChange("email")}
           placeholder={Lang.enrollment.register.step2.email}
           type={"emailAddress"}
           height={hp("6%")}
         />
         <Spacer space="2%" />
         <Input
-          value={password}
-          setValue={setPassword}
+          value={formik.values.password}
+          setValue={formik.handleChange("password")}
           placeholder={Lang.enrollment.register.step2.password}
           type={"password"}
           height={hp("6%")}
@@ -68,8 +84,8 @@ export const CredentialsScreen: React.FunctionComponent<
         />
         <Spacer space="2%" />
         <Input
-          value={passwordConfirm}
-          setValue={setPasswordConfirm}
+          value={formik.values.passwordConfirm}
+          setValue={formik.handleChange("passwordConfirm")}
           placeholder={Lang.enrollment.register.step2.repeatPassword}
           type={"password"}
           height={hp("6%")}
@@ -79,7 +95,7 @@ export const CredentialsScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => nextStep()}
+          onPress={formik.handleSubmit}
         >
           {Lang.enrollment.register.button}
         </Button>

@@ -20,6 +20,7 @@ import { Popup } from "@components/ui/Molecules/Popup";
 import Toast from "react-native-toast-message";
 import { GenericApiReponse } from "@store/model/application";
 import { Button } from "@components/ui/Atoms/Button";
+import Link from "@components/ui/Molecules/Link";
 
 interface JoinGroupScreenProps {
   nextStep: () => void;
@@ -157,14 +158,9 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           {Lang.enrollment.register.step3.no_group}
         </CustomText>
         <Spacer space="1.5%" />
-        <CustomText
-          size={texts.paragraph}
-          fontWeight={"400"}
-          color={Colors.white}
-          onPress={() => nextStep()}
-        >
+        <Link onPress={() => nextStep()} top={hp("0%")}>
           {Lang.enrollment.register.step3.create_group}
-        </CustomText>
+        </Link>
       </Container>
     </KeyboardDismiss>
   );
