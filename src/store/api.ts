@@ -1,4 +1,4 @@
-import { SERIAL_LUNCHER_API } from "@environments/test.environment";
+import { SERIAL_LUNCHER_API } from "@environments/prod.environment";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { applicationState } from "./application/selector";
 import { AppState } from "./store";

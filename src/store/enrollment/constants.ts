@@ -12,8 +12,11 @@ export const initialState: Enrollment = {
 
 export const reducerPath = "enrollmentApi";
 
+export const CACHE_KEY = "User";
+
 export const endpoint = {
   register: "user/register",
   login: "user/login",
+  forgottenPassword: "user/forgot-password",
   login_oauth: "user/login/oauth",
 };

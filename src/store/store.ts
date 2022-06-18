@@ -14,11 +14,9 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import { combineReducers } from "redux";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
-
-const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false,
-});
+import { enrollmentApi } from "./enrollment/slice";
+import { groupsApi } from "./groups/slice";
+import { placesApi } from "./places/slice";
 
 const combinedReducers = combineReducers({
   ...reducers,
@@ -27,6 +25,7 @@ const combinedReducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
+  whitelist: ["enrollmentApi", "enrollment"],
 };
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
@@ -36,7 +35,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(applicationAPI.middleware),
+    }).concat(
+      applicationAPI.middleware,
+      groupsApi.middleware,
+      placesApi.middleware
+    ),
 });
 
 export type AppDispatch = typeof store.dispatch;

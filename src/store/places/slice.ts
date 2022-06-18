@@ -15,36 +15,31 @@ import { baseQuery } from "@store/api";
 export const placesApi = createApi({
   reducerPath,
   baseQuery,
+  tagTypes: ["Places", "Favorites"],
   endpoints: (builder) => ({
     /**
      * Place endpoints
      */
     getPlaces: builder.query<Place[] | GenericApiReponse, GetPlaces & Token>({
-      query: ({ group_key, token }) => ({
+      query: ({ group_key }) => ({
         url: `${endpoint.places.get}/${group_key}`,
         method: "GET",
-        headers: {
-          "x-auth": token,
-        },
       }),
+      providesTags: (_result, _error, { group_key }) => [
+        { type: "Places", id: group_key },
+      ],
     }),
     addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace & Token>({
       query: ({ token, ...place }) => ({
         url: `${endpoint.places.create}`,
         method: "POST",
         body: place,
-        headers: {
-          "x-auth": token,
-        },
       }),
     }),
     deletePlace: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
         url: `${endpoint.places.delete}/${id}`,
         method: "DELETE",
-        headers: {
-          "x-auth": token,
-        },
       }),
       transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
@@ -53,30 +48,21 @@ export const placesApi = createApi({
      * Favorite endpoints
      */
     getFavorites: builder.query<Place[] | GenericApiReponse, Token>({
-      query: ({ token }) => ({
+      query: () => ({
         url: `${endpoint.favorites.get}`,
         method: "GET",
-        headers: {
-          "x-auth": token,
-        },
       }),
     }),
     addFavorite: builder.mutation<Place | GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
         url: `${endpoint.favorites.add(id)}`,
         method: "POST",
-        headers: {
-          "x-auth": token,
-        },
       }),
     }),
     deleteFavorite: builder.mutation<GenericApiReponse, PlaceId & Token>({
       query: ({ token, id }) => ({
         url: `${endpoint.favorites.remove(id)}`,
         method: "DELETE",
-        headers: {
-          "x-auth": token,
-        },
       }),
       transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
