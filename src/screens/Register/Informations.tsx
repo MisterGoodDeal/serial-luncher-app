@@ -20,7 +20,9 @@ import {
   launchImageLibrary,
 } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
+import { resetRegister, setFirstStep } from "@store/enrollment/slice";
+import { setLoading } from "@store/application/slice";
 
 interface InformationsScreenProps {
   nextStep: () => void;
@@ -54,7 +56,7 @@ export const InformationsScreen: React.FunctionComponent<
   const formik = useFormik({
     initialValues,
     onSubmit: (values, helpers) => {
-      nextStep();
+      handleNextStep(values, helpers);
     },
   });
 
@@ -65,6 +67,7 @@ export const InformationsScreen: React.FunctionComponent<
   };
 
   const handleTakePicture = async () => {
+    dispatch(setLoading(true));
     const result = await launchCamera(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
@@ -72,12 +75,14 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
+      dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
         type: "error",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
+      dispatch(setLoading(false));
     } else {
       Toast.show({
         type: "success",
@@ -85,11 +90,13 @@ export const InformationsScreen: React.FunctionComponent<
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
       formik.setFieldValue("profilePicture", result);
+      dispatch(setLoading(false));
       setModalPP(false);
     }
   };
 
   const handleOpenGallery = async () => {
+    dispatch(setLoading(true));
     const result = await launchImageLibrary(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
@@ -97,12 +104,14 @@ export const InformationsScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
+      dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
         type: "error",
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
+      dispatch(setLoading(false));
     } else {
       Toast.show({
         type: "success",
@@ -110,7 +119,31 @@ export const InformationsScreen: React.FunctionComponent<
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
       formik.setFieldValue("profilePicture", result);
+      dispatch(setLoading(false));
       setModalPP(false);
+    }
+  };
+
+  const handleNextStep = (
+    values: InformationsForm,
+    formikHelpers: FormikHelpers<InformationsForm>
+  ) => {
+    dispatch(resetRegister());
+    if (values.firstName.length > 0 && values.lastName.length > 0) {
+      dispatch(
+        setFirstStep({
+          firstname: values.firstName,
+          lastname: values.lastName,
+          picture: values.profilePicture?.assets![0].base64 ?? "",
+        })
+      );
+      nextStep();
+    } else {
+      Toast.show({
+        type: "error",
+        text1: `${Lang.enrollment.register.error.oops}`,
+        text2: Lang.enrollment.register.error.missing_fields,
+      });
     }
   };
 

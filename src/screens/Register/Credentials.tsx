@@ -12,7 +12,9 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { Arrow } from "@components/ui/Atoms/Arrow";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
+import Toast from "react-native-toast-message";
+import { setSecondStep } from "@store/enrollment/slice";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
@@ -40,15 +42,59 @@ export const CredentialsScreen: React.FunctionComponent<
   const formik = useFormik({
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      nextStep();
+      handleNextStep(values, formikHelpers);
     },
   });
+
+  const emailRegex = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+.[^@ \t\r\n]+");
+  const passwordRegex = new RegExp(
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+  );
 
   useFocusEffect(
     React.useCallback(() => {
       return () => null;
     }, [])
   );
+
+  const handleNextStep = (
+    values: CredentialsForm,
+    formikHelpers: FormikHelpers<CredentialsForm>
+  ) => {
+    if (!values.email || !values.password || !values.passwordConfirm) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.missing_fields,
+      });
+    } else if (!emailRegex.test(values.email)) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.invalid_email,
+      });
+    } else if (values.password !== values.passwordConfirm) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.password_mismatch,
+      });
+    } else if (!passwordRegex.test(values.password)) {
+      Toast.show({
+        type: "error",
+        text1: Lang.enrollment.register.error.oops,
+        text2: Lang.enrollment.register.error.invalid_password,
+      });
+    } else {
+      dispatch(
+        setSecondStep({
+          email: values.email,
+          password: values.password,
+        })
+      );
+      nextStep();
+    }
+  };
 
   return (
     <KeyboardDismiss>
@@ -97,7 +143,7 @@ export const CredentialsScreen: React.FunctionComponent<
           width={wp("50%")}
           onPress={formik.handleSubmit}
         >
-          {Lang.enrollment.register.button}
+          {Lang.enrollment.register.next}
         </Button>
       </Container>
     </KeyboardDismiss>

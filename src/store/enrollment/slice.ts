@@ -58,10 +58,55 @@ export const enrollmentSlice = createSlice({
     setEnrollment: (state, action: PayloadAction<Enrollment>) => {
       state = action.payload;
     },
+    setFirstStep: (
+      state,
+      action: PayloadAction<{
+        firstname: string;
+        lastname: string;
+        picture: string;
+      }>
+    ) => {
+      state.user.firstname = action.payload.firstname;
+      state.user.lastname = action.payload.lastname;
+      state.user.profile_picture = action.payload.picture;
+    },
+    setSecondStep: (
+      state,
+      action: PayloadAction<{
+        email: string;
+        password: string;
+      }>
+    ) => {
+      state.user.email = action.payload.email;
+      state.user.password = action.payload.password;
+    },
+    setGroupCode: (state, action: PayloadAction<string>) => {
+      state.groupId = action.payload;
+    },
+    setGroup: (
+      state,
+      action: PayloadAction<{
+        name: string;
+        picture: string;
+      }>
+    ) => {
+      state.group.name = action.payload.name;
+      state.group.picture = action.payload.picture;
+    },
+    resetRegister: (state) => {
+      state = initialState;
+    },
   },
 });
 
-export const { setEnrollment } = enrollmentSlice.actions;
+export const {
+  setEnrollment,
+  setFirstStep,
+  setSecondStep,
+  setGroupCode,
+  setGroup,
+  resetRegister,
+} = enrollmentSlice.actions;
 
 export const {
   useRegisterMutation,

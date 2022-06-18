@@ -1,6 +1,15 @@
-import { Groups } from "@store/model/groups";
+import { Group, Groups } from "@store/model/groups";
 
-export const initialState: Groups = {};
+export const initialState: Group = {
+  id: -1,
+  name: "",
+  image: "",
+  fk_user: -1,
+  group_key: "",
+  created_at: "",
+  updated_at: "",
+  deleted_at: "",
+};
 
 export const reducerPath = "groupsApi";
 
