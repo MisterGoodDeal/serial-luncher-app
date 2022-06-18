@@ -2,16 +2,12 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RegisterScreen } from "@screens/Register";
 import { Colors } from "@themes/Colors";
 import { hp, wp } from "@utils/functions";
-import { texts } from "@constants/TextsSizes";
-import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
-import { Lang } from "@constants/Lang";
 import { useKeyboard } from "@hooks/useKeyboard";
 import { tabsApp } from "./Router";
 import { Routes } from "./Routes";
-import { CustomText } from "@components/ui/Atoms/CustomText";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
@@ -20,7 +16,7 @@ export const AppNavigator: React.FC<{}> = () => {
   const [keyboardStatus] = useKeyboard();
 
   return (
-    <>
+    <NavigationContainer>
       {/* @ts-ignore */}
       <Tab.Navigator
         initialRouteName={Routes.MAP}
@@ -50,7 +46,7 @@ export const AppNavigator: React.FC<{}> = () => {
           />
         ))}
       </Tab.Navigator>
-    </>
+    </NavigationContainer>
   );
 };
 
