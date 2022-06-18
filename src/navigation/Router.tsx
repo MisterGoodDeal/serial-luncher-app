@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Image, StyleSheet, View } from "react-native";
 import { LandingScreen } from "@screens/LandingScreen";
 import { EnrollmentNavigator } from "@navigation/EnrollmentNavigator";
 import { LoginScreen } from "@screens/LoginScreen";
@@ -6,6 +7,14 @@ import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
 import { Lang } from "@constants/Lang";
 import { RegisterScreen } from "@screens/Register";
 import ForgottenPassword from "@screens/ForgottenPassword/ForgottenPassword";
+import { Group } from "@screens/App/Group.screen";
+import { Map } from "@screens/App/Map.screen";
+import { Settings } from "@screens/App/Settings.screen";
+import { Routes } from "./Routes";
+import { hp } from "@utils/functions";
+import { Colors } from "@themes/Colors";
+import { CustomText } from "@components/ui/Atoms/CustomText";
+import { Spacer } from "@components/common/Spacer";
 
 type StackScreen = {
   key: number;
@@ -19,6 +28,14 @@ type TabsScreen = {
   name: string;
   component: React.FC<any>;
   icon: (focused: boolean, keyboardStatus: boolean) => JSX.Element;
+}[];
+
+type AppTabs = {
+  key: number;
+  name: string;
+  component: React.FC<any>;
+  icon: (focused: boolean, keyboardStatus: boolean) => JSX.Element;
+  label: (focused: boolean) => React.ReactNode;
 }[];
 
 export const stack: StackScreen = [
@@ -63,3 +80,122 @@ export const tabs: TabsScreen = [
     ),
   },
 ];
+
+export const tabsApp: AppTabs = [
+  {
+    key: 0,
+    name: Routes.GROUP,
+    component: Group,
+    icon: (focused: boolean, keyboardStatus: boolean) => (
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/images/group.png")}
+          style={[
+            styles.icon,
+            {
+              tintColor: focused ? Colors.white : Colors.grey,
+            },
+          ]}
+        />
+      </View>
+    ),
+    label: (focused: boolean) => (
+      <>
+        <CustomText
+          color={Colors.white}
+          fontWeight={focused ? "600" : "400"}
+          size={hp("1.5%")}
+        >
+          {Lang.navigation.group}
+        </CustomText>
+        {focused && <View style={styles.bottomIndicator} />}
+      </>
+    ),
+  },
+  {
+    key: 1,
+    name: Routes.MAP,
+    component: Map,
+    icon: (focused: boolean, keyboardStatus: boolean) => (
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/images/map.png")}
+          style={[
+            styles.icon,
+            {
+              tintColor: focused ? Colors.white : Colors.grey,
+            },
+          ]}
+        />
+      </View>
+    ),
+    label: (focused: boolean) => (
+      <>
+        <CustomText
+          color={Colors.white}
+          fontWeight={focused ? "600" : "400"}
+          size={hp("1.5%")}
+        >
+          {Lang.navigation.map}
+        </CustomText>
+        {focused && <View style={styles.bottomIndicator} />}
+      </>
+    ),
+  },
+  {
+    key: 2,
+    name: Routes.SETTINGS,
+    component: Settings,
+    icon: (focused: boolean, keyboardStatus: boolean) => (
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/images/settings.png")}
+          style={[
+            styles.icon,
+            {
+              tintColor: focused ? Colors.white : Colors.grey,
+            },
+          ]}
+        />
+      </View>
+    ),
+    label: (focused: boolean) => (
+      <>
+        <CustomText
+          color={Colors.white}
+          fontWeight={focused ? "600" : "400"}
+          size={hp("1.5%")}
+        >
+          {Lang.navigation.settings}
+        </CustomText>
+        {focused && <View style={styles.bottomIndicator} />}
+      </>
+    ),
+  },
+];
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    marginTop: hp("3.5%"),
+    height: "100%",
+    width: "100%",
+    backgroundColor: "blue",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    alignSelf: "center",
+    width: hp("4.5%"),
+    height: hp("4.5%"),
+    resizeMode: "contain",
+    tintColor: Colors.white,
+  },
+  bottomIndicator: {
+    height: 5,
+    width: "100%",
+    backgroundColor: Colors.blue,
+    position: "absolute",
+    bottom: -hp("2%"),
+  },
+});

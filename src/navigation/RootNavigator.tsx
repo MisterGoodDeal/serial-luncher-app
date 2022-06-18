@@ -5,7 +5,6 @@ import linking from "../linking";
 import { Loader } from "@components/ui/Molecules/Loader";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
-import { Map } from "@screens/App/Map";
 import { stack } from "@navigation/Router";
 import { Routes } from "./Routes";
 import { Arrow } from "@components/ui/Atoms/Arrow";

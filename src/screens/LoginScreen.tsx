@@ -4,7 +4,7 @@ import { Colors } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "react-native";
-import { wp } from "@utils/functions";
+import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
@@ -19,7 +19,7 @@ import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
 import Toast from "react-native-toast-message";
 import { errorHandler } from "@utils/errors/register";
-import Link from "@components/ui/Molecules/Link";
+import { Link } from "@components/ui/Molecules/Link";
 import { useFormik } from "formik";
 import { Routes } from "@navigation/Routes";
 
@@ -97,9 +97,6 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
           type={"password"}
           password
         />
-        <Link onPress={() => nav.navigate(Routes.FORGOTTEN_PASSWORD)}>
-          {Lang.enrollment.login.forgotPassword}
-        </Link>
         <Spacer space="4%" />
         <Button
           color={Colors.blue}
@@ -108,6 +105,15 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         >
           {Lang.enrollment.login.button}
         </Button>
+        <Spacer space="4%" />
+        <Link
+          onPress={() => nav.navigate(Routes.FORGOTTEN_PASSWORD)}
+          size={hp("2%")}
+          fontWeight={"400"}
+          color={Colors.white}
+        >
+          {Lang.enrollment.login.forgotPassword}
+        </Link>
       </Container>
     </KeyboardDismiss>
   );
