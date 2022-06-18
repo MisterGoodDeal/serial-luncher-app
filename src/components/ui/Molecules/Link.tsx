@@ -1,32 +1,32 @@
 import React from "react";
-import { Colors } from "@themes/Colors";
 import { CustomText, CustomTextProps } from "../Atoms/CustomText";
-import { StyleSheet, Text, TextProps, TouchableOpacity } from "react-native";
-import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 
-interface LinkProps extends TextProps {
-  children?: string;
+interface LinkProps extends CustomTextProps {
   onPress: () => void;
-  top?: number;
 }
 
-const LinkText = styled.Text<{ top?: number }>`
-  color: ${Colors.white};
-  margin-top: ${(p) => p.top ?? "20px"};
-`;
-
-const Link: React.FC<LinkProps> = ({ children, onPress, top }) => {
+export const Link: React.FC<LinkProps> = ({
+  fontWeight,
+  size,
+  align,
+  children,
+  color,
+  onPress,
+  transform,
+}) => {
   return (
-    <TouchableOpacity
-      disabled={onPress === undefined}
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
-      <LinkText top={top}>{children}</LinkText>
+    <TouchableOpacity disabled={onPress === undefined} onPress={onPress}>
+      <CustomText
+        size={size}
+        color={color}
+        align={align}
+        fontWeight={fontWeight}
+        transform={transform}
+        underline={true}
+      >
+        {children === undefined ? "" : children}
+      </CustomText>
     </TouchableOpacity>
   );
 };
-
-export default Link;
-
-const styles = StyleSheet.create({});

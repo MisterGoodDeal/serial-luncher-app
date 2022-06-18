@@ -20,7 +20,7 @@ import { Popup } from "@components/ui/Molecules/Popup";
 import Toast from "react-native-toast-message";
 import { GenericApiReponse } from "@store/model/application";
 import { Button } from "@components/ui/Atoms/Button";
-import Link from "@components/ui/Molecules/Link";
+import { Link } from "@components/ui/Molecules/Link";
 import { setGroupCode, useRegisterMutation } from "@store/enrollment/slice";
 import { enrollmentState } from "@store/enrollment/selector";
 import { errorHandler } from "@utils/errors/register";
@@ -244,7 +244,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           {Lang.enrollment.register.step3.no_group}
         </CustomText>
         <Spacer space="1.5%" />
-        <Link onPress={() => nextStep()} top={hp("0%")}>
+        <Link onPress={() => nextStep()} size={hp("2%")} fontWeight={"400"}>
           {Lang.enrollment.register.step3.create_group}
         </Link>
       </Container>
