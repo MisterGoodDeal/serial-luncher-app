@@ -22,6 +22,10 @@ export interface Login {
   password: string;
 }
 
+export interface ForgottenPassword {
+  email: string;
+}
+
 export interface LoginOAuth {
   oauth_service: string;
   oauth_service_id: string;

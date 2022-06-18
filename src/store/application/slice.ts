@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { endpoint, initialState, reducerPath } from "./constants";
-import { BASE_URL } from "@environments/test.environment";
+import { BASE_URL } from "@environments/prod.environment";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@store/model/enrollment";
 

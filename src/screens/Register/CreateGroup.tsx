@@ -21,6 +21,7 @@ import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Button } from "@components/ui/Atoms/Button";
+import { FormikHelpers, useFormik } from "formik";
 import {
   setGroup as setGroupStore,
   useRegisterMutation,
@@ -42,6 +43,11 @@ interface CreateGroupScreenProps {
   previousStep: () => void;
 }
 
+interface CreateGroupForm {
+  groupName: string;
+  groupPicture: ImagePickerResponse | null;
+}
+
 export const CreateGroupScreen: React.FunctionComponent<
   CreateGroupScreenProps
 > = ({ nextStep, previousStep }) => {
@@ -54,10 +60,17 @@ export const CreateGroupScreen: React.FunctionComponent<
   const [registeredUser, setRegisteredUser] = React.useState<User>();
 
   // Register infos
-  const [groupName, setGroupName] = React.useState("");
-  const [groupPicture, setGroupPicture] =
-    React.useState<ImagePickerResponse | null>(null);
   const [modalPP, setModalPP] = React.useState(false);
+  const initialValues: CreateGroupForm = {
+    groupName: "",
+    groupPicture: null,
+  };
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, helpers) => {
+      handleRegisterWithNewGroup(values, helpers);
+    },
+  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -91,7 +104,7 @@ export const CreateGroupScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
-      setGroupPicture(result);
+      formik.setFieldValue("groupPicture", result);
       setModalPP(false);
     }
   };
@@ -116,13 +129,16 @@ export const CreateGroupScreen: React.FunctionComponent<
         text1: `📸 ${Lang.enrollment.register.step1.profile_picture.title}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
-      setGroupPicture(result);
+      formik.setFieldValue("groupPicture", result);
       setModalPP(false);
     }
   };
 
-  const handleRegisterWithNewGroup = () => {
-    if (groupName.length === 0) {
+  const handleRegisterWithNewGroup = (
+    values: CreateGroupForm,
+    helpers: FormikHelpers<CreateGroupForm>
+  ) => {
+    if (values.groupName.length === 0) {
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
@@ -131,8 +147,8 @@ export const CreateGroupScreen: React.FunctionComponent<
     } else if (!registeredUser) {
       dispatch(
         setGroupStore({
-          name: groupName,
-          picture: groupPicture?.assets![0].base64 ?? "",
+          name: values.groupName,
+          picture: values.groupPicture?.assets![0].base64 ?? "",
         })
       );
       register({
@@ -146,8 +162,8 @@ export const CreateGroupScreen: React.FunctionComponent<
       });
     } else {
       createGroup({
-        name: groupName,
-        image: groupPicture?.assets![0].base64 ?? "",
+        name: values.groupName,
+        image: values.groupPicture?.assets![0].base64 ?? "",
       });
     }
   };
@@ -172,8 +188,8 @@ export const CreateGroupScreen: React.FunctionComponent<
       setRegisteredUser(res);
       dispatch(setToken(res.token));
       createGroup({
-        name: groupName,
-        image: groupPicture?.assets![0].base64 ?? "",
+        name: formik.values.groupName,
+        image: formik.values.groupPicture?.assets![0].base64 ?? "",
       });
     }
   }, [resultRegister]);
@@ -251,9 +267,9 @@ export const CreateGroupScreen: React.FunctionComponent<
         <TouchableOpacity onPress={() => setModalPP(true)}>
           <Image
             source={
-              groupPicture === null
+              formik.values.groupPicture === null
                 ? require("@images/default_avatar.webp")
-                : { uri: groupPicture.assets![0].uri }
+                : { uri: formik.values.groupPicture.assets![0].uri }
             }
             style={{
               width: hp("12.5%"),
@@ -265,8 +281,8 @@ export const CreateGroupScreen: React.FunctionComponent<
         <Spacer space="5%" />
 
         <Input
-          value={groupName}
-          setValue={setGroupName}
+          value={formik.values.groupName}
+          setValue={formik.handleChange("groupName")}
           placeholder={Lang.enrollment.register.step4.placeholder}
           type={"givenName"}
           height={hp("6%")}
@@ -275,7 +291,7 @@ export const CreateGroupScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => handleRegisterWithNewGroup()}
+          onPress={formik.handleSubmit}
         >
           {Lang.enrollment.register.step4.button}
         </Button>

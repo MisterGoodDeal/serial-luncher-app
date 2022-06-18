@@ -244,12 +244,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           {Lang.enrollment.register.step3.no_group}
         </CustomText>
         <Spacer space="1.5%" />
-        <Link
-          size={texts.paragraph}
-          fontWeight={"400"}
-          color={Colors.white}
-          onPress={() => nextStep()}
-        >
+        <Link onPress={() => nextStep()} top={hp("0%")}>
           {Lang.enrollment.register.step3.create_group}
         </Link>
       </Container>

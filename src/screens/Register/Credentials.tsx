@@ -12,6 +12,7 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { Arrow } from "@components/ui/Atoms/Arrow";
+import { FormikHelpers, useFormik } from "formik";
 import Toast from "react-native-toast-message";
 import { setSecondStep } from "@store/enrollment/slice";
 
@@ -20,15 +21,30 @@ interface CredentialsScreenProps {
   previousStep: () => void;
 }
 
+interface CredentialsForm {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 export const CredentialsScreen: React.FunctionComponent<
   CredentialsScreenProps
 > = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
 
   // Register infos
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordConfirm, setPasswordConfirm] = React.useState("");
+  const initialValues: CredentialsForm = {
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, formikHelpers) => {
+      handleNextStep(values, formikHelpers);
+    },
+  });
 
   const emailRegex = new RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+.[^@ \t\r\n]+");
   const passwordRegex = new RegExp(
@@ -41,26 +57,29 @@ export const CredentialsScreen: React.FunctionComponent<
     }, [])
   );
 
-  const handleNextStep = () => {
-    if (!email || !password || !passwordConfirm) {
+  const handleNextStep = (
+    values: CredentialsForm,
+    formikHelpers: FormikHelpers<CredentialsForm>
+  ) => {
+    if (!values.email || !values.password || !values.passwordConfirm) {
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
         text2: Lang.enrollment.register.error.missing_fields,
       });
-    } else if (!emailRegex.test(email)) {
+    } else if (!emailRegex.test(values.email)) {
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
         text2: Lang.enrollment.register.error.invalid_email,
       });
-    } else if (password !== passwordConfirm) {
+    } else if (values.password !== values.passwordConfirm) {
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
         text2: Lang.enrollment.register.error.password_mismatch,
       });
-    } else if (!passwordRegex.test(password)) {
+    } else if (!passwordRegex.test(values.password)) {
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
@@ -69,8 +88,8 @@ export const CredentialsScreen: React.FunctionComponent<
     } else {
       dispatch(
         setSecondStep({
-          email,
-          password,
+          email: values.email,
+          password: values.password,
         })
       );
       nextStep();
@@ -94,16 +113,16 @@ export const CredentialsScreen: React.FunctionComponent<
         </CustomText>
         <Spacer space="5%" />
         <Input
-          value={email}
-          setValue={setEmail}
+          value={formik.values.email}
+          setValue={formik.handleChange("email")}
           placeholder={Lang.enrollment.register.step2.email}
           type={"emailAddress"}
           height={hp("6%")}
         />
         <Spacer space="2%" />
         <Input
-          value={password}
-          setValue={setPassword}
+          value={formik.values.password}
+          setValue={formik.handleChange("password")}
           placeholder={Lang.enrollment.register.step2.password}
           type={"password"}
           height={hp("6%")}
@@ -111,8 +130,8 @@ export const CredentialsScreen: React.FunctionComponent<
         />
         <Spacer space="2%" />
         <Input
-          value={passwordConfirm}
-          setValue={setPasswordConfirm}
+          value={formik.values.passwordConfirm}
+          setValue={formik.handleChange("passwordConfirm")}
           placeholder={Lang.enrollment.register.step2.repeatPassword}
           type={"password"}
           height={hp("6%")}
@@ -122,7 +141,7 @@ export const CredentialsScreen: React.FunctionComponent<
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => handleNextStep()}
+          onPress={formik.handleSubmit}
         >
           {Lang.enrollment.register.next}
         </Button>

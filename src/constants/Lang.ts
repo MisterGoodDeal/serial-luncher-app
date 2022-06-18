@@ -11,10 +11,12 @@ const locales = {
     },
     enrollment: {
       login: {
-        title: "CONNEXION",
+        title: "Connexion",
         email: "Adresse email",
         password: "Mot de passe",
         button: "Se connecter",
+        forgotPassword: "Mot de passe oublié ?",
+        send: "Envoyer",
         success: {
           hello: "Salut",
           connected: "Vous êtes connecté avec succès !",
@@ -29,7 +31,7 @@ const locales = {
         },
       },
       register: {
-        title: "INSCRIPTION",
+        title: "Inscription",
         step1: {
           title: "Vos informations",
           firstname: "Prénom",
@@ -98,10 +100,12 @@ const locales = {
     },
     enrollment: {
       login: {
-        title: "SIGN IN",
+        title: "Sign In",
         email: "Email",
         password: "Password",
-        button: "SIGN IN",
+        button: "Sign In",
+        send: "Send",
+        forgotPassword: "Forgotten password ?",
         success: {
           hello: "Hello",
           connected: "You are successfully connected!",

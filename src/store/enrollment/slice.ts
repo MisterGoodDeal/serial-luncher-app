@@ -1,7 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { endpoint, initialState, reducerPath } from "./constants";
+import { CACHE_KEY, endpoint, initialState, reducerPath } from "./constants";
 import {
   Enrollment,
+  ForgottenPassword,
   Login,
   LoginOAuth,
   User,
@@ -14,6 +15,7 @@ import { baseQuery } from "@store/api";
 export const enrollmentApi = createApi({
   reducerPath,
   baseQuery,
+  tagTypes: [CACHE_KEY],
   endpoints: (builder) => ({
     register: builder.mutation<User | GenericApiReponse, UserRegister>({
       query: (user) => ({
@@ -27,6 +29,16 @@ export const enrollmentApi = createApi({
         url: `${endpoint.login}`,
         method: "POST",
         body: loginPayload,
+      }),
+    }),
+    forgottenPassword: builder.mutation<
+      User | GenericApiReponse,
+      ForgottenPassword
+    >({
+      query: (forgotPasswordPayload) => ({
+        url: `${endpoint.forgottenPassword}`,
+        method: "POST",
+        body: forgotPasswordPayload,
       }),
     }),
     loginOAuth: builder.mutation<User | GenericApiReponse, LoginOAuth>({
@@ -96,5 +108,9 @@ export const {
   resetRegister,
 } = enrollmentSlice.actions;
 
-export const { useRegisterMutation, useLoginMutation, useLoginOAuthMutation } =
-  enrollmentApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLoginOAuthMutation,
+  useForgottenPasswordMutation,
+} = enrollmentApi;
