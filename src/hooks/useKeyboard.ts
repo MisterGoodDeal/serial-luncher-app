@@ -12,14 +12,12 @@ export const useKeyboard = (): [boolean, number] => {
       : Keyboard.addListener("keyboardDidHide", _keyboardHide);
 
     return () => {
-      try {
-        Keyboard.removeListener("keyboardDidShow", _keyboardShow);
-        Keyboard.removeListener("keyboardWillShow", _keyboardShow);
-        Keyboard.removeListener("keyboardDidHide", _keyboardHide);
-        Keyboard.removeListener("keyboardWillHide", _keyboardHide);
-      } catch (error) {
-        console.warn("Error with useKeyboard() hook", error);
-      }
+      Platform.OS === "ios"
+        ? Keyboard.remove("keyboardWillShow", _keyboardShow)
+        : Keyboard.remove("keyboardDidShow", _keyboardShow);
+      Platform.OS === "ios"
+        ? Keyboard.remove("keyboardWillHide", _keyboardHide)
+        : Keyboard.remove("keyboardDidHide", _keyboardHide);
     };
   }, []);
 
