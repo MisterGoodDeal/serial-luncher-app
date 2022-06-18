@@ -10,7 +10,6 @@ export const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const appState = getState() as AppState;
     const app = applicationState(appState);
-    console.log(app.token);
 
     // If we have a token set in state, let's assume that we should be passing it.
     if (app) {

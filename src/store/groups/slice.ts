@@ -28,11 +28,8 @@ export const groupsApi = createApi({
       }),
     }),
 
-    createGroup: builder.mutation<
-      Group | GenericApiReponse,
-      CreateGroup & Token
-    >({
-      query: ({ token, ...group }) => ({
+    createGroup: builder.mutation<Group | GenericApiReponse, CreateGroup>({
+      query: ({ ...group }) => ({
         url: `${endpoint.create}`,
         method: "POST",
         body: group,
