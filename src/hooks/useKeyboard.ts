@@ -13,11 +13,11 @@ export const useKeyboard = (): [boolean, number] => {
 
     return () => {
       Platform.OS === "ios"
-        ? Keyboard.remove("keyboardWillShow", _keyboardShow)
-        : Keyboard.remove("keyboardDidShow", _keyboardShow);
+        ? Keyboard.removeListener("keyboardWillShow", _keyboardShow)
+        : Keyboard.removeListener("keyboardDidShow", _keyboardShow);
       Platform.OS === "ios"
-        ? Keyboard.remove("keyboardWillHide", _keyboardHide)
-        : Keyboard.remove("keyboardDidHide", _keyboardHide);
+        ? Keyboard.removeListener("keyboardWillHide", _keyboardHide)
+        : Keyboard.removeListener("keyboardDidHide", _keyboardHide);
     };
   }, []);
 
