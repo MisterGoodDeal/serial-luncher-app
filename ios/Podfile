@@ -1,12 +1,13 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-IOS_VERSION = '12.0'
-
-platform :ios, IOS_VERSION
+platform :ios, '12.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'SerialLuncher' do
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -31,11 +32,9 @@ target 'SerialLuncher' do
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
   # use_flipper!()
-  use_frameworks!
 
   post_install do |installer|
     react_native_post_install(installer)
-      installer.pods_project.build_configurations.each do |config|
-      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"  end
-    end
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
+end
