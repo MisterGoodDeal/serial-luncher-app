@@ -7,6 +7,7 @@ import Toast from "react-native-toast-message";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { StoreHydration } from "@screens/StoreHydration";
+import { enableLatestRenderer } from "react-native-maps";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,6 +17,7 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
+    enableLatestRenderer();
     return (
       <>
         <Provider store={store}>

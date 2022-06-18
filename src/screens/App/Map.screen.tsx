@@ -1,15 +1,10 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
 import { Colors } from "@themes/Colors";
 import { Container } from "@components/common/Container";
-import { Link } from "@components/ui/Molecules/Link";
 import { hp, wp } from "@utils/functions";
-import { Spacer } from "@components/common/Spacer";
-import { CustomText } from "@components/ui/Atoms/CustomText";
-import { texts } from "@constants/TextsSizes";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
-import { disconnect } from "@store/application/slice";
+import MapView from "react-native-maps";
 
 interface MapProps {}
 
@@ -28,24 +23,21 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
-      <CustomText
-        size={texts.small}
-        color={Colors.black}
-        align={"left"}
-        fontWeight={"200"}
-      >
-        Map
-      </CustomText>
-      <Spacer space="10" />
-      <Link
-        color="black"
-        size={hp("3%")}
-        align={"center"}
-        onPress={() => dispatch(disconnect())}
-        fontWeight={"400"}
-      >
-        Disconnect
-      </Link>
+      <MapView
+        initialRegion={{
+          longitude: 2.347477,
+          latitude: 48.85443,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: wp("100%"),
+          height: hp("100%"),
+        }}
+      />
     </Container>
   );
 };
