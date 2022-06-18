@@ -4,4 +4,7 @@ export enum Routes {
   LANDING = "Landing",
   ENROLLMENT = "Enrollment",
   FORGOTTEN_PASSWORD = "ForgottenPassword",
+  MAP = "Map",
+  GROUP = "Group",
+  SETTINGS = "Settings",
 }
