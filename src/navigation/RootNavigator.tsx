@@ -11,10 +11,14 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { hp } from "@utils/functions";
 import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
+import { useColorScheme } from "react-native";
+import { dark, light } from "@themes/Colors";
 
 const Stack = createStackNavigator();
 
 export const RootNavigator: React.FC<{}> = () => {
+  const isDark = useColorScheme() === "dark";
+
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
     (async () => {
@@ -26,7 +30,7 @@ export const RootNavigator: React.FC<{}> = () => {
 
   return (
     <>
-      <Loader loading={loading} mode="dark" />
+      <Loader loading={loading} dark={isDark} />
       {loaded && userInfos.id === -1 && (
         <NavigationContainer linking={linking}>
           <>
@@ -49,6 +53,7 @@ export const RootNavigator: React.FC<{}> = () => {
                         <Arrow
                           onPress={() => navigation.goBack()}
                           top={hp("2.5%")}
+                          color={isDark ? dark.text : light.text}
                         />
                       ) : null,
                   })}

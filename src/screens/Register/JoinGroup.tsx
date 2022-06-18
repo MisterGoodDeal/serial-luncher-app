@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
@@ -35,6 +35,8 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
   nextStep,
   previousStep,
 }) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   const [register, resultRegister] = useRegisterMutation();
   const [getGroup, resultGetGroup] = useGetGroupMutation();
@@ -168,6 +170,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
         animation={"slide"}
         margin={{ x: wp("10%"), y: hp("30%") }}
         onClose={() => setPopup(false)}
+        color={isDark ? dark.navBar.background : light.navBar.background}
       >
         <Image
           source={{ uri: group?.image }}
@@ -178,7 +181,11 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           }}
         />
         <Spacer space="3%" />
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {group?.name}
         </CustomText>
         <Spacer space="5%" />
@@ -203,12 +210,13 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
             setRegisteredUser(undefined);
             previousStep();
           }}
+          color={isDark ? dark.text : light.text}
         />
 
         <CustomText
           size={texts.title}
           fontWeight={"500"}
-          color={Colors.white}
+          color={isDark ? dark.text : light.text}
           align={"center"}
         >
           {Lang.enrollment.register.step3.title}
@@ -217,7 +225,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
         <CustomText
           size={texts.paragraph}
           fontWeight={"400"}
-          color={Colors.white}
+          color={isDark ? dark.text : light.text}
         >
           {Lang.enrollment.register.step3.description}
         </CustomText>
@@ -226,20 +234,25 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
         <OTPInputView
           style={{ width: "80%", height: 45 }}
           pinCount={6}
-          codeInputFieldStyle={styles.underlineStyleBase}
+          codeInputFieldStyle={{
+            width: 30,
+            height: 45,
+            borderWidth: 0,
+            borderBottomWidth: 1,
+            color: isDark ? dark.text : light.text,
+          }}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={(code) => {
-            // TODO: Check w/ the backend if the group exists, then handle next step if so
             handleFetchGroup(code);
           }}
-          keyboardAppearance="dark"
+          keyboardAppearance={isDark ? "dark" : "light"}
           keyboardType={"default"}
         />
         <Spacer space="10%" />
         <CustomText
           size={texts.paragraph}
           fontWeight={"400"}
-          color={Colors.white}
+          color={isDark ? dark.text : light.text}
         >
           {Lang.enrollment.register.step3.no_group}
         </CustomText>
@@ -253,13 +266,6 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
 };
 
 const styles = StyleSheet.create({
-  underlineStyleBase: {
-    width: 30,
-    height: 45,
-    borderWidth: 0,
-    borderBottomWidth: 1,
-  },
-
   underlineStyleHighLighted: {
     borderColor: Colors.main,
   },

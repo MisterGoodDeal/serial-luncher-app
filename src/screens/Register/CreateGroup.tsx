@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 import { Lang } from "@constants/Lang";
@@ -20,7 +20,6 @@ import { Input } from "@components/ui/Atoms/Input";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { Button } from "@components/ui/Atoms/Button";
 import { FormikHelpers, useFormik } from "formik";
 import {
   setGroup as setGroupStore,
@@ -37,6 +36,8 @@ import {
 import { setLoading, setToken, setUser } from "@store/application/slice";
 import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
+import { dark, light } from "@themes/Colors";
+import { Button } from "@components/ui/Atoms/Button";
 
 interface CreateGroupScreenProps {
   nextStep: () => void;
@@ -51,6 +52,8 @@ interface CreateGroupForm {
 export const CreateGroupScreen: React.FunctionComponent<
   CreateGroupScreenProps
 > = ({ nextStep, previousStep }) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   const [register, resultRegister] = useRegisterMutation();
   const [createGroup, resultCreateGroup] = useCreateGroupMutation();
@@ -229,8 +232,13 @@ export const CreateGroupScreen: React.FunctionComponent<
         animation={"slide"}
         margin={{ x: wp("10%"), y: hp("30%") }}
         onClose={() => setModalPP(false)}
+        color={isDark ? dark.navBar.background : light.navBar.background}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step4.popup_title}
         </CustomText>
         <Spacer space="8%" />
@@ -258,9 +266,16 @@ export const CreateGroupScreen: React.FunctionComponent<
           width: wp(100),
         }}
       >
-        <Arrow onPress={() => previousStep()} />
+        <Arrow
+          onPress={() => previousStep()}
+          color={isDark ? dark.text : light.text}
+        />
 
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step4.title}
         </CustomText>
         <Spacer space="5%" />
@@ -286,6 +301,7 @@ export const CreateGroupScreen: React.FunctionComponent<
           placeholder={Lang.enrollment.register.step4.placeholder}
           type={"givenName"}
           height={hp("6%")}
+          isDark={isDark}
         />
         <Spacer space="5%" />
         <Button

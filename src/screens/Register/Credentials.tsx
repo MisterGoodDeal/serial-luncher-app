@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { hp, wp } from "@utils/functions";
@@ -15,6 +15,7 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { FormikHelpers, useFormik } from "formik";
 import Toast from "react-native-toast-message";
 import { setSecondStep } from "@store/enrollment/slice";
+import { useColorScheme } from "react-native";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
@@ -30,6 +31,8 @@ interface CredentialsForm {
 export const CredentialsScreen: React.FunctionComponent<
   CredentialsScreenProps
 > = ({ nextStep, previousStep }) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
 
   // Register infos
@@ -106,9 +109,16 @@ export const CredentialsScreen: React.FunctionComponent<
           width: wp(100),
         }}
       >
-        <Arrow onPress={() => previousStep()} />
+        <Arrow
+          onPress={() => previousStep()}
+          color={isDark ? dark.text : light.text}
+        />
 
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step2.title}
         </CustomText>
         <Spacer space="5%" />
@@ -118,6 +128,7 @@ export const CredentialsScreen: React.FunctionComponent<
           placeholder={Lang.enrollment.register.step2.email}
           type={"emailAddress"}
           height={hp("6%")}
+          isDark={isDark}
         />
         <Spacer space="2%" />
         <Input
@@ -127,6 +138,7 @@ export const CredentialsScreen: React.FunctionComponent<
           type={"password"}
           height={hp("6%")}
           password
+          isDark={isDark}
         />
         <Spacer space="2%" />
         <Input
@@ -136,6 +148,7 @@ export const CredentialsScreen: React.FunctionComponent<
           type={"password"}
           height={hp("6%")}
           password
+          isDark={isDark}
         />
         <Spacer space="5%" />
         <Button

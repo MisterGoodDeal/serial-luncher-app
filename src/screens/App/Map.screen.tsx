@@ -5,10 +5,13 @@ import { hp, wp } from "@utils/functions";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-maps";
+import { useColorScheme } from "react-native";
 
 interface MapProps {}
 
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   const { userInfos } = useSelector(applicationState);
 

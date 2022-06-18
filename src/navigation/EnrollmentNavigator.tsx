@@ -1,7 +1,7 @@
 import * as React from "react";
 import { tabs } from "./Router";
 import { Colors } from "@themes/Colors";
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 import { useKeyboard } from "@hooks/useKeyboard";
@@ -9,6 +9,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Routes } from "./Routes";
 
 export const EnrollmentNavigator: React.FC<{}> = () => {
+  const isDark = useColorScheme() === "dark";
+
   const Tab = createBottomTabNavigator();
   const [keyboardStatus] = useKeyboard();
 

@@ -9,6 +9,7 @@ export const Colors = {
   pink: "#FF4F9A",
   purple: "#C840E9",
   cyan: "#78849E",
+  lightGrey: "#dedede",
   grey: "#454F63",
   darkgrey: "#2A2E43",
   black: "#000000",
@@ -16,4 +17,28 @@ export const Colors = {
   background: "#fafafa",
   blob_default: "rgb(102,94,255,0.3)",
   transparent: "transparent",
+};
+
+export const dark = {
+  text: Colors.white,
+  background: Colors.darkgrey,
+  navBar: {
+    background: Colors.grey,
+    icons: {
+      active: Colors.white,
+      inactive: Colors.darkgrey,
+    },
+  },
+};
+
+export const light = {
+  text: Colors.black,
+  background: Colors.background,
+  navBar: {
+    background: Colors.white,
+    icons: {
+      active: Colors.darkgrey,
+      inactive: Colors.lightGrey,
+    },
+  },
 };

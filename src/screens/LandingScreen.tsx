@@ -3,7 +3,7 @@ import { Container } from "../components/common/Container";
 import { Colors } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar, Image, View } from "react-native";
+import { StatusBar, Image, View, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Button } from "@components/ui/Atoms/Button";
@@ -22,6 +22,8 @@ interface LandingScreenProps {
 export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
   userInfo,
 }) => {
+  const isDark = useColorScheme() === "dark";
+
   const nav = useNavigation();
   const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
 
   return (
     <KeyboardDismiss>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle={isDark ? "light-content" : "light-content"} />
       <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} />
       <Container flex={1} alignItems={"center"} justifyContent={"center"}>
         <Image

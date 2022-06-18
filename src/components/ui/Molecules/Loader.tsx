@@ -7,7 +7,7 @@ import { hp } from "@utils/functions";
 interface LoaderProps {
   loading: boolean;
   size?: number;
-  mode: "dark" | "light";
+  dark: boolean;
   top?: number;
 }
 
@@ -19,7 +19,7 @@ const animations = {
 export const Loader: React.FunctionComponent<LoaderProps> = ({
   loading,
   size,
-  mode,
+  dark,
   top,
 }) => (
   <View
@@ -35,7 +35,7 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
   >
     {/* @ts-ignore */}
     <LottieView
-      source={mode === "dark" ? animations.light : animations.dark}
+      source={dark ? animations.light : animations.dark}
       autoPlay
       loop
       style={{
