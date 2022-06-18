@@ -1,16 +1,12 @@
 import * as React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { LoginScreen } from "@screens/LoginScreen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RegisterScreen } from "@screens/Register";
+import { tabs } from "./Router";
 import { Colors } from "@themes/Colors";
+import { StyleSheet } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
-import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
-import { Lang } from "@constants/Lang";
 import { useKeyboard } from "@hooks/useKeyboard";
-
-const Stack = createStackNavigator();
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Routes } from "./Routes";
 
 export const EnrollmentNavigator: React.FC<{}> = () => {
   const Tab = createBottomTabNavigator();
@@ -18,57 +14,53 @@ export const EnrollmentNavigator: React.FC<{}> = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Login"
+      initialRouteName={Routes.LOGIN}
       screenOptions={{
         tabBarHideOnKeyboard: true,
         headerShown: false,
-        tabBarLabelStyle: {
-          fontFamily: "Gibson",
-          textTransform: "uppercase",
-          fontSize: texts.small,
-          color: Colors.white,
-          fontWeight: "500",
-          position: "absolute",
-
-          top: hp("2.5%"),
-        },
-        tabBarIconStyle: {
-          display: "none",
-        },
-        tabBarStyle: {
-          backgroundColor: Colors.transparent,
-          position: "absolute",
-          top: hp("15%"),
-          borderTopWidth: 0,
-          paddingHorizontal: wp("15%"),
-          height: hp("1%"),
-          alignItems: "flex-end",
-          justifyContent: "space-evenly",
-        },
+        tabBarLabelStyle: tabStyle.tabBarLabelStyle,
+        tabBarIconStyle: tabStyle.tabBarIconStyle,
+        tabBarStyle: tabStyle.tabBarStyle,
       }}
     >
-      <Tab.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          tabBarLabel: ({ focused }) => (
-            <MenuBadge focused={focused} visible={!keyboardStatus}>
-              {Lang.enrollment.login.title}
-            </MenuBadge>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          tabBarLabel: ({ focused }) => (
-            <MenuBadge focused={focused} visible={!keyboardStatus}>
-              {Lang.enrollment.register.title}
-            </MenuBadge>
-          ),
-        }}
-      />
+      {tabs.map(({ component, icon, key, name }) => (
+        <Tab.Screen
+          key={key}
+          name={name}
+          component={component}
+          options={{
+            tabBarLabel: ({ focused }) => {
+              return icon(focused, keyboardStatus);
+            },
+          }}
+        />
+      ))}
     </Tab.Navigator>
   );
 };
+
+const tabStyle = StyleSheet.create({
+  tabBarLabelStyle: {
+    fontFamily: "Gibson",
+    textTransform: "uppercase",
+    fontSize: texts.small,
+    color: Colors.white,
+    fontWeight: "500",
+    position: "absolute",
+
+    top: hp("2.5%"),
+  },
+  tabBarIconStyle: {
+    display: "none",
+  },
+  tabBarStyle: {
+    backgroundColor: Colors.transparent,
+    position: "absolute",
+    top: hp("15%"),
+    borderTopWidth: 0,
+    paddingHorizontal: wp("15%"),
+    height: hp("1%"),
+    alignItems: "flex-end",
+    justifyContent: "space-evenly",
+  },
+});

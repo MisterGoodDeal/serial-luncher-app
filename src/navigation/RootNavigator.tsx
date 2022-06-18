@@ -1,13 +1,16 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import linking from "../linking";
-import { LandingScreen } from "@screens/LandingScreen";
-import { EnrollmentNavigator } from "./EnrollmentNavigator";
 import { Loader } from "@components/ui/Molecules/Loader";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
 import { Map } from "@screens/App/Map";
+import { stack } from "@navigation/Router";
+import { Routes } from "./Routes";
+import { Arrow } from "@components/ui/Atoms/Arrow";
+import { Colors } from "@themes/Colors";
+import { hp } from "@utils/functions";
 
 const Stack = createStackNavigator();
 
@@ -28,18 +31,30 @@ export const RootNavigator: React.FC<{}> = () => {
           {token === "" && (
             <>
               <Loader loading={loading} mode="dark" />
-              {/* @ts-ignore */}
               <Stack.Navigator
-                initialRouteName={"Landing"}
+                initialRouteName={Routes.LANDING}
                 screenOptions={{
-                  headerShown: false,
+                  headerTransparent: true,
+                  headerTitle: ({}) => null,
+                  animationEnabled: true,
+                  gestureEnabled: true,
                 }}
               >
-                <Stack.Screen name="Landing" component={LandingScreen} />
-                <Stack.Screen
-                  name="Enrollment"
-                  component={EnrollmentNavigator}
-                />
+                {stack.map((s) => (
+                  <Stack.Screen
+                    {...s}
+                    options={({ navigation, route }) => ({
+                      headerBackTitleVisible: false,
+                      headerLeft: ({}) =>
+                        route.name === Routes.FORGOTTEN_PASSWORD ? (
+                          <Arrow
+                            onPress={() => navigation.goBack()}
+                            top={hp("2.5%")}
+                          />
+                        ) : null,
+                    })}
+                  />
+                ))}
               </Stack.Navigator>
             </>
           )}
