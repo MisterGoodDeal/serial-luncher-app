@@ -1,6 +1,6 @@
 import { applicationAPI, applicationSlice } from "./application/slice";
 import { enrollmentApi, enrollmentSlice } from "./enrollment/slice";
-import { groupsApi } from "./groups/slice";
+import { groupsApi, groupSlice } from "./groups/slice";
 import { placesApi } from "./places/slice";
 
 export const reducers = {
@@ -9,5 +9,6 @@ export const reducers = {
   [enrollmentApi.reducerPath]: enrollmentApi.reducer,
   [enrollmentSlice.name]: enrollmentSlice.reducer,
   [groupsApi.reducerPath]: groupsApi.reducer,
+  [groupSlice.name]: groupSlice.reducer,
   [placesApi.reducerPath]: placesApi.reducer,
 } as const;
