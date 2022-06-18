@@ -1,35 +1,37 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useColorScheme, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RegisterScreen } from "@screens/Register";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { hp, wp } from "@utils/functions";
-import { texts } from "@constants/TextsSizes";
-import { MenuBadge } from "@components/ui/Organisms/MenuBadge";
-import { Lang } from "@constants/Lang";
 import { useKeyboard } from "@hooks/useKeyboard";
 import { tabsApp } from "./Router";
 import { Routes } from "./Routes";
-import { CustomText } from "@components/ui/Atoms/CustomText";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 export const AppNavigator: React.FC<{}> = () => {
+  const isDark = useColorScheme() === "dark";
   const Tab = createBottomTabNavigator();
   const [keyboardStatus] = useKeyboard();
 
   return (
-    <>
+    <NavigationContainer>
       {/* @ts-ignore */}
       <Tab.Navigator
         initialRouteName={Routes.MAP}
         screenOptions={{
           tabBarHideOnKeyboard: true,
           headerShown: false,
-          tabBarLabelStyle: tabStyle.tabBarLabelStyle,
-          tabBarIconStyle: tabStyle.tabBarIconStyle,
-          tabBarStyle: tabStyle.tabBarStyle,
+          tabBarStyle: [
+            tabStyle.tabBarStyle,
+            {
+              backgroundColor: isDark
+                ? dark.navBar.background
+                : light.navBar.background,
+            },
+          ],
           tabBarShowLabel: false,
         }}
       >
@@ -40,7 +42,7 @@ export const AppNavigator: React.FC<{}> = () => {
             component={tab.component}
             options={{
               tabBarIcon: ({ focused }) => {
-                return tab.icon(focused, keyboardStatus);
+                return tab.icon(focused, keyboardStatus, isDark);
               },
               tabBarHideOnKeyboard: true,
               tabBarLabel: ({ focused }) => {
@@ -50,17 +52,11 @@ export const AppNavigator: React.FC<{}> = () => {
           />
         ))}
       </Tab.Navigator>
-    </>
+    </NavigationContainer>
   );
 };
 
 const tabStyle = StyleSheet.create({
-  tabBarLabelStyle: {
-    fontFamily: "Gibson",
-    fontSize: hp("1.5%"),
-    color: Colors.white,
-  },
-  tabBarIconStyle: {},
   tabBarStyle: {
     position: "absolute",
     bottom: 0,
@@ -71,7 +67,6 @@ const tabStyle = StyleSheet.create({
     border: "none",
     borderRadius: 15,
     marginBottom: hp("2%"),
-    backgroundColor: Colors.darkgrey,
     shadowColor: "#757575",
     shadowOffset: {
       width: 0,

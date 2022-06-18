@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
@@ -42,6 +42,7 @@ interface InputProps {
     | "newPassword"
     | "oneTimeCode";
   fontSize?: number;
+  isDark: boolean;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -53,6 +54,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   setValue,
   type,
   fontSize,
+  isDark,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -68,7 +70,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
             width={width ?? wp("80%")}
             height={height ?? hp("7%")}
             rx={height ? height / 4 : hp("7%") / 4}
-            fill="#fff"
+            fill={!isDark ? dark.navBar.background : light.navBar.background}
           />
         </G>
       </G>
@@ -83,13 +85,13 @@ export const Input: React.FunctionComponent<InputProps> = ({
         width: width ?? wp("80%"),
         height: height ?? hp("7%"),
         fontSize: fontSize ?? texts.input,
-        color: Colors.darkgrey,
+        color: isDark ? light.text : dark.text,
         fontFamily: "Gibson",
       }}
       textContentType={type}
       autoCapitalize={type === "emailAddress" ? "none" : undefined}
       placeholder={placeholder}
-      placeholderTextColor={Colors.grey}
+      placeholderTextColor={isDark ? Colors.grey : Colors.lightGrey}
       secureTextEntry={password}
       value={value}
       onChangeText={setValue}

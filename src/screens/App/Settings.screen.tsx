@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
-import { Colors } from "@themes/Colors";
+import { StyleSheet, useColorScheme } from "react-native";
+import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
 import { Link } from "@components/ui/Molecules/Link";
 import { hp, wp } from "@utils/functions";
@@ -14,12 +14,14 @@ import { disconnect } from "@store/application/slice";
 interface SettingsProps {}
 
 export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   const { userInfos } = useSelector(applicationState);
 
   return (
     <Container
-      color={Colors.background}
+      color={isDark ? dark.background : light.background}
       justifyContent={"center"}
       alignItems={"center"}
       style={{
@@ -30,7 +32,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
     >
       <CustomText
         size={texts.small}
-        color={Colors.black}
+        color={isDark ? dark.text : light.text}
         align={"left"}
         fontWeight={"200"}
       >
@@ -38,7 +40,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
       </CustomText>
       <Spacer space="10" />
       <Link
-        color="black"
+        color={isDark ? dark.text : light.text}
         size={hp("3%")}
         align={"center"}
         onPress={() => dispatch(disconnect())}

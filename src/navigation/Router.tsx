@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, useColorScheme, View } from "react-native";
 import { LandingScreen } from "@screens/LandingScreen";
 import { EnrollmentNavigator } from "@navigation/EnrollmentNavigator";
 import { LoginScreen } from "@screens/LoginScreen";
@@ -12,7 +12,7 @@ import { Map } from "@screens/App/Map.screen";
 import { Settings } from "@screens/App/Settings.screen";
 import { Routes } from "./Routes";
 import { hp } from "@utils/functions";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Spacer } from "@components/common/Spacer";
 
@@ -34,7 +34,11 @@ type AppTabs = {
   key: number;
   name: string;
   component: React.FC<any>;
-  icon: (focused: boolean, keyboardStatus: boolean) => JSX.Element;
+  icon: (
+    focused: boolean,
+    keyboardStatus: boolean,
+    isDark: boolean
+  ) => JSX.Element;
   label: (focused: boolean) => React.ReactNode;
 }[];
 
@@ -86,14 +90,20 @@ export const tabsApp: AppTabs = [
     key: 0,
     name: Routes.GROUP,
     component: Group,
-    icon: (focused: boolean, keyboardStatus: boolean) => (
+    icon: (focused: boolean, keyboardStatus: boolean, isDark: boolean) => (
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/images/group.png")}
           style={[
             styles.icon,
             {
-              tintColor: focused ? Colors.white : Colors.grey,
+              tintColor: focused
+                ? isDark
+                  ? dark.navBar.icons.active
+                  : light.navBar.icons.active
+                : isDark
+                ? dark.navBar.icons.inactive
+                : light.navBar.icons.inactive,
             },
           ]}
         />
@@ -116,14 +126,20 @@ export const tabsApp: AppTabs = [
     key: 1,
     name: Routes.MAP,
     component: Map,
-    icon: (focused: boolean, keyboardStatus: boolean) => (
+    icon: (focused: boolean, keyboardStatus: boolean, isDark: boolean) => (
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/images/map.png")}
           style={[
             styles.icon,
             {
-              tintColor: focused ? Colors.white : Colors.grey,
+              tintColor: focused
+                ? isDark
+                  ? dark.navBar.icons.active
+                  : light.navBar.icons.active
+                : isDark
+                ? dark.navBar.icons.inactive
+                : light.navBar.icons.inactive,
             },
           ]}
         />
@@ -146,14 +162,20 @@ export const tabsApp: AppTabs = [
     key: 2,
     name: Routes.SETTINGS,
     component: Settings,
-    icon: (focused: boolean, keyboardStatus: boolean) => (
+    icon: (focused: boolean, keyboardStatus: boolean, isDark: boolean) => (
       <View style={styles.imageContainer}>
         <Image
           source={require("../assets/images/settings.png")}
           style={[
             styles.icon,
             {
-              tintColor: focused ? Colors.white : Colors.grey,
+              tintColor: focused
+                ? isDark
+                  ? dark.navBar.icons.active
+                  : light.navBar.icons.active
+                : isDark
+                ? dark.navBar.icons.inactive
+                : light.navBar.icons.inactive,
             },
           ]}
         />

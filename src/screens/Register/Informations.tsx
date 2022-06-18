@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
@@ -37,6 +37,8 @@ interface InformationsForm {
 export const InformationsScreen: React.FunctionComponent<
   InformationsScreenProps
 > = ({ nextStep }) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   // Register infos
   const [modalPP, setModalPP] = React.useState(false);
@@ -154,8 +156,13 @@ export const InformationsScreen: React.FunctionComponent<
         animation={"slide"}
         margin={{ x: wp("10%"), y: hp("30%") }}
         onClose={() => setModalPP(false)}
+        color={isDark ? dark.navBar.background : light.navBar.background}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step1.profile_picture.title}
         </CustomText>
         <Spacer space="8%" />
@@ -183,7 +190,11 @@ export const InformationsScreen: React.FunctionComponent<
           width: wp(100),
         }}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step1.title}
         </CustomText>
         <Spacer space="5%" />
@@ -209,6 +220,7 @@ export const InformationsScreen: React.FunctionComponent<
           placeholder={Lang.enrollment.register.step1.firstname}
           type={"givenName"}
           height={hp("6%")}
+          isDark={isDark}
         />
         <Spacer space="2%" />
         <Input
@@ -217,6 +229,7 @@ export const InformationsScreen: React.FunctionComponent<
           placeholder={Lang.enrollment.register.step1.lastname}
           type={"familyName"}
           height={hp("6%")}
+          isDark={isDark}
         />
         <Spacer space="5%" />
         <Button

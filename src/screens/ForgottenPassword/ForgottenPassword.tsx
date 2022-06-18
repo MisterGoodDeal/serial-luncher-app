@@ -1,4 +1,10 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 import React from "react";
 import { useAppDispatch } from "@store/hooks";
 import { useFormik } from "formik";
@@ -11,7 +17,7 @@ import { initialState } from "@store/application/constants";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Container } from "@components/common/Container";
 import { CustomText } from "@components/ui/Atoms/CustomText";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { texts } from "@constants/TextsSizes";
 import { Input } from "@components/ui/Atoms/Input";
 import { Spacer } from "@components/common/Spacer";
@@ -19,6 +25,8 @@ import { Button } from "@components/ui/Atoms/Button";
 import { wp } from "@utils/functions";
 
 const ForgottenPassword: React.FC = () => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useAppDispatch();
   const [forgotPassword, server] = useForgottenPasswordMutation();
   // forgotPassword data
@@ -56,14 +64,18 @@ const ForgottenPassword: React.FC = () => {
 
   return (
     <KeyboardDismiss>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <Container
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
-        color={Colors.darkgrey}
+        color={isDark ? dark.background : light.background}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.login.forgotPassword}
         </CustomText>
         <Spacer space="8%" />
@@ -72,6 +84,7 @@ const ForgottenPassword: React.FC = () => {
           setValue={formik.handleChange("email")}
           placeholder={Lang.enrollment.login.email}
           type={"emailAddress"}
+          isDark={isDark}
         />
         <Spacer space="2%" />
         <Button color={Colors.blue} onPress={formik.handleSubmit}>
