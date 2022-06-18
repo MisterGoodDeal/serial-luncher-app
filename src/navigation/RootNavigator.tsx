@@ -7,8 +7,9 @@ import { EnrollmentNavigator } from "./EnrollmentNavigator";
 import { Loader } from "@components/ui/Molecules/Loader";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
-import { Map } from "@screens/App/Map";
+import { Map } from "@screens/App/Map.screen";
 import { initialState } from "@store/application/constants";
+import { AppNavigator } from "./AppNavigator";
 
 const Stack = createStackNavigator();
 
@@ -44,7 +45,7 @@ export const RootNavigator: React.FC<{}> = () => {
               </Stack.Navigator>
             </>
           )}
-          {userInfos.id !== -1 && <Map />}
+          {userInfos.id !== -1 && <AppNavigator />}
         </NavigationContainer>
       )}
     </>
