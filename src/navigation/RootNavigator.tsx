@@ -12,6 +12,7 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { Colors } from "@themes/Colors";
 import { hp } from "@utils/functions";
 import { initialState } from "@store/application/constants";
+import { AppNavigator } from "./AppNavigator";
 
 const Stack = createStackNavigator();
 
@@ -60,7 +61,7 @@ export const RootNavigator: React.FC<{}> = () => {
               </Stack.Navigator>
             </>
           )}
-          {userInfos.id !== -1 && <Map />}
+          {userInfos.id !== -1 && <AppNavigator />}
         </NavigationContainer>
       )}
     </>

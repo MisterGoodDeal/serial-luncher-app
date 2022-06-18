@@ -34,7 +34,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         align={"left"}
         fontWeight={"200"}
       >
-        {JSON.stringify(userInfos)}
+        Map
       </CustomText>
       <Spacer space="10" />
       <Link
