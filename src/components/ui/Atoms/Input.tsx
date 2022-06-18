@@ -11,7 +11,7 @@ interface InputProps {
   placeholder: string;
   password?: boolean;
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (value: string) => void;
   type:
     | "none"
     | "URL"
@@ -92,7 +92,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
       placeholderTextColor={Colors.grey}
       secureTextEntry={password}
       value={value}
-      onChangeText={(text) => setValue(text)}
+      onChangeText={setValue}
     />
   </>
 );
