@@ -339,6 +339,8 @@ PODS:
     - React-Core
   - RNGestureHandler (1.7.0):
     - React
+  - RNImageColors (1.5.1):
+    - React-Core
   - RNLocalize (2.2.2):
     - React-Core
   - RNReanimated (1.13.4):
@@ -397,6 +399,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageColors (from `../node_modules/react-native-image-colors`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -500,6 +503,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageColors:
+    :path: "../node_modules/react-native-image-colors"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
   RNReanimated:
@@ -560,6 +565,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: 0991c56da7815c0cf946d6f63cf920b25296e5f6
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
+  RNImageColors: fd9777591fc765780e035f4bec7a42edabc86eb4
   RNLocalize: 95a43f85e41a966be7bc9cff2437128911c52da0
   RNReanimated: c1b56d030d1616239861534d9adb531f8cffab68
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2

@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
     marginTop: hp("3.5%"),
     height: "100%",
     width: "100%",
-    backgroundColor: "blue",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -216,7 +215,6 @@ const styles = StyleSheet.create({
   bottomIndicator: {
     height: 5,
     width: "100%",
-    backgroundColor: Colors.blue,
     position: "absolute",
     bottom: -hp("2%"),
   },
