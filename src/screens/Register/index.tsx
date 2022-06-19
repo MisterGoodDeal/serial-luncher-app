@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar, FlatList } from "react-native";
+import { StatusBar, FlatList, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";
@@ -15,6 +15,8 @@ interface RegisterScreenProps {}
 export const RegisterScreen: React.FunctionComponent<
   RegisterScreenProps
 > = ({}) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
 
   const ref = React.useRef<FlatList>(null);
@@ -62,12 +64,12 @@ export const RegisterScreen: React.FunctionComponent<
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <Container
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
-        color={Colors.darkgrey}
+        color={isDark ? dark.background : light.background}
       >
         <FlatList
           ref={ref}

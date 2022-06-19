@@ -4,6 +4,8 @@ import { Action } from "redux";
 import { reducers } from "./reducers";
 import { applicationAPI } from "./application/slice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "reduxjs-toolkit-persist/lib/storage";
+
 import {
   FLUSH,
   PAUSE,
@@ -25,7 +27,6 @@ const combinedReducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["enrollmentApi", "enrollment"],
 };
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
@@ -38,7 +39,8 @@ export const store = configureStore({
     }).concat(
       applicationAPI.middleware,
       groupsApi.middleware,
-      placesApi.middleware
+      placesApi.middleware,
+      enrollmentApi.middleware
     ),
 });
 

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Container } from "../components/common/Container";
-import { Colors } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar } from "react-native";
-import { wp } from "@utils/functions";
+import { StatusBar, useColorScheme } from "react-native";
+import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
@@ -19,7 +19,7 @@ import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
 import Toast from "react-native-toast-message";
 import { errorHandler } from "@utils/errors/register";
-import Link from "@components/ui/Molecules/Link";
+import { Link } from "@components/ui/Molecules/Link";
 import { useFormik } from "formik";
 import { Routes } from "@navigation/Routes";
 
@@ -30,6 +30,8 @@ interface LoginForm {
 }
 
 export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
+  const isDark = useColorScheme() === "dark";
+
   const dispatch = useDispatch();
   const nav = useNavigation();
   const { userInfos, token } = useSelector(applicationState);
@@ -72,14 +74,18 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
 
   return (
     <KeyboardDismiss>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <Container
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
-        color={Colors.darkgrey}
+        color={isDark ? dark.background : light.background}
       >
-        <CustomText size={texts.title} fontWeight={"500"} color={Colors.white}>
+        <CustomText
+          size={texts.title}
+          fontWeight={"500"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.login.title}
         </CustomText>
         <Spacer space="8%" />
@@ -88,6 +94,7 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
           setValue={formik.handleChange("email")}
           placeholder={Lang.enrollment.login.email}
           type={"emailAddress"}
+          isDark={isDark}
         />
         <Spacer space="2%" />
         <Input
@@ -96,10 +103,8 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
           placeholder={Lang.enrollment.login.password}
           type={"password"}
           password
+          isDark={isDark}
         />
-        <Link onPress={() => nav.navigate(Routes.FORGOTTEN_PASSWORD)}>
-          {Lang.enrollment.login.forgotPassword}
-        </Link>
         <Spacer space="4%" />
         <Button
           color={Colors.blue}
@@ -108,6 +113,16 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
         >
           {Lang.enrollment.login.button}
         </Button>
+        <Spacer space="4%" />
+        <Link
+          /* @ts-ignore */
+          onPress={() => nav.navigate(Routes.FORGOTTEN_PASSWORD)}
+          size={hp("2%")}
+          fontWeight={"400"}
+          color={isDark ? dark.text : light.text}
+        >
+          {Lang.enrollment.login.forgotPassword}
+        </Link>
       </Container>
     </KeyboardDismiss>
   );
