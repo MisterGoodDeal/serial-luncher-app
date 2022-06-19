@@ -59,7 +59,6 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
   const handleFetchGroup = (code: string) => {
     getGroup({
       group_key: code,
-      token,
     });
   };
 

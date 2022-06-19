@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, isRejectedWithValue } from "@reduxjs/toolkit";
 import { ThunkAction } from "redux-thunk";
-import { Action } from "redux";
+import { Action, Middleware, MiddlewareAPI } from "redux";
 import { reducers } from "./reducers";
 import { applicationAPI } from "./application/slice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -29,6 +29,19 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
+/**
+ * Log a warning and show a toast!
+ */
+export const rtkQueryErrorLogger: Middleware =
+  (api: MiddlewareAPI) => (next) => (action) => {
+    // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
+    if (isRejectedWithValue(action)) {
+      console.warn("We got a rejected action!", action);
+    }
+
+    return next(action);
+  };
+
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
 
 export const store = configureStore({
@@ -37,6 +50,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }).concat(
+      rtkQueryErrorLogger,
       applicationAPI.middleware,
       groupsApi.middleware,
       placesApi.middleware,

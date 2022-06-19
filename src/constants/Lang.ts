@@ -94,6 +94,21 @@ const locales = {
       map: "Carte",
       settings: "Paramètres",
     },
+    group: {
+      error: {
+        oops: "Oups",
+        error_fetching:
+          "Une erreur est survenue lors de la récupération du groupe.",
+      },
+      hello: "Salut",
+      added_by: "Ajouté par",
+      reusable_package: "Emballage réutilisable",
+      last_places: "Derniers lieux",
+      users: "Utilisateurs",
+      actions: "Actions",
+      leave_group: "Quitter le groupe",
+      delete_group: "Supprimer le groupe",
+    },
   },
   en: {
     landing: {
@@ -182,6 +197,20 @@ const locales = {
       group: "Group",
       map: "Map",
       settings: "Settings",
+    },
+    group: {
+      error: {
+        oops: "Oops",
+        error_fetching: "An error occurred while fetching the group.",
+      },
+      hello: "Hello",
+      added_by: "Added by",
+      reusable_package: "Reusable package",
+      last_places: "Last places",
+      users: "Users",
+      actions: "Actions",
+      leave_group: "Leave group",
+      delete_group: "Delete group",
     },
   },
 };
