@@ -103,6 +103,11 @@ const locales = {
       hello: "Salut",
       added_by: "Ajouté par",
       reusable_package: "Emballage réutilisable",
+      last_places: "Derniers lieux",
+      users: "Utilisateurs",
+      actions: "Actions",
+      leave_group: "Quitter le groupe",
+      delete_group: "Supprimer le groupe",
     },
   },
   en: {
@@ -201,6 +206,11 @@ const locales = {
       hello: "Hello",
       added_by: "Added by",
       reusable_package: "Reusable package",
+      last_places: "Last places",
+      users: "Users",
+      actions: "Actions",
+      leave_group: "Leave group",
+      delete_group: "Delete group",
     },
   },
 };

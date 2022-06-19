@@ -29,6 +29,7 @@ import { Lang } from "@constants/Lang";
 import { GroupInfo } from "@store/model/groups";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { PlaceItem } from "@components/ui/Organisms/PlacesItem";
+import { UserItem } from "@components/ui/Organisms/UserItem";
 
 interface GroupProps {}
 
@@ -142,6 +143,8 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
           zIndex: 2,
           backgroundColor: isDark ? dark.background : light.background,
         }}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
         <Spacer space={"2%"} />
         <CustomText
@@ -170,6 +173,15 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             paddingBottom: hp("3%"),
           }}
         >
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            fontWeight={"600"}
+            align={"center"}
+          >
+            {Lang.group.last_places}
+          </CustomText>
+          <Spacer space={"2%"} />
           {infos?.last_places.map((p, index: number) => (
             <PlaceItem
               key={index}
@@ -179,6 +191,69 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             />
           ))}
         </Container>
+        <Spacer space={"5%"} />
+        <Container
+          color={isDark ? dark.navBar.background : light.navBar.background}
+          style={{
+            shadowColor: isDark ? Colors.black : Colors.grey,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            elevation: 3,
+            borderRadius: 20,
+            paddingBottom: hp("3%"),
+          }}
+        >
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            fontWeight={"600"}
+            align={"center"}
+          >
+            {Lang.group.users}
+          </CustomText>
+          <Spacer space={"2%"} />
+          {infos?.users.map((u, index: number) => (
+            <UserItem user={u} isDark={isDark} key={index} />
+          ))}
+        </Container>
+        <Spacer space={"5%"} />
+        <Container
+          color={isDark ? dark.navBar.background : light.navBar.background}
+          style={{
+            shadowColor: isDark ? Colors.black : Colors.grey,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            elevation: 3,
+            borderRadius: 20,
+            paddingBottom: hp("3%"),
+          }}
+        >
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            fontWeight={"600"}
+            align={"center"}
+          >
+            {Lang.group.actions}
+          </CustomText>
+          <Spacer space={"2%"} />
+          <Button color={Colors.main}>{Lang.group.leave_group}</Button>
+          {infos?.group.creator.id === userInfos.id && (
+            <>
+              <Spacer space={"1%"} />
+              <Button color={Colors.red}>{Lang.group.delete_group}</Button>
+            </>
+          )}
+        </Container>
+        <Spacer space={"15%"} />
       </ScrollView>
     </Container>
   );
