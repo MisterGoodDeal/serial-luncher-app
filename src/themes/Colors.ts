@@ -32,7 +32,7 @@ export const dark = {
     },
   },
   input: {
-    background: Colors.darkgrey,
+    background: Colors.grey,
     placeholder: Colors.white,
     text: Colors.white,
   },

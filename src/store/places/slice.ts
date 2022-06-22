@@ -20,14 +20,11 @@ export const placesApi = createApi({
     /**
      * Place endpoints
      */
-    getPlaces: builder.query<Place[] | GenericApiReponse, GetPlaces & Token>({
-      query: ({ group_key }) => ({
-        url: `${endpoint.places.get}/${group_key}`,
+    getPlaces: builder.query<Place[] | GenericApiReponse, {}>({
+      query: () => ({
+        url: `${endpoint.places.get}`,
         method: "GET",
       }),
-      providesTags: (_result, _error, { group_key }) => [
-        { type: "Places", id: group_key },
-      ],
     }),
     addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace & Token>({
       query: ({ token, ...place }) => ({

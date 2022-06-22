@@ -1,4 +1,6 @@
-export type Places = {};
+export type Places = {
+  places: Place[];
+};
 
 export interface Place {
   id: number;

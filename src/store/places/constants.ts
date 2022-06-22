@@ -1,12 +1,14 @@
 import { Places } from "@store/model/places";
 
-export const initialState: Places = {};
+export const initialState: Places = {
+  places: [],
+};
 
 export const reducerPath = "placesApi";
 
 export const endpoint = {
   places: {
-    get: "place",
+    get: "places/all",
     create: "place/create",
     delete: "place",
   },
