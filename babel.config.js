@@ -23,6 +23,6 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ["babel-preset-expo"],
-    plugins: [MODULE_RESOLVER],
+    plugins: [MODULE_RESOLVER, "react-native-reanimated/plugin"],
   };
 };

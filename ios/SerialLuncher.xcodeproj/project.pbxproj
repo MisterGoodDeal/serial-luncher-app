@@ -12,13 +12,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		39F217D17F2F4DDF96AC7167 /* Gibson-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E18E38F7052C4844B4C45DCF /* Gibson-SemiBold.otf */; };
-		41DD07F8F2D2E3E5D10BD2C6 /* libPods-SerialLuncher-SerialLuncherTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B8F03B0798E7166833209 /* libPods-SerialLuncher-SerialLuncherTests.a */; };
 		7BABC6C5285BC5CB0043CD4C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		7BABC6C7285BC5D30043CD4C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BABC6C6285BC5D30043CD4C /* JavaScriptCore.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8F8CD853434B48729E861D94 /* Gibson-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C423C8CD68CD4D7991C675C9 /* Gibson-Light.otf */; };
-		AA0ECCC225A7C18E7C6D98DD /* Pods_SerialLuncher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA21AAB78A68FFDE90579988 /* Pods_SerialLuncher.framework */; };
-		C42AA0C2727E3258CB8DD239 /* Pods_SerialLuncher_SerialLuncherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DC7C4C70F256E574531B8 /* Pods_SerialLuncher_SerialLuncherTests.framework */; };
+		C7C7C05CA9EFFEA59A2F3770 /* libPods-SerialLuncher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CF11E944A28E2EA65F44AD /* libPods-SerialLuncher.a */; };
+		E7D376A6ED9434F51C8D8244 /* libPods-SerialLuncher-SerialLuncherTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B834A1D5F7A4411065728D /* libPods-SerialLuncher-SerialLuncherTests.a */; };
 		FAFE4F809ED44D99B395676B /* Gibson-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 87DE329D907A49D59F5E6432 /* Gibson-Regular.otf */; };
 		FB91FB4C846D422EBE923156 /* Gibson-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D3F428D7C4847AC15E248 /* Gibson-Bold.otf */; };
 /* End PBXBuildFile section */
@@ -43,20 +42,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SerialLuncher/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SerialLuncher/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SerialLuncher/main.m; sourceTree = "<group>"; };
-		3C7E5451DE4C9E7065848ADB /* Pods-SerialLuncher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.release.xcconfig"; sourceTree = "<group>"; };
 		3D4D3F428D7C4847AC15E248 /* Gibson-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Bold.otf"; path = "../src/assets/fonts/Gibson-Bold.otf"; sourceTree = "<group>"; };
-		4C4DC7C4C70F256E574531B8 /* Pods_SerialLuncher_SerialLuncherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SerialLuncher_SerialLuncherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AAE46EF5A7B08A00A5AB082 /* Pods-SerialLuncher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.debug.xcconfig"; sourceTree = "<group>"; };
+		41243D5CD69C00992DFBF1A4 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7A68C63E787D0B42F8E90CF5 /* Pods-SerialLuncher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.release.xcconfig"; sourceTree = "<group>"; };
 		7BABC6C6285BC5D30043CD4C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/System/iOSSupport/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		80963186FBF2A5EE3020F2DF /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SerialLuncher/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87DE329D907A49D59F5E6432 /* Gibson-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Regular.otf"; path = "../src/assets/fonts/Gibson-Regular.otf"; sourceTree = "<group>"; };
+		A8D2C1A59E32035C933CBF81 /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; sourceTree = "<group>"; };
 		C423C8CD68CD4D7991C675C9 /* Gibson-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-Light.otf"; path = "../src/assets/fonts/Gibson-Light.otf"; sourceTree = "<group>"; };
-		CA21AAB78A68FFDE90579988 /* Pods_SerialLuncher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SerialLuncher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4CAA81EB0341F43D89AA3D1 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4CF11E944A28E2EA65F44AD /* libPods-SerialLuncher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerialLuncher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B834A1D5F7A4411065728D /* libPods-SerialLuncher-SerialLuncherTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerialLuncher-SerialLuncherTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D800C3F2504BD6AA42945CAA /* Pods-SerialLuncher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher.debug.xcconfig"; path = "Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher.debug.xcconfig"; sourceTree = "<group>"; };
 		E18E38F7052C4844B4C45DCF /* Gibson-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gibson-SemiBold.otf"; path = "../src/assets/fonts/Gibson-SemiBold.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EEFEDD3EB2CEF90973257BCE /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; path = "Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BABC6C7285BC5D30043CD4C /* JavaScriptCore.framework in Frameworks */,
-				C42AA0C2727E3258CB8DD239 /* Pods_SerialLuncher_SerialLuncherTests.framework in Frameworks */,
+				E7D376A6ED9434F51C8D8244 /* libPods-SerialLuncher-SerialLuncherTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BABC6C5285BC5CB0043CD4C /* JavaScriptCore.framework in Frameworks */,
-				AA0ECCC225A7C18E7C6D98DD /* Pods_SerialLuncher.framework in Frameworks */,
+				C7C7C05CA9EFFEA59A2F3770 /* libPods-SerialLuncher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +125,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				7BABC6C6285BC5D30043CD4C /* JavaScriptCore.framework */,
-				CA21AAB78A68FFDE90579988 /* Pods_SerialLuncher.framework */,
-				4C4DC7C4C70F256E574531B8 /* Pods_SerialLuncher_SerialLuncherTests.framework */,
+				C4CF11E944A28E2EA65F44AD /* libPods-SerialLuncher.a */,
+				D3B834A1D5F7A4411065728D /* libPods-SerialLuncher-SerialLuncherTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,10 +166,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5AAE46EF5A7B08A00A5AB082 /* Pods-SerialLuncher.debug.xcconfig */,
-				3C7E5451DE4C9E7065848ADB /* Pods-SerialLuncher.release.xcconfig */,
-				D4CAA81EB0341F43D89AA3D1 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */,
-				EEFEDD3EB2CEF90973257BCE /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */,
+				D800C3F2504BD6AA42945CAA /* Pods-SerialLuncher.debug.xcconfig */,
+				7A68C63E787D0B42F8E90CF5 /* Pods-SerialLuncher.release.xcconfig */,
+				41243D5CD69C00992DFBF1A4 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */,
+				A8D2C1A59E32035C933CBF81 /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -183,11 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SerialLuncherTests" */;
 			buildPhases = (
-				4D1E6A0CC30347E60E295A9A /* [CP] Check Pods Manifest.lock */,
+				21B06E83CEBD73F593DC22F4 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				F0880114DB631C6127DD09A0 /* [CP] Embed Pods Frameworks */,
+				6EB455F31D3550A145894479 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,13 +201,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SerialLuncher" */;
 			buildPhases = (
-				06C13F9E508FC37E94D1C73E /* [CP] Check Pods Manifest.lock */,
+				612BD5B6FA1BFC5F208F8FA4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				9187686947015EBA44FB377B /* [CP] Embed Pods Frameworks */,
+				572050933D5AE91DBC7490C2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,7 +292,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		06C13F9E508FC37E94D1C73E /* [CP] Check Pods Manifest.lock */ = {
+		21B06E83CEBD73F593DC22F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -316,7 +314,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4D1E6A0CC30347E60E295A9A /* [CP] Check Pods Manifest.lock */ = {
+		572050933D5AE91DBC7490C2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		612BD5B6FA1BFC5F208F8FA4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,38 +353,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9187686947015EBA44FB377B /* [CP] Embed Pods Frameworks */ = {
+		6EB455F31D3550A145894479 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher/Pods-SerialLuncher-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0880114DB631C6127DD09A0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SerialLuncher-SerialLuncherTests/Pods-SerialLuncher-SerialLuncherTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -424,7 +422,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4CAA81EB0341F43D89AA3D1 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */;
+			baseConfigurationReference = 41243D5CD69C00992DFBF1A4 /* Pods-SerialLuncher-SerialLuncherTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -451,7 +449,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEFEDD3EB2CEF90973257BCE /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */;
+			baseConfigurationReference = A8D2C1A59E32035C933CBF81 /* Pods-SerialLuncher-SerialLuncherTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -475,7 +473,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AAE46EF5A7B08A00A5AB082 /* Pods-SerialLuncher.debug.xcconfig */;
+			baseConfigurationReference = D800C3F2504BD6AA42945CAA /* Pods-SerialLuncher.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -498,7 +496,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.com;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -509,7 +507,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C7E5451DE4C9E7065848ADB /* Pods-SerialLuncher.release.xcconfig */;
+			baseConfigurationReference = 7A68C63E787D0B42F8E90CF5 /* Pods-SerialLuncher.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -531,7 +529,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.com;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
