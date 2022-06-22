@@ -191,7 +191,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               imageSize={hp("4%")}
               onFinishRating={() => null}
               readonly
-              startingValue={place?.rating}
+              startingValue={place?.price_range}
               tintColor={isDark ? dark.background : light.background}
               ratingColor={Colors.green}
             />
