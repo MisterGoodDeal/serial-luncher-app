@@ -109,6 +109,16 @@ const locales = {
       leave_group: "Quitter le groupe",
       delete_group: "Supprimer le groupe",
     },
+    map: {
+      rating: "Note",
+      price_range: "Gamme de prix",
+      open_link: "Ouvrir le lien",
+      error: {
+        oops: "Oops",
+        error_location:
+          "Une erreur est survenue lors de la récupération de votre position.",
+      },
+    },
   },
   en: {
     landing: {
@@ -211,6 +221,15 @@ const locales = {
       actions: "Actions",
       leave_group: "Leave group",
       delete_group: "Delete group",
+    },
+    map: {
+      rating: "Rating",
+      price_range: "Price range",
+      open_link: "Open link",
+      error: {
+        oops: "Oops",
+        error_location: "An error occurred while fetching your location.",
+      },
     },
   },
 };
