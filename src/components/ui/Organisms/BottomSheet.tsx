@@ -213,6 +213,26 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               ratingColor={Colors.green}
             />
           </Container>
+          <Container
+            direction={"row"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <CustomText
+              size={texts.paragraph}
+              fontWeight={"600"}
+              color={isDark ? dark.text : light.text}
+            >
+              {Lang.map.reusable_package}
+            </CustomText>
+            <CustomText
+              size={texts.paragraph}
+              fontWeight={"600"}
+              color={isDark ? dark.text : light.text}
+            >
+              {place?.can_bring_reusable_content ? "✅" : "❌"}
+            </CustomText>
+          </Container>
           <Spacer space={"2%"} />
           <Container
             color={isDark ? dark.navBar.background : light.navBar.background}

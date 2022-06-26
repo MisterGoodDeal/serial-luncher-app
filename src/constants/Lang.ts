@@ -112,6 +112,7 @@ const locales = {
     map: {
       rating: "Note",
       price_range: "Gamme de prix",
+      reusable_package: "Rapporter son emballage réutilisable ?",
       comments: "Commentaires",
       no_comment: "Aucun commentaire... Soyez le premier !",
       your_comment: "Commentaire... (max. 160 caractères)",
@@ -122,6 +123,8 @@ const locales = {
         error_location:
           "Une erreur est survenue lors de la récupération de votre position.",
         comment_empty: "Veuillez saisir un commentaire.",
+        error_comment:
+          "Une erreur est survenue lors de l'ajout du commentaire.",
       },
       success: {
         comment_added: "Votre commentaire a été ajouté avec succès !",
@@ -233,6 +236,7 @@ const locales = {
     map: {
       rating: "Rating",
       price_range: "Price range",
+      reusable_package: "Bring your reusable package?",
       comments: "Comments",
       no_comment: "No comment... Be the first !",
       your_comment: "Comment... (max. 160 chars.)",
@@ -242,6 +246,7 @@ const locales = {
         oops: "Oops",
         error_location: "An error occurred while fetching your location.",
         comment_empty: "Please enter a non-empty comment.",
+        error_comment: "An error occurred while adding the comment.",
       },
       success: {
         comment_added: "Your comment has been added successfully !",
