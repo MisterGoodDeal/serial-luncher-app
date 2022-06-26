@@ -16,6 +16,17 @@ export interface Place {
   fk_lunch_group: number;
 }
 
+export interface StuffedPlace extends Place {
+  comments: {
+    id: number;
+    comment: string;
+    created_at: string;
+    firstname: string;
+    lastname: string;
+    profile_picture: string;
+  }[];
+}
+
 export interface CreatePlace {
   group_key: string;
   country_speciality: number;

@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-map-clustering";
 import { Callout, Marker } from "react-native-maps";
 import { useColorScheme, Text } from "react-native";
-import { useGetPlacesQuery } from "@store/places/slice";
-import { Place } from "@store/model/places";
+import { useAddCommentMutation, useGetPlacesQuery } from "@store/places/slice";
+import { Place, StuffedPlace } from "@store/model/places";
 import { setLoading } from "@store/application/slice";
 import { Lang } from "@constants/Lang";
 import Toast from "react-native-toast-message";
@@ -30,10 +30,48 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
   const mapRef = React.useRef();
 
-  const [places, setPlaces] = React.useState<Place[]>();
-  const [selectedPlace, setSelectedPlace] = React.useState<Place>();
+  const [places, setPlaces] = React.useState<StuffedPlace[]>();
+  const [selectedPlace, setSelectedPlace] = React.useState<StuffedPlace>();
   const [selectedPlaceId, setSelectedPlaceId] = React.useState<number>(-1);
   const [showBottomSheet, setShowBottomSheet] = React.useState(false);
+  const [comment, setComment] = React.useState("");
+  const [addComment, commentResult] = useAddCommentMutation();
+
+  const handleAddComment = () => {
+    if (comment.length > 0) {
+      dispatch(setLoading(true));
+      addComment({
+        comment: comment,
+        id: selectedPlaceId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: Lang.map.error.oops,
+        text2: Lang.map.error.comment_empty,
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (commentResult.status === "fulfilled") {
+      Toast.show({
+        type: "success",
+        text1: `💬 ${Lang.map.comments}`,
+        text2: Lang.map.success.comment_added,
+      });
+      setComment("");
+      dispatch(setLoading(false));
+      refetch();
+    } else if (commentResult.status === "rejected") {
+      Toast.show({
+        type: "error",
+        text1: Lang.map.error.oops,
+        text2: Lang.map.error.error_comment,
+      });
+      dispatch(setLoading(false));
+    }
+  }, [commentResult]);
 
   React.useEffect(() => {
     if (isFetching) {
@@ -47,9 +85,8 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
           text2: Lang.group.error.error_fetching,
         });
       } else {
-        const data = currentData as Place[];
+        const data = currentData as StuffedPlace[];
         setPlaces(data);
-        console.log("places =>", places);
       }
       dispatch(setLoading(false));
     }
@@ -117,6 +154,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         showsMyLocationButton={false}
         showsScale={false}
         showsUserLocation={true}
+        showsCompass={false}
         cacheEnabled={false}
         clusterColor={Colors.main}
         clusterFontFamily={"Gibson"}
@@ -182,6 +220,9 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         }}
         place={selectedPlace!}
         isDark={isDark}
+        comment={comment}
+        setComment={setComment}
+        submitComment={handleAddComment}
       />
     </Container>
   );

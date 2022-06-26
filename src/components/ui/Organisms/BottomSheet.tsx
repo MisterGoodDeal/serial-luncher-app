@@ -15,7 +15,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { Place } from "@store/model/places";
+import { Place, StuffedPlace } from "@store/model/places";
 import { Container } from "@components/common/Container";
 import { CustomText } from "../Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
@@ -23,14 +23,20 @@ import { Spacer } from "@components/common/Spacer";
 import { Link } from "../Molecules/Link";
 import { Lang } from "@constants/Lang";
 import { Rating } from "react-native-ratings";
+import { PlaceComment } from "./PlaceComment";
+import { Input } from "../Atoms/Input";
+import { Button } from "../Atoms/Button";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 interface BottomSheetProps {
   showDrawer: boolean;
   setShowDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-  place: Place;
+  place: StuffedPlace;
   isDark: boolean;
+  comment: string;
+  setComment: React.Dispatch<React.SetStateAction<string>>;
+  submitComment: () => void;
 }
 
 export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
@@ -38,9 +44,12 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   setShowDrawer,
   place,
   isDark,
+  comment,
+  setComment,
+  submitComment,
 }) => {
-  const MAX_HEIGHT = SCREEN_HEIGHT * 0.6;
-  const THRESHOLD = SCREEN_HEIGHT * 0.59;
+  const MAX_HEIGHT = SCREEN_HEIGHT * 0.8;
+  const THRESHOLD = SCREEN_HEIGHT * 0.79;
   const translateY = useSharedValue(0);
   const showDrawerShared = useSharedValue(showDrawer);
   const context = useSharedValue({ y: 0 });
@@ -80,7 +89,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
       <Animated.View
         style={[
           {
-            height: SCREEN_HEIGHT * 0.6,
+            height: SCREEN_HEIGHT * 0.8,
             width: "100%",
             position: "absolute",
             top: SCREEN_HEIGHT,
@@ -102,6 +111,8 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           style={{
             width: "100%",
           }}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
         >
           {/** CONTENT OF THE BOTTOM SHEET */}
           <Container
@@ -169,6 +180,9 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               readonly
               startingValue={place?.rating}
               tintColor={isDark ? dark.background : light.background}
+              ratingBackgroundColor={
+                isDark ? dark.input.background : light.input.background
+              }
             />
           </Container>
           <Container
@@ -193,8 +207,103 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               readonly
               startingValue={place?.price_range}
               tintColor={isDark ? dark.background : light.background}
+              ratingBackgroundColor={
+                isDark ? dark.input.background : light.input.background
+              }
               ratingColor={Colors.green}
             />
+          </Container>
+          <Spacer space={"2%"} />
+          <Container
+            color={isDark ? dark.navBar.background : light.navBar.background}
+            disablePaddingFix
+            style={{
+              shadowColor: isDark ? Colors.black : Colors.grey,
+              shadowOffset: {
+                width: 0,
+                height: 0,
+              },
+              shadowOpacity: 0.1,
+              shadowRadius: 5,
+              elevation: 1.5,
+              borderRadius: 15,
+            }}
+          >
+            <Spacer space={"2%"} />
+            <CustomText
+              size={texts.paragraph}
+              fontWeight={"600"}
+              color={isDark ? dark.text : light.text}
+              align={"center"}
+            >
+              {Lang.map.comments}
+            </CustomText>
+            <Spacer space={"2%"} />
+            {place?.comments.length !== 0 && (
+              <ScrollView
+                style={{
+                  height: hp("25%"),
+                  marginHorizontal: wp("5%"),
+                }}
+                nestedScrollEnabled={true}
+                showsVerticalScrollIndicator={false}
+              >
+                {place?.comments.map((comment, index) => (
+                  <PlaceComment
+                    key={index}
+                    comment={comment}
+                    isOdd={index % 2 === 0}
+                    isDark={isDark}
+                  />
+                ))}
+              </ScrollView>
+            )}
+            {place?.comments.length === 0 && (
+              <CustomText
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+              >
+                {Lang.map.no_comment}
+              </CustomText>
+            )}
+            <Spacer space={"2%"} />
+            <Container
+              style={{
+                marginHorizontal: wp("2%"),
+              }}
+              disablePaddingFix
+            >
+              <Input
+                placeholder={Lang.map.your_comment}
+                value={comment}
+                setValue={setComment}
+                type={"none"}
+                color={isDark ? dark.background : light.input.background}
+                isDark={isDark}
+                width={wp("70%")}
+                height={hp("5%")}
+                maxLength={160}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                }}
+              >
+                <Button
+                  color={Colors.lightblue}
+                  width={wp("14%")}
+                  height={hp("5%")}
+                  onPress={submitComment}
+                >
+                  📤
+                </Button>
+              </View>
+            </Container>
+            <Spacer space={"2%"} />
           </Container>
           {place?.url !== null && (
             <>
@@ -213,6 +322,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               </Link>
             </>
           )}
+          <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>
     </GestureDetector>
