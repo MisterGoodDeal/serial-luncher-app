@@ -112,11 +112,19 @@ const locales = {
     map: {
       rating: "Note",
       price_range: "Gamme de prix",
+      comments: "Commentaires",
+      no_comment: "Aucun commentaire... Soyez le premier !",
+      your_comment: "Commentaire... (max. 160 caractères)",
+      added_by: "Ajouté par",
       open_link: "Ouvrir le lien",
       error: {
         oops: "Oops",
         error_location:
           "Une erreur est survenue lors de la récupération de votre position.",
+        comment_empty: "Veuillez saisir un commentaire.",
+      },
+      success: {
+        comment_added: "Votre commentaire a été ajouté avec succès !",
       },
     },
   },
@@ -225,10 +233,18 @@ const locales = {
     map: {
       rating: "Rating",
       price_range: "Price range",
+      comments: "Comments",
+      no_comment: "No comment... Be the first !",
+      your_comment: "Comment... (max. 160 chars.)",
+      added_by: "Added by",
       open_link: "Open link",
       error: {
         oops: "Oops",
         error_location: "An error occurred while fetching your location.",
+        comment_empty: "Please enter a non-empty comment.",
+      },
+      success: {
+        comment_added: "Your comment has been added successfully !",
       },
     },
   },
