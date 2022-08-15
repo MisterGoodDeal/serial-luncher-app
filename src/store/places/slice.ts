@@ -27,8 +27,8 @@ export const placesApi = createApi({
         method: "GET",
       }),
     }),
-    addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace & Token>({
-      query: ({ token, ...place }) => ({
+    addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace>({
+      query: ({ ...place }) => ({
         url: `${endpoint.places.create}`,
         method: "POST",
         body: place,

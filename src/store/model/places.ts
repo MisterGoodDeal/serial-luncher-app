@@ -28,7 +28,6 @@ export interface StuffedPlace extends Place {
 }
 
 export interface CreatePlace {
-  group_key: string;
   country_speciality: number;
   lat: number;
   lng: number;
