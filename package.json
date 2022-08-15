@@ -2,8 +2,8 @@
   "scripts": {
     "start": "react-native start",
     "android": "npx react-native run-android",
-    "link-pods": "cd ios && pod install && cd ..",
-    "reset-pods": "cd ios && pod deintegrate && cd .. && yarn link-pods",
+    "pods": "cd ios && pod install && cd ..",
+    "pods:reset": "cd ios && pod deintegrate && cd .. && yarn link-pods",
     "ios": "react-native run-ios",
     "real-ios": "react-native run-ios --device='iPhone de Milan'",
     "both": "npm run real-ios && npm run android",
@@ -14,9 +14,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.2.2",
     "@react-native-async-storage/async-storage": "^1.17.6",
     "@react-native-community/art": "^1.2.0",
     "@react-native-community/blur": "^3.6.0",
+    "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/geolocation": "^2.1.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^6.0.2",

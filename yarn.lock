@@ -1462,6 +1462,11 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@invertase/react-native-apple-authentication@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-2.2.2.tgz#1d3b6d22ba1fab8ef8a285396acdbf0778ab071b"
+  integrity sha512-uNZcUn9WbAQP5zSOFXI1+kEUokLwZG9imUulFdt5t22CU2ozGq6zyPm+BAVVg8D5eUUXduX/dJFhbuOpJxiEhQ==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -2137,6 +2142,11 @@
   integrity sha512-GtDBhpX2pQcjl4VopOC8FktrVufrEfYRwVeMQ2WWckqKIv2BdwvlvWvj88L1WmEdBr9UNcm3rtgz+d+YXkmirA==
   dependencies:
     prop-types "^15.5.10"
+
+"@react-native-community/checkbox@^0.5.12":
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.12.tgz#1f55a38bbcd5f10ca853db0c6a9f1c4beccc37af"
+  integrity sha512-Dd3eiAW7AkpRgndwKGdgQ6nNgEmZlVD8+KAOBqwjuZQ/M67BThXJ9Ni+ydpPjNm4e28KXmIILfkvhcDt0ZoFTQ==
 
 "@react-native-community/cli-debugger-ui@^7.0.3":
   version "7.0.3"
