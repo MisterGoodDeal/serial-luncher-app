@@ -325,23 +325,24 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             </Container>
             <Spacer space={"2%"} />
           </Container>
-          {place?.url !== null && (
-            <>
-              <Spacer space={"4%"} />
-              <Link
-                onPress={() => Linking.openURL(place.url!)}
-                size={texts.small}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-                align={"center"}
-                style={{
-                  width: "100%",
-                }}
-              >
-                {Lang.map.open_link}
-              </Link>
-            </>
-          )}
+          {place?.url !== null ||
+            (place.url !== "" && (
+              <>
+                <Spacer space={"4%"} />
+                <Link
+                  onPress={() => Linking.openURL(place.url!)}
+                  size={texts.small}
+                  fontWeight={"400"}
+                  color={isDark ? dark.text : light.text}
+                  align={"center"}
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  {Lang.map.open_link}
+                </Link>
+              </>
+            ))}
           <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>
