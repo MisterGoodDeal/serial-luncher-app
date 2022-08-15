@@ -20,6 +20,7 @@ interface ContainerProps {
   left?: number;
   right?: number;
   style?: ViewStyle;
+  disablePaddingFix?: boolean;
 }
 
 export const Container: React.FunctionComponent<ContainerProps> = ({
@@ -32,6 +33,7 @@ export const Container: React.FunctionComponent<ContainerProps> = ({
   left,
   right,
   style,
+  disablePaddingFix,
 }) => (
   <View
     style={[
@@ -44,7 +46,12 @@ export const Container: React.FunctionComponent<ContainerProps> = ({
       { flexDirection: direction ? direction : undefined },
       { paddingLeft: left ? left : 0 },
       { paddingRight: right ? right : 0 },
-      { paddingTop: Platform.OS === "ios" ? heightPercentageToDP("3%") : 0 },
+      {
+        paddingTop:
+          !disablePaddingFix && Platform.OS === "ios"
+            ? heightPercentageToDP("3%")
+            : 0,
+      },
       style,
     ]}
   >

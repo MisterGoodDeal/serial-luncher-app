@@ -35,3 +35,9 @@ export const getOverlayTextColors = async (uri: string) => {
 export const getRandomStringInArray = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
+
+export const getMarkerAsset = (isSelected: boolean) => {
+  return isSelected
+    ? require("@images/pin-selected/pin.png")
+    : require("@images/pin-normal/pin.png");
+};

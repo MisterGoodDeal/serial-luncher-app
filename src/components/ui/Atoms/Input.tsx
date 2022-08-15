@@ -12,6 +12,7 @@ interface InputProps {
   password?: boolean;
   value: string;
   setValue: (value: string) => void;
+  color?: string;
   type:
     | "none"
     | "URL"
@@ -43,6 +44,7 @@ interface InputProps {
     | "oneTimeCode";
   fontSize?: number;
   isDark: boolean;
+  maxLength?: number;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -55,6 +57,8 @@ export const Input: React.FunctionComponent<InputProps> = ({
   type,
   fontSize,
   isDark,
+  color,
+  maxLength,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -70,7 +74,13 @@ export const Input: React.FunctionComponent<InputProps> = ({
             width={width ?? wp("80%")}
             height={height ?? hp("7%")}
             rx={height ? height / 4 : hp("7%") / 4}
-            fill={isDark ? dark.input.background : light.input.background}
+            fill={
+              color
+                ? color
+                : isDark
+                ? dark.input.background
+                : light.input.background
+            }
           />
         </G>
       </G>
@@ -88,6 +98,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         color: isDark ? dark.input.text : light.input.text,
         fontFamily: "Gibson",
       }}
+      maxLength={maxLength}
       textContentType={type}
       autoCapitalize={type === "emailAddress" ? "none" : undefined}
       placeholder={placeholder}

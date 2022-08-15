@@ -10,7 +10,8 @@ export const Colors = {
   pink: "#FF4F9A",
   purple: "#C840E9",
   cyan: "#78849E",
-  lightGrey: "#dedede",
+  lightGrey: "#f2f2f2",
+  lightGreyAlt: "#F5F5F5",
   placeholder: "#9b9b9b",
   grey: "#454F63",
   darkgrey: "#2A2E43",
@@ -32,7 +33,7 @@ export const dark = {
     },
   },
   input: {
-    background: Colors.darkgrey,
+    background: Colors.grey,
     placeholder: Colors.white,
     text: Colors.white,
   },
