@@ -16,6 +16,7 @@ export const initialState: Application = {
   },
   token: "",
   loading: false,
+  hasGroup: false,
 };
 
 export const reducerPath = "applicationApi";

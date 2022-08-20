@@ -2,7 +2,7 @@ import { configureStore, isRejectedWithValue } from "@reduxjs/toolkit";
 import { ThunkAction } from "redux-thunk";
 import { Action, Middleware, MiddlewareAPI } from "redux";
 import { reducers } from "./reducers";
-import { applicationAPI } from "./application/slice";
+import { applicationAPI, setHasGroup } from "./application/slice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import storage from "reduxjs-toolkit-persist/lib/storage";
 
@@ -19,6 +19,7 @@ import { combineReducers } from "redux";
 import { enrollmentApi } from "./enrollment/slice";
 import { groupsApi } from "./groups/slice";
 import { placesApi } from "./places/slice";
+import { applicationState } from "./application/selector";
 
 const combinedReducers = combineReducers({
   ...reducers,
@@ -32,11 +33,23 @@ const persistConfig = {
 /**
  * Log a warning and show a toast!
  */
-export const rtkQueryErrorLogger: Middleware =
+export const rtkQueryErrorMiddleware: Middleware =
   (api: MiddlewareAPI) => (next) => (action) => {
+    const appState = api.getState() as AppState;
+    const app = applicationState(appState);
     // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
     if (isRejectedWithValue(action)) {
-      console.warn("We got a rejected action!", action);
+      if (
+        action.type.includes("groupsApi/executeQuery") &&
+        action.payload.data.title === "group_not_found"
+      ) {
+        api.dispatch(setHasGroup(false));
+        console.warn(
+          "No group associated, user should pick one or create one."
+        );
+      } else {
+        console.warn("We got a rejected action!", action);
+      }
     }
 
     return next(action);
@@ -50,7 +63,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }).concat(
-      rtkQueryErrorLogger,
+      rtkQueryErrorMiddleware,
       applicationAPI.middleware,
       groupsApi.middleware,
       placesApi.middleware,

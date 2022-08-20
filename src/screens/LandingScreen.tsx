@@ -18,7 +18,7 @@ import {
   AppleButton,
 } from "@invertase/react-native-apple-authentication";
 import Toast from "react-native-toast-message";
-import { setLoading, setUser } from "@store/application/slice";
+import { setLoading, setToken, setUser } from "@store/application/slice";
 import {
   useLoginOAuthMutation,
   useRegisterMutation,
@@ -121,6 +121,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       dispatch(setLoading(false));
       console.log("registered => ", registerResponse.data);
       const user: User = registerResponse.data as User;
+      dispatch(setToken(user.token));
       dispatch(setUser(user));
     } else if (registerResponse.status === "rejected") {
       dispatch(setLoading(false));
@@ -148,6 +149,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       dispatch(setLoading(false));
       console.log("logged in => ", appleLoginResponse.data);
       const user: User = appleLoginResponse.data as User;
+      dispatch(setToken(user.token));
       dispatch(setUser(user));
     } else if (appleLoginResponse.status === "rejected") {
       dispatch(setLoading(false));
@@ -212,14 +214,6 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         >
           {Lang.landing.apple}
         </Button>
-        <Link
-          onPress={() => {}}
-          size={hp("2%")}
-          fontWeight={"200"}
-          color={"white"}
-        >
-          Apple logout
-        </Link>
         <Spacer direction="vertical" space={"1%"} />
         <Button width={wp("70%")} color={Colors.green} shadow>
           {Lang.landing.google}
