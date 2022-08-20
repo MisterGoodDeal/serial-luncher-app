@@ -58,6 +58,7 @@
     "react-native-date-picker": "^3.3.2",
     "react-native-eject": "^0.1.2",
     "react-native-gesture-handler": "~2.2.1",
+    "react-native-haptic-feedback": "^1.14.0",
     "react-native-image-colors": "^1.5.1",
     "react-native-image-picker": "^4.8.3",
     "react-native-iphone-x-helper": "^1.3.1",
