@@ -6,13 +6,19 @@ import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-map-clustering";
 import { Callout, Marker } from "react-native-maps";
-import { useColorScheme, Text, View, ScrollView } from "react-native";
+import {
+  useColorScheme,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import {
   useAddCommentMutation,
   useAddPlaceMutation,
   useGetPlacesQuery,
 } from "@store/places/slice";
-import { CreatePlace, Place, StuffedPlace } from "@store/model/places";
+import { StuffedPlace } from "@store/model/places";
 import { setLoading } from "@store/application/slice";
 import { Lang } from "@constants/Lang";
 import Toast from "react-native-toast-message";
@@ -27,13 +33,15 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Rating } from "react-native-ratings";
 import CheckBox from "@react-native-community/checkbox";
-import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Button } from "@components/ui/Atoms/Button";
 import {
   ImageLibraryOptions,
   launchCamera,
   launchImageLibrary,
 } from "react-native-image-picker";
+import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
+import { string } from "prop-types";
+import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
 
 interface MapProps {}
 
@@ -94,7 +102,6 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   // Add a place
   const [addPlaceVisible, setAddPlaceVisible] = React.useState(false);
   const [placeName, setPlaceName] = React.useState("");
-  const [countrySpecility, setCountrySpecility] = React.useState(1);
   const [rating, setRating] = React.useState(0);
   const [priceRange, setPriceRange] = React.useState(0);
   const [canBringReusableContent, setCanBringReusableContent] =
@@ -168,9 +175,8 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     }
   };
 
-  const urlRegex = new RegExp(
-    "https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_+.~#?&//=]*)"
-  );
+  const urlRegex =
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/;
 
   const handleAddPlace = () => {
     if (
@@ -178,7 +184,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       rating !== 0 &&
       priceRange !== 0 &&
       picture !== "" &&
-      countrySpecility !== -1 &&
+      selected?.code !== -1 &&
       userCoordinates &&
       userCoordinates
     ) {
@@ -189,7 +195,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         price_range: priceRange,
         can_bring_reusable_content: canBringReusableContent,
         image: picture!,
-        country_speciality: countrySpecility,
+        country_speciality: selected?.code ?? -1,
         lat: userCoordinates!.latitude,
         lng: userCoordinates!.longitude,
         url: urlRegex.test(url) ? url : "",
@@ -205,6 +211,32 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
   React.useEffect(() => {
     console.log(addPlaceResult);
+    if (addPlaceResult.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (addPlaceResult.status === "fulfilled") {
+      dispatch(setLoading(false));
+      setAddPlaceVisible(false);
+      refetch();
+      Toast.show({
+        type: "success",
+        text1: `🏠 ${Lang.map.place}`,
+        text2: Lang.map.success.place_added,
+      });
+      (async () => {
+        await getCurrentLocation();
+        // @ts-ignore
+        mapRef.current.animateCamera(
+          {
+            center: userCoordinates,
+            pitch: 10,
+            heading: 20,
+            altitude: 10,
+            zoom: 15,
+          },
+          { duration: 1000 }
+        );
+      })();
+    }
   }, [addPlaceResult]);
 
   // Just the useEffect for the main API (places)
@@ -271,7 +303,30 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     );
   }
 
-  React.useEffect(() => {}, [showBottomSheet]);
+  const [data, setData] = React.useState(Lang.country_specialities.countries);
+  const [selected, setSelected] = React.useState<
+    { name: string; code: number } | undefined
+  >(undefined);
+  const [query, setQuery] = React.useState("");
+
+  const filteredData = React.useMemo(() => {
+    if (data && data.length > 0) {
+      return data.filter((item, index) =>
+        item.name
+          .toLocaleLowerCase("en")
+          .includes(query.toLocaleLowerCase("en"))
+      );
+    }
+  }, [data, query]);
+
+  const onSearch = (text: string) => {
+    setQuery(text);
+  };
+
+  React.useEffect(() => {
+    console.log(selected);
+  }, [selected]);
+
   return (
     <Container
       color={Colors.background}
@@ -334,9 +389,6 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       </MapView>
       <MapButton
         onPress={() => {
-          console.log(userCoordinates);
-          console.log(mapRef.current);
-
           // @ts-ignore
           mapRef.current.animateCamera(
             {
@@ -396,6 +448,32 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
             type={"name"}
             isDark={isDark}
           />
+          <Spacer space={"2%"} />
+          <TouchableOpacity onPress={() => onOpen("country_specialities")}>
+            <View pointerEvents="none">
+              <Input
+                placeholder={`${Lang.country_specialities.title}*`}
+                width={wp("70%")}
+                // @ts-ignore
+                value={selected?.name ?? ""}
+                setValue={setPlaceName}
+                type={"name"}
+                isDark={isDark}
+                disabled
+              />
+            </View>
+          </TouchableOpacity>
+          <BottomPicker
+            id="country_specialities"
+            // @ts-ignore
+            data={filteredData}
+            query={query}
+            isDark={isDark}
+            label={Lang.country_specialities.title}
+            onSearch={onSearch}
+            setSelected={setSelected}
+          />
+
           <View
             style={{
               width: wp("70%"),
