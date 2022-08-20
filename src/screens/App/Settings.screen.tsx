@@ -360,30 +360,34 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
               </CustomText>
             </>
           )}
-          <Spacer space="3%" />
-          <Input
-            placeholder={Lang.settings.editUser.password}
-            width={wp("80%")}
-            value={password}
-            setValue={setPassword}
-            type={"password"}
-            isDark={isDark}
-            password
-            disabled={userInfos.oauth_service !== null}
-            onBlur={() => handleChangePassword()}
-          />
-          <Spacer space="1%" />
-          <Input
-            placeholder={Lang.settings.editUser.password_confirm}
-            width={wp("80%")}
-            value={passwordConfirmation}
-            setValue={setPasswordConfirmation}
-            password
-            type={"password"}
-            isDark={isDark}
-            disabled={userInfos.oauth_service !== null}
-            onBlur={() => handleChangePassword()}
-          />
+          {userInfos.oauth_service === null && (
+            <>
+              <Spacer space="3%" />
+              <Input
+                placeholder={Lang.settings.editUser.password}
+                width={wp("80%")}
+                value={password}
+                setValue={setPassword}
+                type={"password"}
+                isDark={isDark}
+                password
+                disabled={userInfos.oauth_service !== null}
+                onBlur={() => handleChangePassword()}
+              />
+              <Spacer space="1%" />
+              <Input
+                placeholder={Lang.settings.editUser.password_confirm}
+                width={wp("80%")}
+                value={passwordConfirmation}
+                setValue={setPasswordConfirmation}
+                password
+                type={"password"}
+                isDark={isDark}
+                disabled={userInfos.oauth_service !== null}
+                onBlur={() => handleChangePassword()}
+              />
+            </>
+          )}
           <Spacer space="5%" />
           <Button onPress={() => dispatch(disconnect())} color={Colors.main}>
             {Lang.settings.disconnect}
