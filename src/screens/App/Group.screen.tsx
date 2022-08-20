@@ -35,14 +35,22 @@ interface GroupProps {}
 
 export const Group: React.FunctionComponent<GroupProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
-  const { currentData, isFetching, isError, isSuccess, refetch, error } =
-    useGetGroupInfoQuery({});
+  const {
+    currentData,
+    isFetching,
+    isError,
+    isSuccess,
+    refetch: refetchGroupInfo,
+    error,
+  } = useGetGroupInfoQuery({});
 
   const [infos, setInfos] = React.useState<GroupInfo>();
   const dispatch = useDispatch();
   const { userInfos } = useSelector(applicationState);
 
   React.useEffect(() => {
+    console.log(currentData, isFetching, isError, error);
+
     if (isFetching) {
       dispatch(setLoading(true));
     } else if (isError || isSuccess) {
@@ -62,7 +70,9 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      refetch();
+      console.log("coucou");
+
+      refetchGroupInfo();
       return () => null;
     }, [])
   );

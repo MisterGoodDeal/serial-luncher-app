@@ -4,6 +4,7 @@ export type Application = {
   userInfos: User;
   token: string;
   loading: boolean;
+  hasGroup: boolean;
 };
 
 export interface Token {

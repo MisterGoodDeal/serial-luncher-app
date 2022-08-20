@@ -13,6 +13,7 @@ import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
 import { useColorScheme } from "react-native";
 import { dark, light } from "@themes/Colors";
+import { GroupNavigator } from "./GroupNavigator";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,7 @@ export const RootNavigator: React.FC<{}> = () => {
     })();
   }, []);
 
-  const { loading, userInfos } = useSelector(applicationState);
+  const { loading, userInfos, hasGroup } = useSelector(applicationState);
 
   return (
     <>
@@ -63,7 +64,8 @@ export const RootNavigator: React.FC<{}> = () => {
           </>
         </NavigationContainer>
       )}
-      {loaded && userInfos.id !== -1 && <AppNavigator />}
+      {loaded && userInfos.id !== -1 && hasGroup && <AppNavigator />}
+      {loaded && userInfos.id !== -1 && !hasGroup && <GroupNavigator />}
     </>
   );
 };
