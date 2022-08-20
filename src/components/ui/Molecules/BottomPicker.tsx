@@ -40,6 +40,8 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
     style={{
       actionSheet: {
         backgroundColor: isDark ? dark.background : light.background,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
       },
       close: {
         text: {
