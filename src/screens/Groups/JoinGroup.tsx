@@ -3,7 +3,7 @@ import { Container } from "@components/common/Container";
 import { Colors, dark, light } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Image, useColorScheme } from "react-native";
+import { StyleSheet, Image, useColorScheme, Alert } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
@@ -50,12 +50,6 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
   const [group, setGroup] = React.useState<Group>();
 
   const [groupId, setGroupId] = React.useState("");
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => null;
-    }, [])
-  );
 
   const handleFetchGroup = (code: string) => {
     getGroup({
@@ -157,6 +151,7 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
+        color={isDark ? dark.background : light.background}
         style={{
           width: wp(100),
         }}
@@ -211,6 +206,7 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
           onPress={() => nav.navigate(Routes.CREATE_GROUP)}
           size={hp("2%")}
           fontWeight={"400"}
+          color={isDark ? dark.text : light.text}
         >
           {Lang.enrollment.register.step3.create_group}
         </Link>

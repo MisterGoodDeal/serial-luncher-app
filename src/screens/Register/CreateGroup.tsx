@@ -19,7 +19,7 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { Input } from "@components/ui/Atoms/Input";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "@themes/Colors";
 import { FormikHelpers, useFormik } from "formik";
 import {
   setGroup as setGroupStore,

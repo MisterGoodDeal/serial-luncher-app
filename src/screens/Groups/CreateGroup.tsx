@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, TouchableOpacity, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
@@ -19,7 +19,6 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { Input } from "@components/ui/Atoms/Input";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { FormikHelpers, useFormik } from "formik";
 import {
   setGroup as setGroupStore,
@@ -41,7 +40,7 @@ import {
 } from "@store/application/slice";
 import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
-import { dark, light } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { Button } from "@components/ui/Atoms/Button";
 
 interface CreateGroupScreenProps {
@@ -212,6 +211,8 @@ export const ForceCreateGroupScreen: React.FunctionComponent<
     }
   }, [resultCreateGroup]);
 
+  const nav = useNavigation();
+
   return (
     <KeyboardDismiss>
       <Popup
@@ -249,12 +250,13 @@ export const ForceCreateGroupScreen: React.FunctionComponent<
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
+        color={isDark ? dark.background : light.background}
         style={{
           width: wp(100),
         }}
       >
         <Arrow
-          onPress={() => previousStep()}
+          onPress={() => nav.goBack()}
           color={isDark ? dark.text : light.text}
         />
 
