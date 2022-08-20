@@ -123,6 +123,15 @@ const locales = {
         oops: "😬 Oups",
         error_fetching:
           "Une erreur est survenue lors de la récupération du groupe.",
+        error_leaving: "Une erreur est servenue en quittant le groupe.",
+        error_deleting: "Une erreur est servenue en supprimant le groupe.",
+      },
+      delete: {
+        title: "Supprimer le groupe",
+        content: "Êtes-vous sûr de vouloir supprimer ce groupe ?",
+        cancel: "Annuler",
+        confirm: "Confirmer",
+        success: "Le groupe a été supprimé avec succès !",
       },
       created: "Ton groupe a été créé avec succès !",
       hello: "Salut",
@@ -190,7 +199,7 @@ const locales = {
   },
   en: {
     landing: {
-      title: "Welcome to\nSerial Luncher !",
+      title: "Welcome to\nSerial Luncher!",
       continue_with: "Continue with",
       email: "Email",
       apple: "Login with Apple",
@@ -203,7 +212,7 @@ const locales = {
         password: "Password",
         button: "Sign In",
         send: "Send",
-        forgotPassword: "Forgotten password ?",
+        forgotPassword: "Forgotten password?",
         success: {
           hello: "Hello",
           connected: "You are successfully connected!",
@@ -228,7 +237,7 @@ const locales = {
             fromGallery: "Choose a picture",
             cancel: "You have cancelled the selection...",
             error: "An error has occurred, please try again...",
-            success: "Image retrieved successfully !",
+            success: "Image retrieved successfully!",
           },
         },
         step2: {
@@ -240,7 +249,7 @@ const locales = {
         step3: {
           title: "Join\nyour group",
           description: "Enter the 6-digit code of your group",
-          no_group: "You don't have a group ?",
+          no_group: "You don't have a group?",
           create_group: "Create a group",
           error: {
             not_found: {
@@ -281,15 +290,15 @@ const locales = {
             body: "An unknown error has occurred, please try again.",
           },
           robotError: {
-            title: "🤖 Are you a robot ?",
+            title: "🤖 Are you a robot?",
             body: "You have been identified as a robot. Impossible to continue.",
           },
           loginFailed: {
-            title: "😶‍🌫️ Oops !",
+            title: "😶‍🌫️ Oops!",
             body: "This Apple account is not associated with Serial Luncher.",
           },
           registerFailed: {
-            title: "🫣 Oops !",
+            title: "🫣 Oops!",
             body: "Can't your account, please try again.",
           },
         },
@@ -304,6 +313,15 @@ const locales = {
       error: {
         oops: "😬 Oops",
         error_fetching: "An error occurred while fetching the group.",
+        error_leaving: "An error occurred while leaving the group.",
+        error_deleting: "An error occurred while deleting the group.",
+      },
+      delete: {
+        title: "Delete group",
+        content: "Are you sure you want to delete this group?",
+        confirm: "Delete",
+        cancel: "Cancel",
+        success: "Group deleted successfully!",
       },
       created: "The group has been created successfully!",
       hello: "Hello",
@@ -320,7 +338,7 @@ const locales = {
       price_range: "Price",
       reusable_package: "Bring reusable package?",
       comments: "Comments",
-      no_comment: "No comment... Be the first !",
+      no_comment: "No comment... Be the first!",
       your_comment: "Comment... (max. 160 chars.)",
       added_by: "Added by",
       open_link: "Open",
@@ -342,8 +360,8 @@ const locales = {
       },
       place: "Place",
       success: {
-        comment_added: "Your comment has been added successfully !",
-        place_added: "Your place has been added successfully !",
+        comment_added: "Your comment has been added successfully!",
+        place_added: "Your place has been added successfully!",
       },
     },
     country_specialities: {

@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
@@ -20,9 +21,13 @@ import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
-import { disconnect, setLoading } from "@store/application/slice";
+import { disconnect, setHasGroup, setLoading } from "@store/application/slice";
 import { Button } from "@components/ui/Atoms/Button";
-import { useGetGroupInfoQuery } from "@store/groups/slice";
+import {
+  useDeleteGroupMutation,
+  useGetGroupInfoQuery,
+  useLeaveGroupMutation,
+} from "@store/groups/slice";
 import { useFocusEffect } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { Lang } from "@constants/Lang";
@@ -49,8 +54,6 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
   const { userInfos } = useSelector(applicationState);
 
   React.useEffect(() => {
-    console.log(currentData, isFetching, isError, error);
-
     if (isFetching) {
       dispatch(setLoading(true));
     } else if (isError || isSuccess) {
@@ -68,10 +71,49 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
     }
   }, [currentData, isFetching, isError, error]);
 
+  const [leaveGroup, leaveGroupResponse] = useLeaveGroupMutation();
+
+  React.useEffect(() => {
+    if (leaveGroupResponse.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (leaveGroupResponse.status === "fulfilled") {
+      dispatch(setLoading(false));
+      dispatch(setHasGroup(false));
+    } else if (leaveGroupResponse.status === "rejected") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "error",
+        text1: Lang.group.error.oops,
+        text2: Lang.group.error.error_leaving,
+      });
+    }
+  }, [leaveGroupResponse]);
+
+  const [deleteGroup, deleteGroupReponse] = useDeleteGroupMutation();
+
+  React.useEffect(() => {
+    if (deleteGroupReponse.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (deleteGroupReponse.status === "fulfilled") {
+      dispatch(setLoading(false));
+      dispatch(setHasGroup(false));
+      Toast.show({
+        type: "success",
+        text1: Lang.group.delete.title,
+        text2: Lang.group.delete.success,
+      });
+    } else if (deleteGroupReponse.status === "rejected") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "error",
+        text1: Lang.group.error.oops,
+        text2: Lang.group.error.error_deleting,
+      });
+    }
+  }, [deleteGroupReponse]);
+
   useFocusEffect(
     React.useCallback(() => {
-      console.log("coucou");
-
       refetchGroupInfo();
       return () => null;
     }, [])
@@ -255,11 +297,37 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             {Lang.group.actions}
           </CustomText>
           <Spacer space={"2%"} />
-          <Button color={Colors.main}>{Lang.group.leave_group}</Button>
+          <Button
+            onPress={() => leaveGroup({ id: infos?.group.id ?? -1 })}
+            color={Colors.main}
+          >
+            {Lang.group.leave_group}
+          </Button>
           {infos?.group.creator.id === userInfos.id && (
             <>
               <Spacer space={"1%"} />
-              <Button color={Colors.red}>{Lang.group.delete_group}</Button>
+              <Button
+                onPress={() =>
+                  Alert.alert(
+                    Lang.group.delete.title,
+                    Lang.group.delete.content,
+                    [
+                      {
+                        text: Lang.group.delete.cancel,
+                      },
+                      {
+                        text: Lang.group.delete.confirm,
+                        onPress: () =>
+                          deleteGroup({ id: infos?.group.id ?? -1 }),
+                        style: "destructive",
+                      },
+                    ]
+                  )
+                }
+                color={Colors.red}
+              >
+                {Lang.group.delete_group}
+              </Button>
             </>
           )}
         </Container>

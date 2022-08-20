@@ -46,10 +46,7 @@ export const groupsApi = createApi({
       }),
     }),
 
-    leaveGroup: builder.mutation<
-      GenericApiReponse,
-      LeaveAndDeleteGroup & Token
-    >({
+    leaveGroup: builder.mutation<GenericApiReponse, LeaveAndDeleteGroup>({
       query: ({ id }) => ({
         url: `${endpoint.leave}/${id}`,
         method: "DELETE",
@@ -59,10 +56,7 @@ export const groupsApi = createApi({
         response.data,
     }),
 
-    deleteGroup: builder.mutation<
-      GenericApiReponse,
-      LeaveAndDeleteGroup & Token
-    >({
+    deleteGroup: builder.mutation<GenericApiReponse, LeaveAndDeleteGroup>({
       query: ({ id }) => ({
         url: `${endpoint.delete}/${id}`,
         method: "DELETE",
