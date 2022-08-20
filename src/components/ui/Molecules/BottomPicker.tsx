@@ -24,6 +24,7 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
   isDark,
   onSearch,
   setSelected,
+  label,
 }) => (
   <Picker
     id={id}
@@ -31,7 +32,7 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
     data={data}
     inputValue={query}
     searchable={true}
-    label={Lang.country_specialities.title}
+    label={label}
     setSelected={setSelected}
     onSearch={onSearch}
     closeText={Lang.country_specialities.close}

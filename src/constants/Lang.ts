@@ -178,6 +178,8 @@ const locales = {
     },
     country_specialities: {
       title: "Sélectionnez une spécialité",
+      title_filter:
+        "Sélectionnez une spécialité (maintenir le bouton filtre pour réinitialiser)",
       close: "Fermer",
       search: "Rechercher",
       no_result: "Aucune spécialité trouvée",
@@ -366,6 +368,8 @@ const locales = {
     },
     country_specialities: {
       title: "Select a country speciality",
+      title_filter:
+        "Select a country speciality (long press filter button to reset)",
       close: "Close",
       search: "Search",
       no_result: "No country speciality found.",

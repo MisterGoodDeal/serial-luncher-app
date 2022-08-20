@@ -40,8 +40,13 @@ import {
   launchImageLibrary,
 } from "react-native-image-picker";
 import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
-import { string } from "prop-types";
 import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
+const options = {
+  enableVibrateFallback: false,
+  ignoreAndroidSystemSettings: false,
+};
 
 interface MapProps {}
 
@@ -323,9 +328,41 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     setQuery(text);
   };
 
-  React.useEffect(() => {
-    console.log(selected);
-  }, [selected]);
+  /**
+   * Filter(s)
+   */
+  const [selectedFilter, setSelectedFilter] = React.useState<
+    { name: string; code: number } | undefined
+  >(undefined);
+  const [queryFilter, setQueryFilter] = React.useState("");
+
+  const filteredDataFilter = React.useMemo(() => {
+    if (data && data.length > 0) {
+      return data.filter((item, index) =>
+        item.name
+          .toLocaleLowerCase("en")
+          .includes(queryFilter.toLocaleLowerCase("en"))
+      );
+    }
+  }, [data, queryFilter]);
+
+  const onSearchFilter = (text: string) => {
+    setQueryFilter(text);
+  };
+
+  const filteredPlaces = React.useMemo(() => {
+    if (places && places.length > 0) {
+      return places.filter((item, index) => {
+        if (selectedFilter !== undefined) {
+          return Number(item.fk_country_speciality) === selectedFilter.code
+            ? item
+            : null;
+        } else {
+          return item;
+        }
+      });
+    }
+  }, [places, selectedFilter]);
 
   return (
     <Container
@@ -364,8 +401,8 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
           height: hp("100%"),
         }}
       >
-        {places &&
-          places.map((place) => (
+        {filteredPlaces &&
+          filteredPlaces.map((place) => (
             <Marker
               key={place.id}
               coordinate={{
@@ -417,6 +454,30 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         size={hp("5.5%")}
         top={hp("15%")}
         right={wp("4%")}
+      />
+      <MapButton
+        onPress={() => {
+          ReactNativeHapticFeedback.trigger("impactLight", options);
+          onOpen("country_filter");
+        }}
+        longPress={() => {
+          setSelectedFilter(undefined);
+          ReactNativeHapticFeedback.trigger("notificationError", options);
+        }}
+        icon={require("@images/filter.png")}
+        size={hp("5.5%")}
+        top={hp("22%")}
+        right={wp("4%")}
+      />
+      <BottomPicker
+        id="country_filter"
+        // @ts-ignore
+        data={filteredDataFilter}
+        query={queryFilter}
+        isDark={isDark}
+        label={Lang.country_specialities.title_filter}
+        onSearch={onSearchFilter}
+        setSelected={setSelectedFilter}
       />
       <Popup
         animation="slide"

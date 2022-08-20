@@ -10,6 +10,7 @@ import { textColor, wp } from "@utils/functions";
 
 interface MapButtonProps {
   onPress: () => void;
+  longPress?: () => void;
   icon: ImageSourcePropType;
   size: number;
   top: number;
@@ -19,6 +20,7 @@ interface MapButtonProps {
 
 export const MapButton: React.FunctionComponent<MapButtonProps> = ({
   onPress,
+  longPress,
   icon,
   size,
   top,
@@ -38,6 +40,7 @@ export const MapButton: React.FunctionComponent<MapButtonProps> = ({
       borderRadius: size / 2,
     }}
     onPress={onPress}
+    onLongPress={longPress}
   >
     <Image
       source={icon}
