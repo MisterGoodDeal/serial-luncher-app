@@ -18,7 +18,12 @@ import {
   AppleButton,
 } from "@invertase/react-native-apple-authentication";
 import Toast from "react-native-toast-message";
-import { setLoading, setToken, setUser } from "@store/application/slice";
+import {
+  setHasGroup,
+  setLoading,
+  setToken,
+  setUser,
+} from "@store/application/slice";
 import {
   useLoginOAuthMutation,
   useRegisterMutation,
@@ -149,6 +154,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       dispatch(setLoading(false));
       console.log("logged in => ", appleLoginResponse.data);
       const user: User = appleLoginResponse.data as User;
+      const userHasGroup = user.hasGroup as boolean;
+      dispatch(setHasGroup(userHasGroup));
       dispatch(setToken(user.token));
       dispatch(setUser(user));
     } else if (appleLoginResponse.status === "rejected") {

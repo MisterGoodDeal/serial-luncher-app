@@ -13,7 +13,12 @@ import { Spacer } from "@components/common/Spacer";
 import { Input } from "@components/ui/Atoms/Input";
 import { Button } from "@components/ui/Atoms/Button";
 import { useLoginMutation } from "@store/enrollment/slice";
-import { setLoading, setToken, setUser } from "@store/application/slice";
+import {
+  setHasGroup,
+  setLoading,
+  setToken,
+  setUser,
+} from "@store/application/slice";
 import { User } from "@store/model/enrollment";
 import { initialState } from "@store/application/constants";
 import { applicationState } from "@store/application/selector";
@@ -52,6 +57,8 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
       : dispatch(setLoading(false));
     if (result.status === "fulfilled") {
       const res = result.data as User;
+      const userHasGroup = res.hasGroup as boolean;
+      dispatch(setHasGroup(userHasGroup));
       Toast.show({
         type: "success",
         text1: `${Lang.enrollment.login.success.hello} ${res.firstname} 👋`,
