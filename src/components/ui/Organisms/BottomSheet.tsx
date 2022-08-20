@@ -88,8 +88,8 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   });
 
   const scheme = Platform.select({ ios: "maps:0,0?q=", android: "geo:0,0?q=" });
-  const latLng = `${place.lat},${place.lng}`;
-  const label = `${place.name} (${
+  const latLng = `${place?.lat},${place?.lng}`;
+  const label = `${place?.name} (${
     Lang.country_specialities.countries.find(
       (country) => country.code === Number(place?.fk_country_speciality ?? "-1")
     )?.name
