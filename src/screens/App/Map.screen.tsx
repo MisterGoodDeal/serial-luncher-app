@@ -41,12 +41,7 @@ import {
 } from "react-native-image-picker";
 import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
 import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-
-const options = {
-  enableVibrateFallback: false,
-  ignoreAndroidSystemSettings: false,
-};
+import { vibrate } from "@utils/vibrate";
 
 interface MapProps {}
 
@@ -227,6 +222,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         text1: `🏠 ${Lang.map.place}`,
         text2: Lang.map.success.place_added,
       });
+      vibrate.success();
       (async () => {
         await getCurrentLocation();
         // @ts-ignore
@@ -241,6 +237,14 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
           { duration: 1000 }
         );
       })();
+    } else if (addPlaceResult.status === "rejected") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "error",
+        text1: Lang.map.error.oops,
+        text2: Lang.map.error.error_add,
+      });
+      vibrate.error();
     }
   }, [addPlaceResult]);
 
@@ -457,12 +461,12 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       />
       <MapButton
         onPress={() => {
-          ReactNativeHapticFeedback.trigger("impactLight", options);
+          vibrate.impactLight();
           onOpen("country_filter");
         }}
         longPress={() => {
           setSelectedFilter(undefined);
-          ReactNativeHapticFeedback.trigger("notificationError", options);
+          vibrate.error();
         }}
         icon={require("@images/filter.png")}
         size={hp("5.5%")}

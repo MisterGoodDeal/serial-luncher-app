@@ -162,11 +162,14 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               fontWeight={"200"}
               color={Colors.white}
             >
-              {place?.fk_country_speciality
-                ? Lang.country_specialities.countries[
-                    Number(place?.fk_country_speciality)
-                  ].name
-                : ""}
+              {/** find the country speciality corresponding to the place */}
+              {
+                Lang.country_specialities.countries.find(
+                  (country) =>
+                    country.code ===
+                    Number(place?.fk_country_speciality ?? "-1")
+                )?.name
+              }
             </CustomText>
           </Container>
           <Spacer space={"2%"} />
