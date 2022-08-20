@@ -50,6 +50,7 @@ export const Popup: React.FunctionComponent<PopupProps> = ({
           position: "absolute",
           top: hp("1.5%"),
           right: hp("1.5%"),
+          zIndex: 99,
         }}
         onPress={onClose}
       >

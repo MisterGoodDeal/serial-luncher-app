@@ -45,6 +45,7 @@ interface InputProps {
   fontSize?: number;
   isDark: boolean;
   maxLength?: number;
+  disabled?: boolean;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -59,6 +60,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   isDark,
   color,
   maxLength,
+  disabled,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -98,6 +100,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         color: isDark ? dark.input.text : light.input.text,
         fontFamily: "Gibson",
       }}
+      editable={!disabled}
       maxLength={maxLength}
       textContentType={type}
       autoCapitalize={type === "emailAddress" ? "none" : undefined}

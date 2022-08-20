@@ -1,4 +1,4 @@
-import { hp, wp } from "@utils/functions";
+import { getDomainName, hp, wp } from "@utils/functions";
 import * as React from "react";
 import {
   ScrollView,
@@ -73,6 +73,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
       ? (translateY.value = withSpring(-MAX_HEIGHT, { damping: 50 }))
       : null;
     showDrawerShared.value === false && setShowDrawer(false);
+    console.log(place);
   }, [showDrawer, showDrawerShared.value]);
 
   const rBottomSheetStyle = useAnimatedStyle(() => {
@@ -156,6 +157,17 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             >
               {place?.name}
             </CustomText>
+            <CustomText
+              size={texts.paragraph}
+              fontWeight={"200"}
+              color={Colors.white}
+            >
+              {place?.fk_country_speciality
+                ? Lang.country_specialities.countries[
+                    Number(place?.fk_country_speciality)
+                  ].name
+                : ""}
+            </CustomText>
           </Container>
           <Spacer space={"2%"} />
           <Container
@@ -230,7 +242,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               fontWeight={"600"}
               color={isDark ? dark.text : light.text}
             >
-              {place?.can_bring_reusable_content ? "✅" : "❌"}
+              {place?.can_bring_reusable_contents ? "✅" : "❌"}
             </CustomText>
           </Container>
           <Spacer space={"2%"} />
@@ -325,24 +337,23 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             </Container>
             <Spacer space={"2%"} />
           </Container>
-          {place?.url !== null ||
-            (place.url !== "" && (
-              <>
-                <Spacer space={"4%"} />
-                <Link
-                  onPress={() => Linking.openURL(place.url!)}
-                  size={texts.small}
-                  fontWeight={"400"}
-                  color={isDark ? dark.text : light.text}
-                  align={"center"}
-                  style={{
-                    width: "100%",
-                  }}
-                >
-                  {Lang.map.open_link}
-                </Link>
-              </>
-            ))}
+          {place?.url !== "" && (
+            <>
+              <Spacer space={"4%"} />
+              <Link
+                onPress={() => Linking.openURL(place?.url!)}
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+                style={{
+                  width: "100%",
+                }}
+              >
+                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
+              </Link>
+            </>
+          )}
           <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>

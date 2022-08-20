@@ -345,7 +345,7 @@ PODS:
     - React
   - RNCPicker (1.16.8):
     - React-Core
-  - RNGestureHandler (2.4.2):
+  - RNGestureHandler (2.2.1):
     - React-Core
   - RNImageColors (1.5.1):
     - React-Core
@@ -613,7 +613,7 @@ SPEC CHECKSUMS:
   RNCCheckbox: ed1b4ca295475b41e7251ebae046360a703b6eb5
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: 0991c56da7815c0cf946d6f63cf920b25296e5f6
-  RNGestureHandler: 61628a2c859172551aa2100d3e73d1e57878392f
+  RNGestureHandler: 1dc1ea9d4b64f999042afafbaccf5b143f0b2fa2
   RNImageColors: fd9777591fc765780e035f4bec7a42edabc86eb4
   RNLocalize: 95a43f85e41a966be7bc9cff2437128911c52da0
   RNReanimated: 64573e25e078ae6bec03b891586d50b9ec284393

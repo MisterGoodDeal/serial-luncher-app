@@ -41,3 +41,12 @@ export const getMarkerAsset = (isSelected: boolean) => {
     ? require("@images/pin-selected/pin.png")
     : require("@images/pin-normal/pin.png");
 };
+
+// Function that exports domain name from url
+export const getDomainName = (url: string | undefined) => {
+  if (url) {
+    const domain = url.split("/")[2];
+    return domain.split(":")[0];
+  }
+  return "";
+};
