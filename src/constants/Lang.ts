@@ -161,6 +161,7 @@ const locales = {
       fromGallery: "Galerie",
       link: "URL site web, menu...",
       is_required: "Les champs avec * sont requis",
+      go: "Y aller !",
       error: {
         oops: "😬 Oups",
         error_location:
@@ -202,6 +203,36 @@ const locales = {
         { name: "🇹🇭  Thaïlandais", code: 15 },
         { name: "🇻🇳 Vietnamien", code: 11 },
       ],
+    },
+    settings: {
+      title: "Paramètres",
+      edit_pp: "Modifier la photo de profil",
+      disconnect: "Se déconnecter",
+      editUser: {
+        title: "Modifier les informations de l'utilisateur",
+        success: "✅ Vos informations ont été modifiées avec succès !",
+        error: "😠 Une erreur est survenue lors de la modification.",
+        cantEditOAuth:
+          "Vous ne pouvez pas modifier vos informations de\nconnexion car vous vous êtes connecté avec",
+        password: "Mot de passe",
+        password_confirm: "Confirmer le mot de passe",
+        password_error: "Les mots de passe ne correspondent pas.",
+        password_strengh: "Saisissez un mot de passe plus fort.",
+        password_changed: "✅ Votre mot de passe a été modifié avec succès !",
+        password_fill: "Veuillez remplir tous les champs.",
+        invalid_email: "Veuillez saisir une adresse email valide.",
+      },
+      delete: {
+        button: "Supprimer mon compte",
+        title: "Supprimer mon compte",
+        content:
+          "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+        cancel: "Annuler",
+        confirm: "Confirmer",
+        error:
+          "😠 Une erreur est survenue lors de la suppression de votre compte.",
+        success: "🗑 Votre compte a été supprimé avec succès !",
+      },
     },
   },
   en: {
@@ -358,6 +389,7 @@ const locales = {
       fromCamera: "Camera",
       fromGallery: "Gallery",
       is_required: "Required fields are marked with *",
+      go: "Go there!",
       error: {
         oops: "😬 Oops",
         error_location: "An error occurred while fetching your location.",
@@ -397,6 +429,34 @@ const locales = {
         { name: "🇹🇭 Thai", code: 15 },
         { name: "🇻🇳 Vietnamese", code: 11 },
       ],
+    },
+    settings: {
+      title: "Settings",
+      edit_pp: "Edit profile picture",
+      editUser: {
+        title: "Edit user",
+        success: "✅ User updated successfully!",
+        error: "😠 An error occurred while updating the user.",
+        cantEditOAuth:
+          "You can't edit your credentials\nbecause you signed up with",
+        password: "Password",
+        password_confirm: "Repeat password",
+        password_error: "Passwords doesn't match.",
+        password_strengh: "Please use a stronger password.",
+        password_changed: "✅ Password changed successfully!",
+        password_fill: "Please fill all fields.",
+        invalid_email: "Please enter a valid email address.",
+      },
+      disconnect: "Disconnect",
+      delete: {
+        button: "Delete account",
+        title: "Delete account",
+        content: "Are you sure you want to delete your account?",
+        confirm: "Delete",
+        cancel: "Cancel",
+        success: "🗑 Account deleted successfully!",
+        error: "😠 An error occurred while deleting the account.",
+      },
     },
   },
 };

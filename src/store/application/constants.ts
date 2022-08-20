@@ -21,4 +21,7 @@ export const initialState: Application = {
 
 export const reducerPath = "applicationApi";
 
-export const endpoint = "pokemon";
+export const endpoint = {
+  updateUser: "/user/edit",
+  delete: "/user/delete",
+};

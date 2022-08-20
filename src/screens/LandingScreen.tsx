@@ -128,6 +128,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       const user: User = registerResponse.data as User;
       dispatch(setToken(user.token));
       dispatch(setUser(user));
+      dispatch(setHasGroup(false));
     } else if (registerResponse.status === "rejected") {
       dispatch(setLoading(false));
       Toast.show({

@@ -6,6 +6,7 @@ import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 
 interface InputProps {
+  onBlur?: () => void;
   width?: number;
   height?: number;
   placeholder: string;
@@ -49,6 +50,7 @@ interface InputProps {
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
+  onBlur,
   width,
   height,
   placeholder,
@@ -88,7 +90,9 @@ export const Input: React.FunctionComponent<InputProps> = ({
       </G>
     </Svg>
     <TextInput
+      onBlur={onBlur}
       style={{
+        opacity: disabled ? 0.5 : 1,
         position: "relative",
         top: height ? -height : -hp("7%"),
         marginBottom: height ? -height : -hp("7%"),
