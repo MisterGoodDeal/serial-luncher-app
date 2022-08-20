@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   Linking,
+  Platform,
 } from "react-native";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { Colors, dark, light } from "@themes/Colors";
@@ -85,6 +86,18 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
       ],
     };
   });
+
+  const scheme = Platform.select({ ios: "maps:0,0?q=", android: "geo:0,0?q=" });
+  const latLng = `${place.lat},${place.lng}`;
+  const label = `${place.name} (${
+    Lang.country_specialities.countries.find(
+      (country) => country.code === Number(place?.fk_country_speciality ?? "-1")
+    )?.name
+  })`;
+  const openMap = Platform.select({
+    ios: `${scheme}${label}@${latLng}`,
+    android: `${scheme}${latLng}(${label})`,
+  });
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View
@@ -162,7 +175,6 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               fontWeight={"200"}
               color={Colors.white}
             >
-              {/** find the country speciality corresponding to the place */}
               {
                 Lang.country_specialities.countries.find(
                   (country) =>
@@ -340,9 +352,13 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             </Container>
             <Spacer space={"2%"} />
           </Container>
+          <Spacer space={"2%"} />
+          <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
+            {Lang.map.go}
+          </Button>
           {place?.url !== "" && (
             <>
-              <Spacer space={"4%"} />
+              <Spacer space={"2%"} />
               <Link
                 onPress={() => Linking.openURL(place?.url!)}
                 size={texts.small}
