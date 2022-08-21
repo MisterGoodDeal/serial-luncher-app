@@ -239,6 +239,47 @@ const locales = {
         success: "🗑 Votre compte a été supprimé avec succès !",
       },
     },
+    privacy_policy: `# Politique de confidentialité
+L'application Serial Luncher est détenu par TurtleCorp, qui est un contrôleur de données de vos données personnelles.
+
+Nous avons adopté cette politique de confidentialité, qui détermine la manière dont nous traitons les informations collectées par Serial Luncher, qui fournit également les raisons pour lesquelles nous devons collecter certaines données personnelles vous concernant. Par conséquent, vous devez lire cette politique de confidentialité avant d'utiliser le site web de Serial Luncher.
+
+Nous prenons soin de vos données personnelles et nous nous engageons à en garantir la confidentialité et la sécurité.
+
+**Les informations personnelles que nous collectons :**
+Lorsque vous visitez le Serial Luncher, nous recueillons automatiquement certaines informations sur votre appareil, notamment des informations sur votre navigateur web, votre adresse IP, votre fuseau horaire et certains des cookies installés sur votre appareil. En outre, lorsque vous naviguez sur le site, nous recueillons des informations sur les pages web ou les produits individuels que vous consultez, sur les sites web ou les termes de recherche qui vous ont renvoyé au site et sur la manière dont vous interagissez avec le site. Nous désignons ces informations collectées automatiquement par le terme "informations sur les appareils". En outre, nous pourrions collecter les données personnelles que vous nous fournissez (y compris, mais sans s'y limiter, le nom, le prénom, l'adresse, les informations de paiement, etc.) lors de l'inscription afin de pouvoir exécuter le contrat.
+
+**Pourquoi traitons-nous vos données ?**
+Notre priorité absolue est la sécurité des données des clients et, à ce titre, nous ne pouvons traiter que des données minimales sur les utilisateurs, uniquement dans la mesure où cela est absolument nécessaire pour maintenir le site web. Les informations collectées automatiquement sont utilisées uniquement pour identifier les cas potentiels d'abus et établir des informations statistiques concernant l'utilisation du site web. Ces informations statistiques ne sont pas autrement agrégées de manière à identifier un utilisateur particulier du système.
+
+Vous pouvez visiter le site web sans nous dire qui vous êtes ni révéler d'informations, par lesquelles quelqu'un pourrait vous identifier comme un individu spécifique et identifiable. Toutefois, si vous souhaitez utiliser certaines fonctionnalités du site web, ou si vous souhaitez recevoir notre lettre d'information ou fournir d'autres détails en remplissant un formulaire, vous pouvez nous fournir des données personnelles, telles que votre e-mail, votre prénom, votre nom, votre ville de résidence, votre organisation, votre numéro de téléphone. Vous pouvez choisir de ne pas nous fournir vos données personnelles, mais il se peut alors que vous ne puissiez pas profiter de certaines fonctionnalités du site web. Par exemple, vous ne pourrez pas recevoir notre bulletin d'information ou nous contacter directement à partir du site web. Les utilisateurs qui ne savent pas quelles informations sont obligatoires sont invités à nous contacter via contact@serial-luncher.turtlecorp.fr.
+
+**Vos droits :**
+Si vous êtes un résident européen, vous disposez des droits suivants liés à vos données personnelles :
+
+* Le droit d'être informé.
+* Le droit d'accès.
+* Le droit de rectification.
+* Le droit à l'effacement.
+* Le droit de restreindre * le traitement.
+* Le droit à la portabilité des données.
+* Le droit d'opposition.
+* Les droits relatifs à la prise de décision automatisée et au profilage.
+* Si vous souhaitez exercer ce droit, veuillez nous contacter via les coordonnées ci-dessous.
+
+En outre, si vous êtes un résident européen, nous notons que nous traitons vos informations afin d'exécuter les contrats que nous pourrions avoir avec vous (par exemple, si vous passez une commande par le biais du site), ou autrement pour poursuivre nos intérêts commerciaux légitimes énumérés ci-dessus. En outre, veuillez noter que vos informations pourraient être transférées en dehors de l'Europe, y compris au Canada et aux États-Unis.
+
+**Liens vers d'autres sites web :**
+Notre site web peut contenir des liens vers d'autres sites web qui ne sont pas détenus ou contrôlés par nous. Sachez que nous ne sommes pas responsables de ces autres sites web ou des pratiques de confidentialité des tiers. Nous vous encourageons à être attentif lorsque vous quittez notre site web et à lire les déclarations de confidentialité de chaque site web susceptible de collecter des informations personnelles.
+
+**Sécurité de l'information :**
+Nous sécurisons les informations que vous fournissez sur des serveurs informatiques dans un environnement contrôlé et sécurisé, protégé contre tout accès, utilisation ou divulgation non autorisés. Nous conservons des garanties administratives, techniques et physiques raisonnables pour nous protéger contre tout accès, utilisation, modification et divulgation non autorisés des données personnelles sous son contrôle et sa garde. Toutefois, aucune transmission de données sur Internet ou sur un réseau sans fil ne peut être garantie.
+
+**Divulgation légale :**
+Nous divulguerons toute information que nous collectons, utilisons ou recevons si la loi l'exige ou l'autorise, par exemple pour nous conformer à une citation à comparaître ou à une procédure judiciaire similaire, et lorsque nous pensons de bonne foi que la divulgation est nécessaire pour protéger nos droits, votre sécurité ou celle d'autrui, enquêter sur une fraude ou répondre à une demande du gouvernement.
+
+**Informations de contact :**
+Si vous souhaitez nous contacter pour comprendre davantage la présente politique ou si vous souhaitez nous contacter concernant toute question relative aux droits individuels et à vos informations personnelles, vous pouvez envoyer un courriel à contact@serial-luncher.turtlecorp.fr.`,
   },
   en: {
     landing: {
@@ -468,6 +509,41 @@ const locales = {
         error: "😠 An error occurred while deleting the account.",
       },
     },
+    privacy_policy: `# Privacy Policy
+The Serial Luncher app is owned by TurtleCorp, which is a data controller of your personal data.
+
+We have adopted this privacy policy, which sets out how we treat information collected by Serial Luncher, which also provides the reasons why we need to collect certain personal data about you. Therefore, you should read this privacy policy before using the Serial Luncher website.
+
+We take care of your personal data and are committed to ensuring its confidentiality and security.
+
+**The personal information we collect:**
+When you visit Serial Luncher, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies installed on your device. Additionally, as you browse the Site, we collect information about the web pages or individual products you view, the websites or search terms that referred you to the Site, and how you interact with the Site. site. We refer to this automatically collected information as "Device Information". Additionally, we may collect the personal data you provide to us (including, but not limited to, first and last name, address, payment information, etc.) during registration so that we can perform the contract.
+
+**Why do we process your data?**
+Our top priority is the security of customer data and as such we can only process minimal user data, only insofar as it is absolutely necessary to maintain the website. The information collected automatically is used only to identify potential cases of abuse and to establish statistical information regarding the use of the website. This statistical information is not otherwise aggregated in such a way as to identify any particular user of the system.
+
+You can visit the Website without telling us who you are or revealing any information by which someone could identify you as a specific, identifiable individual. However, if you wish to use certain features of the website, or if you wish to receive our newsletter or provide other details by filling in a form, you may provide us with personal data, such as your e-mail address, first name , your name, your city of residence, your organization, your telephone number. You can choose not to provide us with your personal data, but then you may not be able to take advantage of certain features of the website. For example, you will not be able to receive our newsletter or contact us directly from the website. Users who do not know which information is mandatory are invited to contact us via contact@serial-luncher.turtlecorp.fr.
+
+**Your rights :**
+If you are a European resident, you have the following rights related to your personal data:
+
+* The right to be informed.
+* The right of access.
+* The right of rectification.
+* The right to erasure.
+* The right to restrict * processing.
+* The right to data portability.
+* The right of opposition.
+* Rights relating to automated decision-making and profiling.
+* If you wish to exercise this right, please contact us using the contact details below.
+
+Additionally, if you are a European resident, we note that we are processing your information in order to perform contracts we might have with you (for example, if you place an order through the Site), or otherwise to continue our legitimate business interests listed above. Additionally, please note that your information may be transferred outside of Europe, including to Canada and the United States.
+
+**Links to other websites:**
+Our website may contain links to other websites which are not owned or controlled by us. Please be aware that we are not responsible for these other websites or the privacy practices of third parties. We encourage you to be aware when you leave our website and to read the privacy statements of each website that may collect personal information.
+
+**Information security :**
+We secure the information you provide on computer servers in a controlled, secure environment, protected from unauthorized access, use or disclosure. We maintain reasonable administrative, technical, and physical safeguards to protect against unauthorized access, use, modification, and disclosure of personal data.`,
   },
 };
 

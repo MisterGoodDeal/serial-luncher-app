@@ -21,6 +21,7 @@ import {
 import appleAuth from "@invertase/react-native-apple-authentication";
 import Toast from "react-native-toast-message";
 import { vibrate } from "@utils/vibrate";
+import { PrivacyPolicy } from "@components/ui/Organisms/PrivacyPolicy";
 
 interface SettingsProps {}
 
@@ -41,6 +42,8 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
   };
 
   const [deleteUser, deleteUserResult] = useDeleteUserMutation();
+
+  const [privacyPolicyVisible, setPrivacyPolicyVisible] = React.useState(false);
 
   return (
     <Container
@@ -77,7 +80,13 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
           </CustomText>
         </UserNameView>
       </Header>
-      <Separator />
+      <Separator
+        style={{
+          backgroundColor: isDark
+            ? dark.input.background
+            : light.input.background,
+        }}
+      />
       <Content>
         <MenuLink
           isDark={isDark}
@@ -96,7 +105,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         <MenuLink isDark={isDark} onPress={() => null}>
           {Lang.settings.contact_us}
         </MenuLink>
-        <MenuLink isDark={isDark} onPress={() => null}>
+        <MenuLink isDark={isDark} onPress={() => setPrivacyPolicyVisible(true)}>
           {Lang.settings.privacy_policy}
         </MenuLink>
         <Spacer space="3%" />
@@ -141,6 +150,11 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
           {Lang.settings.delete.button}
         </MenuLink>
       </Content>
+      <PrivacyPolicy
+        visible={privacyPolicyVisible}
+        setVisibility={setPrivacyPolicyVisible}
+        isDark={isDark}
+      />
     </Container>
   );
 };
@@ -170,9 +184,8 @@ const UserNameView = styled.View`
 `;
 
 const Separator = styled.View`
-  background-color: ${Colors.grey};
   width: ${wp("100%")};
-  height: ${hp("0.2%")};
+  height: ${hp("0.1%")};
 `;
 
 const Content = styled.View`
