@@ -234,6 +234,16 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             {Lang.group.last_places}
           </CustomText>
           <Spacer space={"2%"} />
+          {infos?.last_places.length === 0 && (
+            <CustomText
+              color={isDark ? dark.text : light.text}
+              size={texts.paragraph}
+              fontWeight={"400"}
+              align={"center"}
+            >
+              {Lang.group.no_places}
+            </CustomText>
+          )}
           {infos?.last_places.map((p, index: number) => (
             <PlaceItem
               key={index}
