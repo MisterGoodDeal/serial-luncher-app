@@ -206,6 +206,10 @@ const locales = {
     },
     settings: {
       title: "Paramètres",
+      edit: "Modifier mon profil",
+      manage_group: "Gérer mon groupe",
+      contact_us: "Nous contacter",
+      privacy_policy: "Politique de confidentialité",
       edit_pp: "Modifier la photo de profil",
       disconnect: "Se déconnecter",
       editUser: {
@@ -432,6 +436,10 @@ const locales = {
     },
     settings: {
       title: "Settings",
+      edit: "Edit",
+      manage_group: "Manage group",
+      contact_us: "Contact us",
+      privacy_policy: "Privacy policy",
       edit_pp: "Edit profile picture",
       editUser: {
         title: "Edit user",

@@ -6,7 +6,11 @@ export enum Routes {
   FORGOTTEN_PASSWORD = "ForgottenPassword",
   MAP = "Map",
   GROUP = "Group",
-  SETTINGS = "Settings",
+  // Group
   JOIN_GROUP = "JoinGroup",
   CREATE_GROUP = "CreateGroup",
+  // Settings
+  SETTINGS_NAVIGATOR = "SettingsNavigator",
+  SETTINGS = "SettingsIndex",
+  SETTINGS_CHANGE_INFOS = "SettingsChangeInfos",
 }

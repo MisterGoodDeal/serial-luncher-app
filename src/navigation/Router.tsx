@@ -9,14 +9,15 @@ import { RegisterScreen } from "@screens/Register";
 import ForgottenPassword from "@screens/ForgottenPassword/ForgottenPassword";
 import { Group } from "@screens/App/Group.screen";
 import { Map } from "@screens/App/Map.screen";
-import { Settings } from "@screens/App/Settings.screen";
+import { Settings } from "@screens/App/Settings/index.Settings.screen";
 import { Routes } from "./Routes";
 import { hp } from "@utils/functions";
 import { Colors, dark, light } from "@themes/Colors";
 import { CustomText } from "@components/ui/Atoms/CustomText";
-import { Spacer } from "@components/common/Spacer";
-import { ForceJoinGroupScreen } from "@screens/Groups/JoinGroup";
 import { ForceCreateGroupScreen } from "@screens/Groups/CreateGroup";
+import { ForceJoinGroupScreen } from "@screens/Groups/JoinGroup";
+import { ChangeInfos } from "@screens/App/Settings/ChangeInfos";
+import { SettingsNavigator } from "./SettingsNavigator";
 
 type StackScreen = {
   key: number;
@@ -102,6 +103,21 @@ export const tabsGroup: TabsScreen = [
   },
 ];
 
+export const tabsSettings: TabsScreen = [
+  {
+    key: 0,
+    name: Routes.SETTINGS,
+    component: Settings,
+    icon: (focused: boolean, keyboardStatus: boolean) => <></>,
+  },
+  {
+    key: 1,
+    name: Routes.SETTINGS_CHANGE_INFOS,
+    component: ChangeInfos,
+    icon: (focused: boolean, keyboardStatus: boolean) => <></>,
+  },
+];
+
 export const tabsApp: AppTabs = [
   {
     key: 0,
@@ -177,8 +193,8 @@ export const tabsApp: AppTabs = [
   },
   {
     key: 2,
-    name: Routes.SETTINGS,
-    component: Settings,
+    name: Routes.SETTINGS_NAVIGATOR,
+    component: SettingsNavigator,
     icon: (focused: boolean, keyboardStatus: boolean, isDark: boolean) => (
       <View style={styles.imageContainer}>
         <Image
