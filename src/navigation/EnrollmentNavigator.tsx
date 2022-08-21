@@ -58,8 +58,9 @@ const tabStyle = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: Colors.transparent,
     position: "absolute",
-    top: hp("15%"),
-    borderTopWidth: 0,
+    top: hp("10%"),
+    borderWidth: 0,
+    borderTopColor: "transparent",
     paddingHorizontal: wp("15%"),
     height: hp("1%"),
     alignItems: "flex-end",
