@@ -3,12 +3,13 @@
     "start": "react-native start",
     "android": "npx react-native run-android",
     "pods": "cd ios && pod install && cd ..",
-    "pods:reset": "cd ios && pod deintegrate && cd .. && yarn link-pods",
+    "pods:reset": "cd ios && pod deintegrate && cd .. && yarn pods",
     "ios": "react-native run-ios",
     "real-ios": "react-native run-ios --device='iPhone de Milan'",
     "both": "npm run real-ios && npm run android",
     "eject": "expo eject",
-    "open:ios": "open ios/SerialLuncher.xcworkspace"
+    "open:ios": "open ios/SerialLuncher.xcworkspace",
+    "bootstrap": "yarn && yarn pods:reset && yarn open:ios"
   },
   "jest": {
     "preset": "jest-expo"
