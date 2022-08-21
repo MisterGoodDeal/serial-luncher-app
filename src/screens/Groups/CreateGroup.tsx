@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, TouchableOpacity, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
@@ -19,7 +19,6 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { Input } from "@components/ui/Atoms/Input";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Popup } from "@components/ui/Molecules/Popup";
-import { Colors } from "@themes/Colors";
 import { FormikHelpers, useFormik } from "formik";
 import {
   setGroup as setGroupStore,
@@ -33,10 +32,15 @@ import {
   useCreateGroupMutation,
   useJoinGroupMutation,
 } from "@store/groups/slice";
-import { setLoading, setToken, setUser } from "@store/application/slice";
+import {
+  setHasGroup,
+  setLoading,
+  setToken,
+  setUser,
+} from "@store/application/slice";
 import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
-import { dark, light } from "@themes/Colors";
+import { Colors, dark, light } from "@themes/Colors";
 import { Button } from "@components/ui/Atoms/Button";
 
 interface CreateGroupScreenProps {
@@ -49,7 +53,7 @@ interface CreateGroupForm {
   groupPicture: ImagePickerResponse | null;
 }
 
-export const CreateGroupScreen: React.FunctionComponent<
+export const ForceCreateGroupScreen: React.FunctionComponent<
   CreateGroupScreenProps
 > = ({ nextStep, previousStep }) => {
   const isDark = useColorScheme() === "dark";
@@ -147,22 +151,6 @@ export const CreateGroupScreen: React.FunctionComponent<
         text1: Lang.enrollment.register.error.oops,
         text2: Lang.enrollment.register.error.missing_fields,
       });
-    } else if (!registeredUser) {
-      dispatch(
-        setGroupStore({
-          name: values.groupName,
-          picture: values.groupPicture?.assets![0].base64 ?? "",
-        })
-      );
-      register({
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        profile_picture: user.profile_picture,
-        oauth_service: user.oauth_service,
-        oauth_service_id: user.oauth_service_id,
-      });
     } else {
       createGroup({
         name: values.groupName,
@@ -205,13 +193,11 @@ export const CreateGroupScreen: React.FunctionComponent<
     if (resultCreateGroup.status === "fulfilled") {
       const res = resultCreateGroup.data as Group;
       dispatch(setGroup(res));
-      dispatch(setUser(registeredUser!));
+      dispatch(setHasGroup(true));
       Toast.show({
         type: "success",
-        text1: `${Lang.enrollment.login.success.hello} ${
-          registeredUser!.firstname
-        } 👋`,
-        text2: Lang.enrollment.login.success.connected,
+        text1: `${Lang.enrollment.login.success.hello} ${user!.firstname} 👋`,
+        text2: Lang.group.created,
       });
     } else if (resultCreateGroup.status === "rejected") {
       // @ts-ignore
@@ -224,6 +210,8 @@ export const CreateGroupScreen: React.FunctionComponent<
       });
     }
   }, [resultCreateGroup]);
+
+  const nav = useNavigation();
 
   return (
     <KeyboardDismiss>
@@ -262,12 +250,13 @@ export const CreateGroupScreen: React.FunctionComponent<
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
+        color={isDark ? dark.background : light.background}
         style={{
           width: wp(100),
         }}
       >
         <Arrow
-          onPress={() => previousStep()}
+          onPress={() => nav.goBack()}
           color={isDark ? dark.text : light.text}
         />
 

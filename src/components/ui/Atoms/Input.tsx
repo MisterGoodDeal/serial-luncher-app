@@ -6,12 +6,14 @@ import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 
 interface InputProps {
+  onBlur?: () => void;
   width?: number;
   height?: number;
   placeholder: string;
   password?: boolean;
   value: string;
   setValue: (value: string) => void;
+  color?: string;
   type:
     | "none"
     | "URL"
@@ -43,9 +45,12 @@ interface InputProps {
     | "oneTimeCode";
   fontSize?: number;
   isDark: boolean;
+  maxLength?: number;
+  disabled?: boolean;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
+  onBlur,
   width,
   height,
   placeholder,
@@ -55,6 +60,9 @@ export const Input: React.FunctionComponent<InputProps> = ({
   type,
   fontSize,
   isDark,
+  color,
+  maxLength,
+  disabled,
 }) => (
   <>
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
@@ -70,13 +78,21 @@ export const Input: React.FunctionComponent<InputProps> = ({
             width={width ?? wp("80%")}
             height={height ?? hp("7%")}
             rx={height ? height / 4 : hp("7%") / 4}
-            fill={!isDark ? dark.navBar.background : light.navBar.background}
+            fill={
+              color
+                ? color
+                : isDark
+                ? dark.input.background
+                : light.input.background
+            }
           />
         </G>
       </G>
     </Svg>
     <TextInput
+      onBlur={onBlur}
       style={{
+        opacity: disabled ? 0.5 : 1,
         position: "relative",
         top: height ? -height : -hp("7%"),
         marginBottom: height ? -height : -hp("7%"),
@@ -85,13 +101,17 @@ export const Input: React.FunctionComponent<InputProps> = ({
         width: width ?? wp("80%"),
         height: height ?? hp("7%"),
         fontSize: fontSize ?? texts.input,
-        color: isDark ? light.text : dark.text,
+        color: isDark ? dark.input.text : light.input.text,
         fontFamily: "Gibson",
       }}
+      editable={!disabled}
+      maxLength={maxLength}
       textContentType={type}
       autoCapitalize={type === "emailAddress" ? "none" : undefined}
       placeholder={placeholder}
-      placeholderTextColor={isDark ? Colors.grey : Colors.lightGrey}
+      placeholderTextColor={
+        isDark ? dark.input.placeholder : light.input.placeholder
+      }
       secureTextEntry={password}
       value={value}
       onChangeText={setValue}

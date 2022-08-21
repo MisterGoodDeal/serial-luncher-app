@@ -7,4 +7,6 @@ export enum Routes {
   MAP = "Map",
   GROUP = "Group",
   SETTINGS = "Settings",
+  JOIN_GROUP = "JoinGroup",
+  CREATE_GROUP = "CreateGroup",
 }

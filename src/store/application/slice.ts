@@ -1,17 +1,25 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
+import { baseQuery } from "@store/api";
 import { endpoint, initialState, reducerPath } from "./constants";
-import { BASE_URL } from "@environments/prod.environment";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@store/model/enrollment";
 
-//Implementation fake with pokemonAPI
 export const applicationAPI = createApi({
   reducerPath,
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  baseQuery,
   endpoints: (builder) => ({
-    getPokemonByName: builder.query<{}, string>({
-      query: (name) => `${endpoint}/${name}`,
+    editUser: builder.mutation<User, Partial<User>>({
+      query: (body) => ({
+        url: endpoint.updateUser,
+        method: "PUT",
+        body,
+      }),
+    }),
+    deleteUser: builder.mutation<{}, {}>({
+      query: () => ({
+        url: endpoint.delete,
+        method: "DELETE",
+      }),
     }),
   }),
 });
@@ -29,6 +37,9 @@ export const applicationSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    setHasGroup: (state, action: PayloadAction<boolean>) => {
+      state.hasGroup = action.payload;
+    },
     disconnect: (state) => {
       state.userInfos = initialState.userInfos;
       state.token = initialState.token;
@@ -37,7 +48,7 @@ export const applicationSlice = createSlice({
   },
 });
 
-export const { setUser, setToken, setLoading, disconnect } =
+export const { setUser, setToken, setLoading, setHasGroup, disconnect } =
   applicationSlice.actions;
 
-export const { useGetPokemonByNameQuery } = applicationAPI;
+export const { useEditUserMutation, useDeleteUserMutation } = applicationAPI;

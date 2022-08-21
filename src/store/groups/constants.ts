@@ -9,6 +9,7 @@ export const initialState: Group = {
   created_at: "",
   updated_at: "",
   deleted_at: "",
+  groupeInfo: undefined,
 };
 
 export const reducerPath = "groupsApi";
@@ -19,4 +20,5 @@ export const endpoint = {
   leave: "group/leave",
   delete: "group/delete",
   get: "group",
+  info: "group/info",
 };

@@ -16,8 +16,12 @@ export const initialState: Application = {
   },
   token: "",
   loading: false,
+  hasGroup: false,
 };
 
 export const reducerPath = "applicationApi";
 
-export const endpoint = "pokemon";
+export const endpoint = {
+  updateUser: "/user/edit",
+  delete: "/user/delete",
+};

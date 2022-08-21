@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Container } from "@components/common/Container";
 import { Colors, dark, light } from "@themes/Colors";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Image, useColorScheme } from "react-native";
+import { StyleSheet, Image, useColorScheme, Alert } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { CustomText } from "@components/ui/Atoms/CustomText";
@@ -14,7 +14,12 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { useGetGroupMutation, useJoinGroupMutation } from "@store/groups/slice";
 import { applicationState } from "@store/application/selector";
-import { setLoading, setToken, setUser } from "@store/application/slice";
+import {
+  setHasGroup,
+  setLoading,
+  setToken,
+  setUser,
+} from "@store/application/slice";
 import { Group } from "@store/model/groups";
 import { Popup } from "@components/ui/Molecules/Popup";
 import Toast from "react-native-toast-message";
@@ -26,59 +31,30 @@ import { enrollmentState } from "@store/enrollment/selector";
 import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
 import { setGroup as setGroupStore } from "@store/groups/slice";
-interface JoinGroupScreenProps {
-  nextStep: () => void;
-  previousStep: () => void;
-}
+import { Routes } from "@navigation/Routes";
+interface JoinGroupScreenProps {}
 
-export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
-  nextStep,
-  previousStep,
-}) => {
+export const ForceJoinGroupScreen: React.FunctionComponent<
+  JoinGroupScreenProps
+> = ({}) => {
   const isDark = useColorScheme() === "dark";
+  const nav = useNavigation();
 
   const dispatch = useDispatch();
-  const [register, resultRegister] = useRegisterMutation();
   const [getGroup, resultGetGroup] = useGetGroupMutation();
   const [joinGroup, resultJoinGroup] = useJoinGroupMutation();
 
-  const { token } = useSelector(applicationState);
-  const { user, groupId } = useSelector(enrollmentState);
+  const { token, userInfos } = useSelector(applicationState);
 
   const [popup, setPopup] = React.useState(false);
   const [group, setGroup] = React.useState<Group>();
 
-  const [registeredUser, setRegisteredUser] = React.useState<User>();
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => null;
-    }, [])
-  );
+  const [groupId, setGroupId] = React.useState("");
 
   const handleFetchGroup = (code: string) => {
     getGroup({
       group_key: code,
     });
-  };
-
-  const handleRegisterWithExistingGroup = () => {
-    if (!registeredUser) {
-      dispatch(setGroupCode(group!.group_key));
-      register({
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        profile_picture: user.profile_picture,
-        oauth_service: user.oauth_service,
-        oauth_service_id: user.oauth_service_id,
-      });
-    } else {
-      joinGroup({
-        group_key: groupId,
-      });
-    }
   };
 
   React.useEffect(() => {
@@ -107,32 +83,6 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
   }, [resultGetGroup]);
 
   React.useEffect(() => {
-    console.log(resultRegister);
-    if (resultRegister.status === "pending") {
-      dispatch(setLoading(true));
-    } else if (resultRegister.status === "rejected") {
-      // @ts-ignore
-      const res = resultRegister.error.data as GenericApiReponse;
-      console.log("error => ", resultRegister.error);
-      Toast.show({
-        type: "error",
-        text1: `${errorHandler(res?.title ?? "").title}`,
-        text2: `${errorHandler(res?.title ?? "").content}`,
-      });
-      dispatch(setLoading(false));
-    } else if (resultRegister.status === "fulfilled") {
-      dispatch(setLoading(false));
-      console.log(resultRegister);
-      const res = resultRegister.data as User;
-      setRegisteredUser(res);
-      dispatch(setToken(res.token));
-      joinGroup({
-        group_key: groupId,
-      });
-    }
-  }, [resultRegister]);
-
-  React.useEffect(() => {
     console.log(resultJoinGroup);
     if (resultJoinGroup.status === "pending") {
       dispatch(setLoading(true));
@@ -149,16 +99,13 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
     } else if (resultJoinGroup.status === "fulfilled") {
       Toast.show({
         type: "success",
-        text1: `${Lang.enrollment.login.success.hello} ${
-          registeredUser!.firstname
-        } 👋`,
+        text1: `${Lang.enrollment.login.success.hello} ${userInfos?.firstname} 👋`,
         text2: Lang.enrollment.login.success.connected,
       });
       const joinedGroup = resultJoinGroup.data as Group;
       dispatch(setLoading(false));
       dispatch(setGroupStore(joinedGroup));
-      dispatch(setUser(registeredUser!));
-      dispatch(setToken(registeredUser!.token));
+      dispatch(setHasGroup(true));
     }
   }, [resultJoinGroup]);
 
@@ -191,7 +138,11 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
         <Button
           color={Colors.blue}
           width={wp("50%")}
-          onPress={() => handleRegisterWithExistingGroup()}
+          onPress={() =>
+            joinGroup({
+              group_key: groupId,
+            })
+          }
         >
           {Lang.enrollment.register.step3.title}
         </Button>
@@ -200,18 +151,11 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
+        color={isDark ? dark.background : light.background}
         style={{
           width: wp(100),
         }}
       >
-        <Arrow
-          onPress={() => {
-            setRegisteredUser(undefined);
-            previousStep();
-          }}
-          color={isDark ? dark.text : light.text}
-        />
-
         <CustomText
           size={texts.title}
           fontWeight={"500"}
@@ -242,6 +186,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           }}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={(code) => {
+            setGroupId(code);
             handleFetchGroup(code);
           }}
           keyboardAppearance={isDark ? "dark" : "light"}
@@ -256,7 +201,13 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
           {Lang.enrollment.register.step3.no_group}
         </CustomText>
         <Spacer space="1.5%" />
-        <Link onPress={() => nextStep()} size={hp("2%")} fontWeight={"400"}>
+        <Link
+          // @ts-ignore
+          onPress={() => nav.navigate(Routes.CREATE_GROUP)}
+          size={hp("2%")}
+          fontWeight={"400"}
+          color={isDark ? dark.text : light.text}
+        >
           {Lang.enrollment.register.step3.create_group}
         </Link>
       </Container>

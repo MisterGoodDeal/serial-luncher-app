@@ -12,6 +12,7 @@ interface ButtonProps {
   fontSize?: number;
   shadow?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -22,6 +23,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   fontSize,
   shadow,
   onPress,
+  disabled,
 }) => (
   <TouchableOpacity
     style={[
@@ -31,6 +33,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
       shadow ? styles.shadow : {},
     ]}
     onPress={onPress}
+    disabled={disabled}
   >
     <Svg width={width ?? wp("80%")} height={height ?? hp("7%")}>
       <Defs>
@@ -68,6 +71,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
           fontFamily: "Gibson",
           fontWeight: "500",
           textAlign: "center",
+          opacity: disabled ? 0.5 : 1,
         }}
       >
         {children}

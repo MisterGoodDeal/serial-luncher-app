@@ -6,10 +6,13 @@ export const Colors = {
   green: "#3cba54",
   yellow: "#FFB900",
   orange: "#FF9057",
+  red: "#FF3B30",
   pink: "#FF4F9A",
   purple: "#C840E9",
   cyan: "#78849E",
-  lightGrey: "#dedede",
+  lightGrey: "#f2f2f2",
+  lightGreyAlt: "#F5F5F5",
+  placeholder: "#9b9b9b",
   grey: "#454F63",
   darkgrey: "#2A2E43",
   black: "#000000",
@@ -29,6 +32,11 @@ export const dark = {
       inactive: Colors.darkgrey,
     },
   },
+  input: {
+    background: Colors.grey,
+    placeholder: Colors.white,
+    text: Colors.white,
+  },
 };
 
 export const light = {
@@ -40,5 +48,10 @@ export const light = {
       active: Colors.darkgrey,
       inactive: Colors.lightGrey,
     },
+  },
+  input: {
+    background: Colors.lightGrey,
+    placeholder: Colors.placeholder,
+    text: Colors.black,
   },
 };

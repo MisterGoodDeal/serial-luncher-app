@@ -15,6 +15,8 @@ import { hp } from "@utils/functions";
 import { Colors, dark, light } from "@themes/Colors";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { Spacer } from "@components/common/Spacer";
+import { ForceJoinGroupScreen } from "@screens/Groups/JoinGroup";
+import { ForceCreateGroupScreen } from "@screens/Groups/CreateGroup";
 
 type StackScreen = {
   key: number;
@@ -82,6 +84,21 @@ export const tabs: TabsScreen = [
         {Lang.enrollment.register.title}
       </MenuBadge>
     ),
+  },
+];
+
+export const tabsGroup: TabsScreen = [
+  {
+    key: 0,
+    name: Routes.JOIN_GROUP,
+    component: ForceJoinGroupScreen,
+    icon: (focused: boolean, keyboardStatus: boolean) => <></>,
+  },
+  {
+    key: 1,
+    name: Routes.CREATE_GROUP,
+    component: ForceCreateGroupScreen,
+    icon: (focused: boolean, keyboardStatus: boolean) => <></>,
   },
 ];
 
@@ -201,7 +218,6 @@ const styles = StyleSheet.create({
     marginTop: hp("3.5%"),
     height: "100%",
     width: "100%",
-    backgroundColor: "blue",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -216,7 +232,6 @@ const styles = StyleSheet.create({
   bottomIndicator: {
     height: 5,
     width: "100%",
-    backgroundColor: Colors.blue,
     position: "absolute",
     bottom: -hp("2%"),
   },

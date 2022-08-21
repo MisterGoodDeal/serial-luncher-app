@@ -8,6 +8,7 @@ import {
   AddComment,
   Comment,
   CommentId,
+  StuffedPlace,
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
@@ -20,17 +21,14 @@ export const placesApi = createApi({
     /**
      * Place endpoints
      */
-    getPlaces: builder.query<Place[] | GenericApiReponse, GetPlaces & Token>({
-      query: ({ group_key }) => ({
-        url: `${endpoint.places.get}/${group_key}`,
+    getPlaces: builder.query<StuffedPlace[] | GenericApiReponse, {}>({
+      query: () => ({
+        url: `${endpoint.places.get}`,
         method: "GET",
       }),
-      providesTags: (_result, _error, { group_key }) => [
-        { type: "Places", id: group_key },
-      ],
     }),
-    addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace & Token>({
-      query: ({ token, ...place }) => ({
+    addPlace: builder.mutation<Place | GenericApiReponse, CreatePlace>({
+      query: ({ ...place }) => ({
         url: `${endpoint.places.create}`,
         method: "POST",
         body: place,
@@ -81,21 +79,13 @@ export const placesApi = createApi({
     }),
     addComment: builder.mutation<
       Comment | GenericApiReponse,
-      AddComment & PlaceId & Token
+      AddComment & PlaceId
     >({
-      query: ({ token, id, ...comment }) => ({
-        url: `${endpoint.favorites.add(id)}`,
+      query: ({ id, ...comment }) => ({
+        url: `place/${id}/comment`,
         method: "POST",
         body: comment,
-        headers: {
-          "x-auth": token,
-        },
       }),
-      transformResponse: (
-        response: { data: Comment | GenericApiReponse },
-        meta,
-        arg
-      ) => response.data,
     }),
     deleteComment: builder.mutation<
       GenericApiReponse,

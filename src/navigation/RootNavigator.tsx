@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import linking from "../linking";
 import { Loader } from "@components/ui/Molecules/Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
 import { stack } from "@navigation/Router";
 import { Routes } from "./Routes";
@@ -13,11 +13,46 @@ import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
 import { useColorScheme } from "react-native";
 import { dark, light } from "@themes/Colors";
+import { GroupNavigator } from "./GroupNavigator";
+import { appleAuth } from "@invertase/react-native-apple-authentication";
+import {
+  disconnect,
+  setLoading,
+  useDeleteUserMutation,
+} from "@store/application/slice";
+import Toast from "react-native-toast-message";
+import { vibrate } from "@utils/vibrate";
+import { Lang } from "@constants/Lang";
 
 const Stack = createStackNavigator();
 
 export const RootNavigator: React.FC<{}> = () => {
   const isDark = useColorScheme() === "dark";
+  const dispatch = useDispatch();
+  const [deleteUser, deleteUserResult] = useDeleteUserMutation();
+
+  React.useEffect(() => {
+    if (deleteUserResult.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (deleteUserResult.status === "fulfilled") {
+      dispatch(setLoading(false));
+      dispatch(disconnect());
+      Toast.show({
+        type: "success",
+        text1: Lang.settings.delete.title,
+        text2: Lang.settings.delete.success,
+      });
+      vibrate.success();
+    } else if (deleteUserResult.status === "rejected") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "error",
+        text1: Lang.settings.delete.title,
+        text2: Lang.settings.delete.error,
+      });
+      vibrate.error();
+    }
+  }, [deleteUserResult]);
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
@@ -26,7 +61,17 @@ export const RootNavigator: React.FC<{}> = () => {
     })();
   }, []);
 
-  const { loading, userInfos } = useSelector(applicationState);
+  React.useEffect(() => {
+    // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
+    return appleAuth.onCredentialRevoked(async () => {
+      console.warn(
+        "If this function executes, User Credentials have been Revoked"
+      );
+      deleteUser({});
+    });
+  }, []);
+
+  const { loading, userInfos, hasGroup } = useSelector(applicationState);
 
   return (
     <>
@@ -63,7 +108,8 @@ export const RootNavigator: React.FC<{}> = () => {
           </>
         </NavigationContainer>
       )}
-      {loaded && userInfos.id !== -1 && <AppNavigator />}
+      {loaded && userInfos.id !== -1 && hasGroup && <AppNavigator />}
+      {loaded && userInfos.id !== -1 && !hasGroup && <GroupNavigator />}
     </>
   );
 };

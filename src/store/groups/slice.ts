@@ -8,24 +8,27 @@ import {
   GetAndJoinGroup,
   LeaveAndDeleteGroup,
   Group,
+  GroupInfo,
 } from "@store/model/groups";
 
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { GetPlaces } from "@store/model/places";
 
 export const groupsApi = createApi({
   reducerPath,
   baseQuery,
   endpoints: (builder) => ({
-    getGroup: builder.mutation<
-      Group | GenericApiReponse,
-      GetAndJoinGroup & Token
-    >({
+    getGroup: builder.mutation<Group | GenericApiReponse, GetAndJoinGroup>({
       query: ({ group_key }) => ({
         url: `${endpoint.get}/${group_key}`,
         method: "GET",
       }),
+    }),
+
+    getGroupInfo: builder.query<GroupInfo | GenericApiReponse, {}>({
+      query: () => `${endpoint.info}`,
     }),
 
     createGroup: builder.mutation<Group | GenericApiReponse, CreateGroup>({
@@ -43,10 +46,7 @@ export const groupsApi = createApi({
       }),
     }),
 
-    leaveGroup: builder.mutation<
-      GenericApiReponse,
-      LeaveAndDeleteGroup & Token
-    >({
+    leaveGroup: builder.mutation<GenericApiReponse, LeaveAndDeleteGroup>({
       query: ({ id }) => ({
         url: `${endpoint.leave}/${id}`,
         method: "DELETE",
@@ -56,10 +56,7 @@ export const groupsApi = createApi({
         response.data,
     }),
 
-    deleteGroup: builder.mutation<
-      GenericApiReponse,
-      LeaveAndDeleteGroup & Token
-    >({
+    deleteGroup: builder.mutation<GenericApiReponse, LeaveAndDeleteGroup>({
       query: ({ id }) => ({
         url: `${endpoint.delete}/${id}`,
         method: "DELETE",
@@ -85,6 +82,7 @@ export const { setGroup } = groupSlice.actions;
 
 export const {
   useGetGroupMutation,
+  useGetGroupInfoQuery,
   useCreateGroupMutation,
   useJoinGroupMutation,
   useLeaveGroupMutation,
