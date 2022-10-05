@@ -3,8 +3,8 @@
   "workbench.colorCustomizations": {
     "activityBar.activeBorder": "#454F63"
   },
-  "search.useIgnoreFiles": false,
+  "search.useIgnoreFiles": true,
   "search.exclude": {
-    "**/node_modules": false
+    "**/node_modules": true
   }
 }
