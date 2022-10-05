@@ -1,57 +1,57 @@
-import * as React from "react";
-import { Colors, dark, light } from "@themes/Colors";
-import { Container } from "@components/common/Container";
-import { getMarkerAsset, hp, wp } from "@utils/functions";
-import { applicationState } from "@store/application/selector";
-import { useDispatch, useSelector } from "react-redux";
-import MapView from "react-native-map-clustering";
-import { Callout, Marker } from "react-native-maps";
+import * as React from 'react';
+import {Colors, dark, light} from '@themes/Colors';
+import {Container} from '@components/common/Container';
+import {getMarkerAsset, hp, wp} from '@utils/functions';
+import {applicationState} from '@store/application/selector';
+import {useDispatch, useSelector} from 'react-redux';
+import MapView from 'react-native-map-clustering';
+import {Callout, Marker} from 'react-native-maps';
 import {
   useColorScheme,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 import {
   useAddCommentMutation,
   useAddPlaceMutation,
   useGetPlacesQuery,
-} from "@store/places/slice";
-import { StuffedPlace } from "@store/model/places";
-import { setLoading } from "@store/application/slice";
-import { Lang } from "@constants/Lang";
-import Toast from "react-native-toast-message";
-import { useFocusEffect } from "@react-navigation/native";
-import Geolocation from "@react-native-community/geolocation";
-import { MapButton } from "@components/ui/Molecules/MapButton";
-import { BottomSheet } from "@components/ui/Organisms/BottomSheet";
-import { Popup } from "@components/ui/Molecules/Popup";
-import { CustomText } from "@components/ui/Atoms/CustomText";
-import { texts } from "@constants/TextsSizes";
-import { Spacer } from "@components/common/Spacer";
-import { Input } from "@components/ui/Atoms/Input";
-import { Rating } from "react-native-ratings";
-import CheckBox from "@react-native-community/checkbox";
-import { Button } from "@components/ui/Atoms/Button";
+} from '@store/places/slice';
+import {StuffedPlace} from '@store/model/places';
+import {setLoading} from '@store/application/slice';
+import {Lang} from '@constants/Lang';
+import Toast from 'react-native-toast-message';
+import {useFocusEffect} from '@react-navigation/native';
+import Geolocation from '@react-native-community/geolocation';
+import {MapButton} from '@components/ui/Molecules/MapButton';
+import {BottomSheet} from '@components/ui/Organisms/BottomSheet';
+import {Popup} from '@components/ui/Molecules/Popup';
+import {CustomText} from '@components/ui/Atoms/CustomText';
+import {texts} from '@constants/TextsSizes';
+import {Spacer} from '@components/common/Spacer';
+import {Input} from '@components/ui/Atoms/Input';
+import {Rating} from 'react-native-ratings';
+import CheckBox from '@react-native-community/checkbox';
+import {Button} from '@components/ui/Atoms/Button';
 import {
   ImageLibraryOptions,
   launchCamera,
   launchImageLibrary,
-} from "react-native-image-picker";
-import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
-import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
-import { vibrate } from "@utils/vibrate";
+} from 'react-native-image-picker';
+import {onOpen} from 'react-native-actions-sheet-picker-serial-luncher';
+import {BottomPicker} from '@components/ui/Molecules/BottomPicker';
+import {vibrate} from '@utils/vibrate';
 
 interface MapProps {}
 
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
   const dispatch = useDispatch();
-  const { userInfos } = useSelector(applicationState);
+  const {userInfos} = useSelector(applicationState);
 
-  const { currentData, isFetching, isError, isSuccess, refetch, error } =
+  const {currentData, isFetching, isError, isSuccess, refetch, error} =
     useGetPlacesQuery({});
 
   const mapRef = React.useRef();
@@ -60,7 +60,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const [selectedPlace, setSelectedPlace] = React.useState<StuffedPlace>();
   const [selectedPlaceId, setSelectedPlaceId] = React.useState<number>(-1);
   const [showBottomSheet, setShowBottomSheet] = React.useState(false);
-  const [comment, setComment] = React.useState("");
+  const [comment, setComment] = React.useState('');
   const [addComment, commentResult] = useAddCommentMutation();
 
   const handleAddComment = () => {
@@ -72,7 +72,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       });
     } else {
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: Lang.map.error.oops,
         text2: Lang.map.error.comment_empty,
       });
@@ -80,18 +80,18 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   };
 
   React.useEffect(() => {
-    if (commentResult.status === "fulfilled") {
+    if (commentResult.status === 'fulfilled') {
       Toast.show({
-        type: "success",
+        type: 'success',
         text1: `💬 ${Lang.map.comments}`,
         text2: Lang.map.success.comment_added,
       });
-      setComment("");
+      setComment('');
       dispatch(setLoading(false));
       refetch();
-    } else if (commentResult.status === "rejected") {
+    } else if (commentResult.status === 'rejected') {
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: Lang.map.error.oops,
         text2: Lang.map.error.error_comment,
       });
@@ -101,18 +101,18 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
   // Add a place
   const [addPlaceVisible, setAddPlaceVisible] = React.useState(false);
-  const [placeName, setPlaceName] = React.useState("");
+  const [placeName, setPlaceName] = React.useState('');
   const [rating, setRating] = React.useState(0);
   const [priceRange, setPriceRange] = React.useState(0);
   const [canBringReusableContent, setCanBringReusableContent] =
     React.useState(false);
-  const [url, setUrl] = React.useState("");
+  const [url, setUrl] = React.useState('');
   const [picture, setPicture] = React.useState<string>();
 
   const [addPlace, addPlaceResult] = useAddPlaceMutation();
 
   const profilePictureOptions: ImageLibraryOptions = {
-    mediaType: "photo",
+    mediaType: 'photo',
     quality: 0.5,
     includeBase64: true,
   };
@@ -122,21 +122,21 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     const result = await launchCamera(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
-        type: "info",
+        type: 'info',
         text1: `📸 ${Lang.map.fromCamera}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
       dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: `📸 ${Lang.map.fromCamera}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
       dispatch(setLoading(false));
     } else {
       Toast.show({
-        type: "success",
+        type: 'success',
         text1: `📸 ${Lang.map.fromCamera}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
@@ -151,21 +151,21 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     const result = await launchImageLibrary(profilePictureOptions);
     if (result.didCancel) {
       Toast.show({
-        type: "info",
+        type: 'info',
         text1: `📸 ${Lang.map.fromGallery}`,
         text2: Lang.enrollment.register.step1.profile_picture.cancel,
       });
       dispatch(setLoading(false));
     } else if (result.errorCode || result.errorMessage) {
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: `📸 ${Lang.map.fromGallery}`,
         text2: Lang.enrollment.register.step1.profile_picture.error,
       });
       dispatch(setLoading(false));
     } else {
       Toast.show({
-        type: "success",
+        type: 'success',
         text1: `📸 ${Lang.map.fromGallery}`,
         text2: Lang.enrollment.register.step1.profile_picture.success,
       });
@@ -183,7 +183,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       placeName.length > 0 &&
       rating !== 0 &&
       priceRange !== 0 &&
-      picture !== "" &&
+      picture !== '' &&
       selected?.code !== -1 &&
       userCoordinates &&
       userCoordinates
@@ -198,11 +198,11 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         country_speciality: selected?.code ?? -1,
         lat: userCoordinates!.latitude,
         lng: userCoordinates!.longitude,
-        url: urlRegex.test(url) ? url : "",
+        url: urlRegex.test(url) ? url : '',
       });
     } else {
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: Lang.map.error.oops,
         text2: Lang.map.error.missing_fields,
       });
@@ -211,14 +211,14 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
   React.useEffect(() => {
     console.log(addPlaceResult);
-    if (addPlaceResult.status === "pending") {
+    if (addPlaceResult.status === 'pending') {
       dispatch(setLoading(true));
-    } else if (addPlaceResult.status === "fulfilled") {
+    } else if (addPlaceResult.status === 'fulfilled') {
       dispatch(setLoading(false));
       setAddPlaceVisible(false);
       refetch();
       Toast.show({
-        type: "success",
+        type: 'success',
         text1: `🏠 ${Lang.map.place}`,
         text2: Lang.map.success.place_added,
       });
@@ -234,13 +234,13 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
             altitude: 10,
             zoom: 15,
           },
-          { duration: 1000 }
+          {duration: 1000},
         );
       })();
-    } else if (addPlaceResult.status === "rejected") {
+    } else if (addPlaceResult.status === 'rejected') {
       dispatch(setLoading(false));
       Toast.show({
-        type: "error",
+        type: 'error',
         text1: Lang.map.error.oops,
         text2: Lang.map.error.error_add,
       });
@@ -257,7 +257,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     if (isError || isSuccess) {
       if (isError) {
         Toast.show({
-          type: "error",
+          type: 'error',
           text1: Lang.group.error.oops,
           text2: Lang.group.error.error_fetching,
         });
@@ -276,7 +276,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       })();
       refetch();
       return () => null;
-    }, [])
+    }, []),
   );
 
   // Récupération de la position actuelle de l'utilisateur
@@ -289,7 +289,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
   async function getCurrentLocation() {
     Geolocation.getCurrentPosition(
-      async (position) => {
+      async position => {
         let region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -298,9 +298,9 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         };
         setUserCoordinates(region);
       },
-      (error) =>
+      error =>
         Toast.show({
-          type: "error",
+          type: 'error',
           text1: Lang.map.error.oops,
           text2: Lang.map.error.error_location,
         }),
@@ -308,22 +308,22 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         enableHighAccuracy: false,
         timeout: 5000,
         maximumAge: 1000,
-      }
+      },
     );
   }
 
   const [data, setData] = React.useState(Lang.country_specialities.countries);
   const [selected, setSelected] = React.useState<
-    { name: string; code: number } | undefined
+    {name: string; code: number} | undefined
   >(undefined);
-  const [query, setQuery] = React.useState("");
+  const [query, setQuery] = React.useState('');
 
   const filteredData = React.useMemo(() => {
     if (data && data.length > 0) {
       return data.filter((item, index) =>
         item.name
-          .toLocaleLowerCase("en")
-          .includes(query.toLocaleLowerCase("en"))
+          .toLocaleLowerCase('en')
+          .includes(query.toLocaleLowerCase('en')),
       );
     }
   }, [data, query]);
@@ -336,16 +336,16 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
    * Filter(s)
    */
   const [selectedFilter, setSelectedFilter] = React.useState<
-    { name: string; code: number } | undefined
+    {name: string; code: number} | undefined
   >(undefined);
-  const [queryFilter, setQueryFilter] = React.useState("");
+  const [queryFilter, setQueryFilter] = React.useState('');
 
   const filteredDataFilter = React.useMemo(() => {
     if (data && data.length > 0) {
       return data.filter((item, index) =>
         item.name
-          .toLocaleLowerCase("en")
-          .includes(queryFilter.toLocaleLowerCase("en"))
+          .toLocaleLowerCase('en')
+          .includes(queryFilter.toLocaleLowerCase('en')),
       );
     }
   }, [data, queryFilter]);
@@ -371,14 +371,13 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   return (
     <Container
       color={Colors.background}
-      justifyContent={"center"}
-      alignItems={"center"}
+      justifyContent={'center'}
+      alignItems={'center'}
       style={{
-        width: "100%",
-        height: "100%",
-        paddingHorizontal: wp("10%"),
-      }}
-    >
+        width: '100%',
+        height: '100%',
+        paddingHorizontal: wp('10%'),
+      }}>
       <MapView
         // @ts-ignore
         ref={mapRef}
@@ -394,19 +393,18 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         showsCompass={false}
         cacheEnabled={false}
         clusterColor={Colors.main}
-        clusterFontFamily={"Gibson"}
+        clusterFontFamily={'Gibson'}
         moveOnMarkerPress={true}
         showsPointsOfInterest={true}
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
-          width: wp("100%"),
-          height: hp("100%"),
-        }}
-      >
+          width: wp('100%'),
+          height: hp('100%'),
+        }}>
         {filteredPlaces &&
-          filteredPlaces.map((place) => (
+          filteredPlaces.map(place => (
             <Marker
               key={place.id}
               coordinate={{
@@ -420,8 +418,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
                 setSelectedPlace(place);
                 setSelectedPlaceId(place.id);
                 setShowBottomSheet(true);
-              }}
-            >
+              }}>
               <Callout tooltip={true}>
                 <Text></Text>
               </Callout>
@@ -439,13 +436,13 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
               altitude: 10,
               zoom: 15,
             },
-            { duration: 1000 }
+            {duration: 1000},
           );
         }}
-        icon={require("@images/map.png")}
-        size={hp("5.5%")}
-        top={hp("8%")}
-        right={wp("4%")}
+        icon={require('@images/map.png')}
+        size={hp('5.5%')}
+        top={hp('8%')}
+        right={wp('4%')}
       />
       <MapButton
         onPress={() => {
@@ -454,24 +451,24 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
             getCurrentLocation();
           })();
         }}
-        icon={require("@images/plus.png")}
-        size={hp("5.5%")}
-        top={hp("15%")}
-        right={wp("4%")}
+        icon={require('@images/plus.png')}
+        size={hp('5.5%')}
+        top={hp('15%')}
+        right={wp('4%')}
       />
       <MapButton
         onPress={() => {
           vibrate.impactLight();
-          onOpen("country_filter");
+          onOpen('country_filter');
         }}
         longPress={() => {
           setSelectedFilter(undefined);
           vibrate.error();
         }}
-        icon={require("@images/filter.png")}
-        size={hp("5.5%")}
-        top={hp("22%")}
-        right={wp("4%")}
+        icon={require('@images/filter.png')}
+        size={hp('5.5%')}
+        top={hp('22%')}
+        right={wp('4%')}
       />
       <BottomPicker
         id="country_filter"
@@ -488,41 +485,38 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         visible={addPlaceVisible}
         onClose={() => setAddPlaceVisible(false)}
         color={isDark ? dark.background : light.background}
-        margin={{ x: wp("10%"), y: hp("15%") }}
-      >
+        margin={{x: wp('10%'), y: hp('15%')}}>
         <ScrollView
           style={{
-            width: wp("70%"),
+            width: wp('70%'),
           }}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <CustomText
             size={texts.title}
-            fontWeight={"600"}
+            fontWeight={'600'}
             color={isDark ? dark.text : light.text}
-            align={"center"}
-          >
+            align={'center'}>
             {Lang.map.add_place}
           </CustomText>
-          <Spacer space={"5%"} />
+          <Spacer space={'5%'} />
           <Input
             placeholder={Lang.map.place_name}
-            width={wp("70%")}
+            width={wp('70%')}
             value={placeName}
             setValue={setPlaceName}
-            type={"name"}
+            type={'name'}
             isDark={isDark}
           />
-          <Spacer space={"2%"} />
-          <TouchableOpacity onPress={() => onOpen("country_specialities")}>
+          <Spacer space={'2%'} />
+          <TouchableOpacity onPress={() => onOpen('country_specialities')}>
             <View pointerEvents="none">
               <Input
                 placeholder={`${Lang.country_specialities.title}*`}
-                width={wp("70%")}
+                width={wp('70%')}
                 // @ts-ignore
-                value={selected?.name ?? ""}
+                value={selected?.name ?? ''}
                 setValue={setPlaceName}
-                type={"name"}
+                type={'name'}
                 isDark={isDark}
                 disabled
               />
@@ -541,27 +535,24 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
           <View
             style={{
-              width: wp("70%"),
-            }}
-          >
+              width: wp('70%'),
+            }}>
             <Container
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+              direction={'row'}
+              justifyContent={'space-between'}
+              alignItems={'center'}>
               <CustomText
                 size={texts.paragraph}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-              >
+                fontWeight={'400'}
+                color={isDark ? dark.text : light.text}>
                 {Lang.map.rating_add}
               </CustomText>
               <Rating
                 type="custom"
-                ratingImage={require("@images/star.png")}
+                ratingImage={require('@images/star.png')}
                 jumpValue={1}
                 ratingCount={5}
-                imageSize={hp("4%")}
+                imageSize={hp('4%')}
                 onFinishRating={(value: number) => setRating(value)}
                 startingValue={rating}
                 tintColor={isDark ? dark.background : light.background}
@@ -571,23 +562,21 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
               />
             </Container>
             <Container
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+              direction={'row'}
+              justifyContent={'space-between'}
+              alignItems={'center'}>
               <CustomText
                 size={texts.paragraph}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-              >
+                fontWeight={'400'}
+                color={isDark ? dark.text : light.text}>
                 {Lang.map.price_range_add}
               </CustomText>
               <Rating
                 type="custom"
-                ratingImage={require("@images/cash.png")}
+                ratingImage={require('@images/cash.png')}
                 jumpValue={1}
                 ratingCount={5}
-                imageSize={hp("4%")}
+                imageSize={hp('4%')}
                 onFinishRating={(value: number) => setPriceRange(value)}
                 startingValue={priceRange}
                 tintColor={isDark ? dark.background : light.background}
@@ -598,93 +587,82 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
               />
             </Container>
             <Container
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+              direction={'row'}
+              justifyContent={'space-between'}
+              alignItems={'center'}>
               <CustomText
                 size={texts.paragraph}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-              >
+                fontWeight={'400'}
+                color={isDark ? dark.text : light.text}>
                 {Lang.map.reusable_package}
               </CustomText>
               <CheckBox
                 disabled={false}
                 value={canBringReusableContent}
-                onValueChange={(newValue) =>
-                  setCanBringReusableContent(newValue)
-                }
+                onValueChange={newValue => setCanBringReusableContent(newValue)}
                 animationDuration={0.25}
                 tintColor={isDark ? dark.text : light.text}
                 onTintColor={Colors.blue}
                 onCheckColor={Colors.blue}
-                boxType={"circle"}
+                boxType={'circle'}
               />
             </Container>
           </View>
-          <Spacer space={"2%"} />
+          <Spacer space={'2%'} />
           <Input
             placeholder={Lang.map.link}
-            width={wp("70%")}
+            width={wp('70%')}
             value={url}
             setValue={setUrl}
-            type={"name"}
+            type={'name'}
             isDark={isDark}
           />
-          <Spacer space={"2%"} />
+          <Spacer space={'2%'} />
           <View
             style={{
-              width: wp("70%"),
-            }}
-          >
+              width: wp('70%'),
+            }}>
             <CustomText
               size={texts.paragraph}
-              fontWeight={"400"}
-              color={isDark ? dark.text : light.text}
-            >
+              fontWeight={'400'}
+              color={isDark ? dark.text : light.text}>
               {Lang.map.picture}
             </CustomText>
-            <Spacer space={"1%"} />
+            <Spacer space={'1%'} />
             <Container
               direction="row"
               alignItems="center"
               justifyContent="space-between"
-              disablePaddingFix
-            >
+              disablePaddingFix>
               <Button
                 color={Colors.blue}
-                width={wp("30%")}
-                onPress={handleTakePicture}
-              >
+                width={wp('30%')}
+                onPress={handleTakePicture}>
                 {Lang.map.fromCamera}
               </Button>
               <Button
                 color={Colors.blue}
-                width={wp("30%")}
-                onPress={handleOpenGallery}
-              >
+                width={wp('30%')}
+                onPress={handleOpenGallery}>
                 {Lang.map.fromGallery}
               </Button>
             </Container>
           </View>
-          <Spacer space={"2%"} />
+          <Spacer space={'2%'} />
           <CustomText
             size={texts.small}
-            fontWeight={"200"}
-            color={isDark ? dark.text : light.text}
-          >
+            fontWeight={'200'}
+            color={isDark ? dark.text : light.text}>
             {Lang.map.is_required}
           </CustomText>
-          <Spacer space={"2%"} />
+          <Spacer space={'2%'} />
           <Button
             color={Colors.main}
-            width={wp("70%")}
-            onPress={handleAddPlace}
-          >
+            width={wp('70%')}
+            onPress={handleAddPlace}>
             {Lang.map.add_place}
           </Button>
-          <Spacer space={"2%"} />
+          <Spacer space={'2%'} />
         </ScrollView>
       </Popup>
       <BottomSheet

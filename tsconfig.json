@@ -23,6 +23,6 @@
       "@contexts/*": ["contexts/*"],
       "@themes/*": ["themes/*"],
       "@environments/*": ["environments/*"]
-    },
+    }
   }
 }

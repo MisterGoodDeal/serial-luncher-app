@@ -11,7 +11,7 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { hp } from "@utils/functions";
 import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Text } from "react-native";
 import { dark, light } from "@themes/Colors";
 import { GroupNavigator } from "./GroupNavigator";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
