@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Alert, useColorScheme } from "react-native";
+import { Alert, Linking, useColorScheme } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
 import { hp, wp } from "@utils/functions";
@@ -99,10 +99,26 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         >
           {Lang.settings.edit}
         </MenuLink>
-        <MenuLink isDark={isDark} onPress={() => null}>
+        <MenuLink
+          isDark={isDark}
+          onPress={() =>
+            Alert.alert(
+              Lang.misc.no_feature.title,
+              Lang.misc.no_feature.content
+            )
+          }
+          color={Colors.grey}
+        >
           {Lang.settings.manage_group}
         </MenuLink>
-        <MenuLink isDark={isDark} onPress={() => null}>
+        <MenuLink
+          isDark={isDark}
+          onPress={() =>
+            Linking.openURL(
+              "mailto:serial-luncher@mistergooddeal.org?subject=Serial Luncher — Contact"
+            )
+          }
+        >
           {Lang.settings.contact_us}
         </MenuLink>
         <MenuLink isDark={isDark} onPress={() => setPrivacyPolicyVisible(true)}>
@@ -112,7 +128,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         <MenuLink
           isDark={isDark}
           onPress={() => dispatch(disconnect())}
-          color={Colors.grey}
+          color={isDark ? dark.text : light.text}
         >
           {Lang.settings.disconnect}
         </MenuLink>
