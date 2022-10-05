@@ -2,6 +2,13 @@ import * as RNLocalize from "react-native-localize";
 
 const locales = {
   fr: {
+    misc: {
+      no_feature: {
+        title: "Oh non 😔",
+        content:
+          "Cette fonctionnalité n'est pas encore disponible, mais elle le sera dans les prochaines versions de l'application 🙂",
+      },
+    },
     landing: {
       title: "Bienvenue sur\nSerial Luncher !",
       continue_with: "Continuer avec",
@@ -282,6 +289,13 @@ Nous divulguerons toute information que nous collectons, utilisons ou recevons s
 Si vous souhaitez nous contacter pour comprendre davantage la présente politique ou si vous souhaitez nous contacter concernant toute question relative aux droits individuels et à vos informations personnelles, vous pouvez envoyer un courriel à contact@serial-luncher.turtlecorp.fr.`,
   },
   en: {
+    misc: {
+      no_feature: {
+        title: "Oh no 😔",
+        content:
+          "This feature is not yet implemented, but It will be soon added in the next version of the app 🙂",
+      },
+    },
     landing: {
       title: "Welcome to\nSerial Luncher!",
       continue_with: "Continue with",
