@@ -5,6 +5,7 @@ import { Container } from "@components/common/Container";
 import { hp, wp } from "@utils/functions";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
+// @ts-ignore
 import styled from "styled-components/native";
 import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
@@ -22,6 +23,17 @@ import appleAuth from "@invertase/react-native-apple-authentication";
 import Toast from "react-native-toast-message";
 import { vibrate } from "@utils/vibrate";
 import { PrivacyPolicy } from "@components/ui/Organisms/PrivacyPolicy";
+
+import { GoogleSignin } from "@react-native-community/google-signin";
+
+const googleSignOut = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  } catch (error: any) {
+    console.error(error);
+  }
+};
 
 interface SettingsProps {}
 
@@ -148,6 +160,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
                     deleteUser({});
                     dispatch(setLoading(false));
                     appleAuth.Operation.LOGOUT;
+                    googleSignOut();
                     dispatch(disconnect());
                     Toast.show({
                       type: "success",
