@@ -118,6 +118,28 @@ const locales = {
             body: "Impossible de créer votre compte, veuillez réessayer.",
           },
         },
+        google: {
+          userCancel: {
+            title: "❌ Connexion avec Google annulée",
+            body: "Vous avez annulé la connexion avec Google",
+          },
+          unknownError: {
+            title: "❌ Erreur inconnue",
+            body: "Une erreur inconnue s'est produite, veuillez réessayer.",
+          },
+          loginFailed: {
+            title: "😶‍🌫️ Oups !",
+            body: "Ce compte Google n'est pas associé à Serial Luncher.",
+          },
+          registerFailed: {
+            title: "🫣 Oups !",
+            body: "Impossible de créer votre compte, veuillez réessayer.",
+          },
+          playServiceUnavailable: {
+            title: "📱 Google Play Services",
+            body: "Google Play Services est nécessaire pour vous connecter avec Google. Veuillez l'installer.",
+          },
+        },
       },
     },
     navigation: {
@@ -397,7 +419,29 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
           },
           registerFailed: {
             title: "🫣 Oops!",
-            body: "Can't your account, please try again.",
+            body: "Can't create your account, please try again.",
+          },
+        },
+        google: {
+          userCancel: {
+            title: "❌ Google login cancled",
+            body: "The authentication with Google has been canceled",
+          },
+          unknownError: {
+            title: "❌ Unknown error",
+            body: "An unknown error has occurred, please try again.",
+          },
+          loginFailed: {
+            title: "😶‍🌫️ Oops!",
+            body: "This Google account is not associated with Serial Luncher.",
+          },
+          registerFailed: {
+            title: "🫣 Oops!",
+            body: "Can't create your account, please try again.",
+          },
+          playServiceUnavailable: {
+            title: "📱 Google Play Services",
+            body: "Google Play Services is not available on your device. Please install it.",
           },
         },
       },

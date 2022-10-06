@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "799608494875",
+    "project_id": "serial-luncher-a6f7f",
+    "storage_bucket": "serial-luncher-a6f7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799608494875:android:2c89131fb029ffe70a91be",
+        "android_client_info": {
+          "package_name": "fr.turtlecorp.serialluncher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799608494875-de4pn26uokvqm898cjrqhjejf3kcpigr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWkTD88hXTCw9hYZWwXVdu4laeu9rxdU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799608494875-de4pn26uokvqm898cjrqhjejf3kcpigr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "799608494875-8e2gcn5elko7710squqthmsqpfjcskko.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.turtlecorp.sl"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

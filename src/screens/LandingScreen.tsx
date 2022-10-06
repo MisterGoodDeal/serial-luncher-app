@@ -3,7 +3,7 @@ import { Container } from "../components/common/Container";
 import { Colors } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar, Image, View, useColorScheme } from "react-native";
+import { StatusBar, Image, View, useColorScheme, Alert } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Button } from "@components/ui/Atoms/Button";
@@ -29,6 +29,12 @@ import {
   useRegisterMutation,
 } from "@store/enrollment/slice";
 import { User } from "@store/model/enrollment";
+import {
+  GoogleSignin,
+  statusCodes,
+  User as GoogleUser,
+} from "@react-native-community/google-signin";
+import { WEB_CLIENT_ID } from "@environments/prod.environment";
 
 interface LandingScreenProps {
   userInfo: string;
@@ -129,7 +135,9 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
       dispatch(setToken(user.token));
       dispatch(setUser(user));
       dispatch(setHasGroup(false));
+      setTryCount(0);
     } else if (registerResponse.status === "rejected") {
+      setTryCount(0);
       dispatch(setLoading(false));
       Toast.show({
         type: "error",
@@ -170,6 +178,126 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
     }
   }),
     [appleLoginResponse];
+
+  /**
+   * GOOGLE LOGIN
+   */
+  const [googleLogin, googleLoginResponse] = useLoginOAuthMutation();
+  const [googleUserInfo, setGoogleUserInfo] = React.useState(null);
+  const [userNeedregister, setUserNeedRegister] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    configureGoogleSign();
+  }, []);
+
+  function configureGoogleSign() {
+    GoogleSignin.configure({
+      webClientId: WEB_CLIENT_ID,
+      offlineAccess: false,
+    });
+  }
+
+  const googleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const ggui = await GoogleSignin.signIn();
+      // @ts-ignore
+      setGoogleUserInfo(ggui);
+      setError(null);
+      setIsLoggedIn(true);
+      googleLogin({
+        oauth_service: "google",
+        oauth_service_id: ggui.user.id,
+      });
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // when user cancels sign in process,
+        Toast.show({
+          type: "error",
+          text1: Lang.enrollment.oauth.google.userCancel.title,
+          text2: Lang.enrollment.oauth.google.userCancel.body,
+        });
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // when play services not available
+        Toast.show({
+          type: "error",
+          text1: Lang.enrollment.oauth.google.playServiceUnavailable.title,
+          text2: Lang.enrollment.oauth.google.playServiceUnavailable.body,
+        });
+      } else {
+        // some other error
+        Toast.show({
+          type: "error",
+          text1: Lang.enrollment.oauth.google.unknownError.title,
+          text2: Lang.enrollment.oauth.google.unknownError.body,
+        });
+        setError(error);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    if (googleLoginResponse.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (googleLoginResponse.status === "fulfilled") {
+      dispatch(setLoading(false));
+      console.log("data => ", googleLoginResponse.data);
+      const user: User = googleLoginResponse.data as User;
+      const userHasGroup = user.hasGroup as boolean;
+      dispatch(setHasGroup(userHasGroup));
+      dispatch(setToken(user.token));
+      dispatch(setUser(user));
+    } else if (googleLoginResponse.status === "rejected") {
+      dispatch(setLoading(false));
+      // @ts-ignore
+      if (googleLoginResponse.error.status === 404) {
+        setUserNeedRegister(true);
+      } else {
+        Toast.show({
+          type: "error",
+          text1: Lang.enrollment.oauth.google.loginFailed.title,
+          text2: Lang.enrollment.oauth.google.loginFailed.body,
+        });
+      }
+    }
+  }),
+    [googleLoginResponse];
+
+  const [tryCount, setTryCount] = React.useState(0);
+
+  React.useEffect(() => {
+    setTryCount(tryCount + 1);
+    if (userNeedregister && tryCount === 1) {
+      // Register the user
+      // @ts-ignore
+      const googleUser: GoogleUser = googleUserInfo;
+      console.log("user not found, registering the user");
+      register({
+        firstname: googleUser.user.givenName!,
+        lastname: googleUser.user.familyName!,
+        email: googleUser.user.email!,
+        password: googleUser.user.id!,
+        oauth_service: "google",
+        oauth_service_id: googleUser.user.id!,
+      });
+      setUserNeedRegister(false);
+    }
+  }, [userNeedregister]);
+
+  const googleSignOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      setIsLoggedIn(false);
+    } catch (error: any) {
+      Alert.alert("Something else went wrong... ", error.toString());
+    }
+  };
+  React.useEffect(() => {
+    console.log(googleUserInfo);
+  }, [googleUserInfo]);
 
   return (
     <KeyboardDismiss>
@@ -223,9 +351,21 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
           {Lang.landing.apple}
         </Button>
         <Spacer direction="vertical" space={"1%"} />
-        <Button width={wp("70%")} color={Colors.green} shadow>
+        <Button
+          width={wp("70%")}
+          color={Colors.green}
+          onPress={() => googleSignIn()}
+          shadow
+        >
           {Lang.landing.google}
         </Button>
+        <Link
+          onPress={() => googleSignOut()}
+          size={texts.button}
+          fontWeight={"normal"}
+        >
+          google logout
+        </Link>
       </Container>
     </KeyboardDismiss>
   );

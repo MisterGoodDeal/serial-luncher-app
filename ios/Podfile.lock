@@ -41,14 +41,14 @@ PODS:
   - GoogleMaps/Base (7.0.0)
   - GoogleMaps/Maps (7.0.0):
     - GoogleMaps/Base
-  - GoogleSignIn (6.2.4):
-    - AppAuth (~> 1.5)
-    - GTMAppAuth (~> 1.3)
-    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GTMAppAuth (1.3.1):
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
-  - GTMSessionFetcher/Core (2.1.0)
+  - GTMSessionFetcher/Core (1.7.2)
   - lottie-ios (3.4.3)
   - lottie-react-native (5.1.4):
     - lottie-ios (~> 3.4.0)
@@ -368,8 +368,8 @@ PODS:
     - React-Core
   - RNGestureHandler (2.7.0):
     - React-Core
-  - RNGoogleSignin (8.0.0):
-    - GoogleSignIn (~> 6.2.2)
+  - RNGoogleSignin (5.0.0):
+    - GoogleSignIn (~> 5.0.0)
     - React-Core
   - RNImageColors (1.5.1):
     - React-Core
@@ -463,7 +463,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - "RNGoogleSignin (from `../node_modules/@react-native-community/google-signin`)"
   - RNImageColors (from `../node_modules/react-native-image-colors`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
@@ -584,7 +584,7 @@ EXTERNAL SOURCES:
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
-    :path: "../node_modules/@react-native-google-signin/google-signin"
+    :path: "../node_modules/@react-native-community/google-signin"
   RNImageColors:
     :path: "../node_modules/react-native-image-colors"
   RNLocalize:
@@ -610,9 +610,9 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
   GoogleMaps: 6e9c923ca035989709fcb5771544fda4cc5fa2a4
-  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
-  GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   lottie-ios: 9ae750cdc7820fecbd3c2f0cfc493038208fcdc4
   lottie-react-native: b702fab740cdb952a8e2354713d3beda63ff97b0
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
@@ -658,7 +658,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: 2f71e09c52ab6327e2c393213368ea0e5bfbcb65
   RNGestureHandler: 7673697e7c0e9391adefae4faa087442bc04af33
-  RNGoogleSignin: b2179ba653c759b936404a7746fc5302f9de6a5a
+  RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNImageColors: fd9777591fc765780e035f4bec7a42edabc86eb4
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c

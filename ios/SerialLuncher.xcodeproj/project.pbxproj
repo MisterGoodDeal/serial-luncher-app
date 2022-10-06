@@ -20,6 +20,7 @@
 		F120D9C128EE01B600154B42 /* Gibson-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F120D9BD28EE01B500154B42 /* Gibson-Bold.otf */; };
 		F120D9C228EE01B600154B42 /* Gibson-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F120D9BE28EE01B600154B42 /* Gibson-SemiBold.otf */; };
 		F120D9C328EE01B600154B42 /* Gibson-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F120D9BF28EE01B600154B42 /* Gibson-Regular.otf */; };
+		F120D9C528EF5B2200154B42 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F120D9C428EF5B2200154B42 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		F120D9BD28EE01B500154B42 /* Gibson-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gibson-Bold.otf"; path = "../src/assets/fonts/Gibson-Bold.otf"; sourceTree = "<group>"; };
 		F120D9BE28EE01B600154B42 /* Gibson-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gibson-SemiBold.otf"; path = "../src/assets/fonts/Gibson-SemiBold.otf"; sourceTree = "<group>"; };
 		F120D9BF28EE01B600154B42 /* Gibson-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gibson-Regular.otf"; path = "../src/assets/fonts/Gibson-Regular.otf"; sourceTree = "<group>"; };
+		F120D9C428EF5B2200154B42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F120D9C628EF5D3800154B42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F12F0D1228AAE9DF009B126A /* SerialLuncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SerialLuncher.entitlements; path = SerialLuncher/SerialLuncher.entitlements; sourceTree = "<group>"; };
 		FF01266F620E072FDA6FB885 /* libPods-SerialLuncher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerialLuncher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,6 +107,7 @@
 		13B07FAE1A68108700A75B9A /* SerialLuncher */ = {
 			isa = PBXGroup;
 			children = (
+				F120D9C428EF5B2200154B42 /* GoogleService-Info.plist */,
 				F12F0D1228AAE9DF009B126A /* SerialLuncher.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -147,6 +151,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F120D9C628EF5D3800154B42 /* GoogleService-Info.plist */,
 				F120D9BD28EE01B500154B42 /* Gibson-Bold.otf */,
 				F120D9BC28EE01B500154B42 /* Gibson-Light.otf */,
 				F120D9BF28EE01B600154B42 /* Gibson-Regular.otf */,
@@ -276,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F120D9C528EF5B2200154B42 /* GoogleService-Info.plist in Resources */,
 				F120D9C028EE01B600154B42 /* Gibson-Light.otf in Resources */,
 				F120D9C128EE01B600154B42 /* Gibson-Bold.otf in Resources */,
 				F120D9C228EE01B600154B42 /* Gibson-SemiBold.otf in Resources */,
