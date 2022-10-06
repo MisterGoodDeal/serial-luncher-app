@@ -286,19 +286,6 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
     }
   }, [userNeedregister]);
 
-  const googleSignOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      setIsLoggedIn(false);
-    } catch (error: any) {
-      Alert.alert("Something else went wrong... ", error.toString());
-    }
-  };
-  React.useEffect(() => {
-    console.log(googleUserInfo);
-  }, [googleUserInfo]);
-
   return (
     <KeyboardDismiss>
       <StatusBar barStyle={isDark ? "light-content" : "light-content"} />
@@ -359,13 +346,6 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         >
           {Lang.landing.google}
         </Button>
-        <Link
-          onPress={() => googleSignOut()}
-          size={texts.button}
-          fontWeight={"normal"}
-        >
-          google logout
-        </Link>
       </Container>
     </KeyboardDismiss>
   );
