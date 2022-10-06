@@ -42,7 +42,7 @@ export const UserItem: React.FunctionComponent<UserItemProps> = ({
     <Image
       source={
         user.profile_picture === ""
-          ? require("@images/default_avatar.webp")
+          ? require("@images/avatar.png")
           : {
               uri: user.profile_picture,
             }

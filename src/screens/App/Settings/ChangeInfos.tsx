@@ -259,7 +259,7 @@ export const ChangeInfos: React.FunctionComponent<ChangeInfosProps> = ({}) => {
                   ? { uri: picture.uri }
                   : userInfos.profile_picture !== ""
                   ? { uri: userInfos.profile_picture }
-                  : require("@images/default_avatar.webp")
+                  : require("@images/avatar.png")
               }
               style={{
                 width: hp("15%"),

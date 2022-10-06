@@ -283,7 +283,7 @@ export const CreateGroupScreen: React.FunctionComponent<
           <Image
             source={
               formik.values.groupPicture === null
-                ? require("@images/default_avatar.webp")
+                ? require("@images/avatar.png")
                 : { uri: formik.values.groupPicture.assets![0].uri }
             }
             style={{

@@ -202,7 +202,7 @@ export const InformationsScreen: React.FunctionComponent<
           <Image
             source={
               formik.values.profilePicture === null
-                ? require("@images/default_avatar.webp")
+                ? require("@images/avatar.png")
                 : { uri: formik.values.profilePicture.assets![0].uri }
             }
             style={{
