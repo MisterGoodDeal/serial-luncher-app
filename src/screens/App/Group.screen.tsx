@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Platform,
 } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
@@ -136,9 +137,9 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
           marginTop: -hp("4%"),
           paddingBottom: hp("2%"),
         }}
-        justifyContent={"flex-end"}
+        justifyContent={Platform.OS === "ios" ? "center" : "center"}
         alignItems={"center"}
-        color={Colors.black}
+        color={"black"}
       >
         <Image
           source={{ uri: infos?.group.image }}
@@ -169,15 +170,15 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
         >
           {infos?.group.name}
         </CustomText>
-        <Spacer space={"1.5%"} />
+        <Spacer space={"3%"} />
 
         <OTPInputView
-          style={{ width: "55%", height: 30 }}
+          style={{ width: "55%", height: 40 }}
           pinCount={6}
           code={infos?.group.group_key}
           codeInputFieldStyle={{
             width: 30,
-            height: 30,
+            height: 40,
             borderWidth: 0,
             borderBottomWidth: 1,
             color: Colors.white,

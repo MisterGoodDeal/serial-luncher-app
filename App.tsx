@@ -8,7 +8,6 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { StoreHydration } from "@screens/StoreHydration";
 import { enableLatestRenderer } from "react-native-maps";
-import { Text } from "react-native";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

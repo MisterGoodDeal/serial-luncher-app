@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Platform } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
 import { CustomText } from "../Atoms/CustomText";
@@ -57,12 +57,16 @@ export const PlaceComment: React.FunctionComponent<PlaceCommentProps> = ({
           height: hp("5%"),
           marginLeft: isOdd ? hp("3%") : hp(".5%"),
           marginRight: isOdd ? hp(".5%") : hp("3%"),
+          marginTop: Platform.OS === "ios" ? 0 : -hp("10%"),
         }}
       >
         <CustomText
           size={texts.small}
           fontWeight={"400"}
           color={isDark ? dark.text : light.text}
+          style={{
+            height: hp("4%"),
+          }}
         >
           {comment.comment}
         </CustomText>

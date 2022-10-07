@@ -1,4 +1,4 @@
-import { getDomainName, hp, wp } from "@utils/functions";
+import { getDomainName, hp, textColor, wp } from "@utils/functions";
 import * as React from "react";
 import {
   ScrollView,
@@ -8,6 +8,7 @@ import {
   Image,
   Linking,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { Colors, dark, light } from "@themes/Colors";
@@ -115,10 +116,41 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           rBottomSheetStyle,
         ]}
       >
+        {Platform.OS === "android" && (
+          <TouchableOpacity
+            style={{
+              position: "absolute",
+              top: hp("0%"),
+              right: hp("1.5%"),
+              zIndex: 99,
+            }}
+            onPress={() => {
+              showDrawerShared.value = false;
+              setShowDrawer(false);
+              translateY.value = withSpring(0, { damping: 50 });
+            }}
+          >
+            <Image
+              source={require("@images/close.png")}
+              style={{
+                tintColor: textColor(isDark ? light.text : dark.text),
+                width: hp("5%"),
+                height: hp("5%"),
+              }}
+            />
+          </TouchableOpacity>
+        )}
         <View
           style={[
             styles.line,
-            { backgroundColor: isDark ? light.background : dark.background },
+            {
+              backgroundColor:
+                Platform.OS === "android"
+                  ? "transparent"
+                  : isDark
+                  ? light.background
+                  : dark.background,
+            },
           ]}
         />
         <ScrollView
