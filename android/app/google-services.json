@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "799608494875-npu0k0l5e38tmhalcntf93od54mgdnnj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.turtlecorp.serialluncher",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "799608494875-de4pn26uokvqm898cjrqhjejf3kcpigr.apps.googleusercontent.com",
           "client_type": 3
         }
