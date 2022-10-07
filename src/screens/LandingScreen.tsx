@@ -3,7 +3,14 @@ import { Container } from "../components/common/Container";
 import { Colors } from "@themes/Colors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar, Image, View, useColorScheme, Alert } from "react-native";
+import {
+  StatusBar,
+  Image,
+  View,
+  useColorScheme,
+  Alert,
+  Platform,
+} from "react-native";
 import { hp, wp } from "@utils/functions";
 import { KeyboardDismiss } from "@components/common/KeyboardDismiss";
 import { Button } from "@components/ui/Atoms/Button";
@@ -212,6 +219,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         oauth_service_id: ggui.user.id,
       });
     } catch (error: any) {
+      console.error("google login error => ", error);
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // when user cancels sign in process,
         Toast.show({
@@ -329,15 +338,19 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
           {Lang.landing.email}
         </Button>
         <Spacer direction="vertical" space={"8%"} />
-        <Button
-          width={wp("70%")}
-          color={Colors.black}
-          shadow
-          onPress={() => handleAppleLogin()}
-        >
-          {Lang.landing.apple}
-        </Button>
-        <Spacer direction="vertical" space={"1%"} />
+        {Platform.OS === "ios" && (
+          <>
+            <Button
+              width={wp("70%")}
+              color={Colors.black}
+              shadow
+              onPress={() => handleAppleLogin()}
+            >
+              {Lang.landing.apple}
+            </Button>
+            <Spacer direction="vertical" space={"1%"} />
+          </>
+        )}
         <Button
           width={wp("70%")}
           color={Colors.green}
