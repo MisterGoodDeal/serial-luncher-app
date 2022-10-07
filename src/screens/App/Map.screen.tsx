@@ -42,6 +42,7 @@ import {
 import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
 import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
 import { vibrate } from "@utils/vibrate";
+import { darkMap } from "@constants/darkMap";
 
 interface MapProps {}
 
@@ -397,6 +398,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         clusterFontFamily={"Gibson"}
         moveOnMarkerPress={true}
         showsPointsOfInterest={true}
+        customMapStyle={isDark ? darkMap : []}
         style={{
           position: "absolute",
           top: 0,
