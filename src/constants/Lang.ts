@@ -88,6 +88,8 @@ const locales = {
         error: {
           oops: "😬 Oups",
           missing_fields: "Veuillez remplir tous les champs.",
+          missing_fields_group:
+            "Veuillez mettre un nom et une photo à votre groupe.",
           invalid_email: "Veuillez saisir une adresse email valide.",
           password_mismatch: "Les mots de passe ne correspondent pas.",
           invalid_password: "Veuillez utiliser un mot de passe plus complexe.",
@@ -322,8 +324,8 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
       title: "Welcome to\nSerial Luncher!",
       continue_with: "Continue with",
       email: "Email",
-      apple: "Login with Apple",
-      google: "Login with Google",
+      apple: "Sign in with Apple",
+      google: "Sign in with Google",
     },
     enrollment: {
       login: {
@@ -393,6 +395,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         error: {
           oops: "😬 Oops",
           missing_fields: "Please fill all fields.",
+          missing_fields_group: "Please add name and picture for the group",
           invalid_email: "Please enter a valid email address.",
           password_mismatch: "Passwords don't match.",
           invalid_password: "Please use a stronger password.",

@@ -53,8 +53,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to the camera so the user can take a picture for his profile picture or take a photo of a restaurant</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need access to the location in order to locate the user on the map and locate restaurants around him</string>
+	<key>NSLocationUsageDescription</key>
+	<string>We need access to the location in order to locate the user on the map and locate restaurants around him</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need access to the location in order to locate the user on the map</string>
+	<string>We need access to the location in order to locate the user on the map and locate restaurants around him</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to the photo library so the user can pick a picture for his profile picture or select a photo of a restaurant</string>
 	<key>UIAppFonts</key>

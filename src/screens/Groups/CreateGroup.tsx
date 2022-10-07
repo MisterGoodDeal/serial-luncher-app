@@ -149,7 +149,7 @@ export const ForceCreateGroupScreen: React.FunctionComponent<
       Toast.show({
         type: "error",
         text1: Lang.enrollment.register.error.oops,
-        text2: Lang.enrollment.register.error.missing_fields,
+        text2: Lang.enrollment.register.error.missing_fields_group,
       });
     } else {
       createGroup({
