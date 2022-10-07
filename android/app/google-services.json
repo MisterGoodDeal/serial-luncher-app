@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "799608494875-r2c61k4fbrhgipd7038d793og64fb97m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.turtlecorp.serialluncher",
+            "certificate_hash": "f3fc0a26601f4c8e65df1bca6184fa8e32b42775"
+          }
+        },
+        {
           "client_id": "799608494875-de4pn26uokvqm898cjrqhjejf3kcpigr.apps.googleusercontent.com",
           "client_type": 3
         }
