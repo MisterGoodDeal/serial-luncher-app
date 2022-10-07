@@ -1,5 +1,11 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  Platform,
+} from "react-native";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, textColor, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
@@ -68,7 +74,7 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
         style={{
           fontSize: fontSize ?? texts.button,
           color: textColor(color ?? "#000000"),
-          fontFamily: "Gibson",
+          fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-SemiBold",
           fontWeight: "500",
           textAlign: "center",
           opacity: disabled ? 0.5 : 1,

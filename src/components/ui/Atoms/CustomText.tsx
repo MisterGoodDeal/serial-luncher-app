@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, TextStyle } from "react-native";
+import { Platform, Text, TextStyle } from "react-native";
 import { Colors } from "@themes/Colors";
 
 export interface CustomTextProps {
@@ -42,7 +42,7 @@ export const CustomText: React.FunctionComponent<CustomTextProps> = ({
       { textAlign: align !== undefined ? align : undefined },
       { textTransform: transform !== undefined ? transform : undefined },
       { fontWeight },
-      { fontFamily: "Gibson" },
+      { fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular" },
       { textDecorationLine: underline === undefined ? "none" : "underline" },
       style,
     ]}

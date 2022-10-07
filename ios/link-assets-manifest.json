@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Gibson-Bold.otf",
+      "sha1": "14c42ffd31dfe2092759d3b8927a778325a9d992"
+    },
+    {
+      "path": "src/assets/fonts/Gibson-Light.otf",
+      "sha1": "abcc422acae67772eef644cb45e9067e2b000629"
+    },
+    {
+      "path": "src/assets/fonts/Gibson-Regular.otf",
+      "sha1": "c8861116277b259edc994dda0c025d4d67dbb976"
+    },
+    {
+      "path": "src/assets/fonts/Gibson-SemiBold.otf",
+      "sha1": "63ca2cb3168a5855a95a3bfe6efb818939396b93"
+    }
+  ]
+}

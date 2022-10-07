@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { Platform, StyleSheet, TextInput } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, wp } from "@utils/functions";
@@ -102,7 +102,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         height: height ?? hp("7%"),
         fontSize: fontSize ?? texts.input,
         color: isDark ? dark.input.text : light.input.text,
-        fontFamily: "Gibson",
+        fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       }}
       editable={!disabled}
       maxLength={maxLength}

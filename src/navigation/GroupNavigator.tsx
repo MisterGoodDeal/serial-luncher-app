@@ -1,7 +1,7 @@
 import * as React from "react";
 import { tabs, tabsGroup } from "./Router";
 import { Colors } from "@themes/Colors";
-import { StyleSheet, useColorScheme } from "react-native";
+import { Platform, StyleSheet, useColorScheme } from "react-native";
 import { hp, wp } from "@utils/functions";
 import { texts } from "@constants/TextsSizes";
 import { useKeyboard } from "@hooks/useKeyboard";
@@ -46,7 +46,7 @@ export const GroupNavigator: React.FC<{}> = () => {
 
 const tabStyle = StyleSheet.create({
   tabBarLabelStyle: {
-    fontFamily: "Gibson",
+    fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-SemiBold",
     textTransform: "uppercase",
     fontSize: texts.small,
     color: Colors.white,

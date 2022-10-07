@@ -26,32 +26,32 @@ export const PrivacyPolicy: React.FunctionComponent<PrivacyPolicyProps> = ({
     // Headings
     heading1: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 32,
     },
     heading2: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 24,
     },
     heading3: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 18,
     },
     heading4: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 16,
     },
     heading5: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 13,
     },
     heading6: {
       flexDirection: "row",
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       fontSize: 11,
     },
 
@@ -84,11 +84,11 @@ export const PrivacyPolicy: React.FunctionComponent<PrivacyPolicyProps> = ({
     // Lists
     bullet_list: {
       color: isDark ? dark.text : light.text,
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
     },
     ordered_list: {
       color: isDark ? dark.text : light.text,
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
     },
     list_item: {
       flexDirection: "row",
@@ -199,7 +199,7 @@ export const PrivacyPolicy: React.FunctionComponent<PrivacyPolicyProps> = ({
 
     // Text Output
     text: {
-      fontFamily: "Gibson",
+      fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       color: isDark ? dark.text : light.text,
     },
     textgroup: {},

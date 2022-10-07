@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Lang } from "@constants/Lang";
 import { texts } from "@constants/TextsSizes";
@@ -47,7 +47,7 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
       close: {
         text: {
           color: Colors.white,
-          fontFamily: "Gibson",
+          fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
           fontWeight: "600",
         },
         container: {
@@ -63,18 +63,18 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
         height: hp("5%"),
         paddingHorizontal: hp("1%"),
         borderRadius: hp("1%"),
-        fontFamily: "Gibson",
+        fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
       },
       item: {
         text: {
           color: isDark ? dark.text : light.text,
-          fontFamily: "Gibson",
+          fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
         },
       },
       label: {
         text: {
           color: isDark ? dark.text : light.text,
-          fontFamily: "Gibson",
+          fontFamily: Platform.OS === "ios" ? "Gibson" : "Gibson-Regular",
           fontWeight: "600",
           fontSize: texts.paragraph,
         },

@@ -127,7 +127,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
           isDark={isDark}
           onPress={() =>
             Linking.openURL(
-              "mailto:serial-luncher@mistergooddeal.org?subject=Serial Luncher — Contact"
+              "mailto:serial-luncher@turtlecorp.fr?subject=Serial Luncher — Contact"
             )
           }
         >
