@@ -48,7 +48,9 @@ export const Container: React.FunctionComponent<ContainerProps> = ({
       { paddingRight: right ? right : 0 },
       {
         paddingTop:
-          !disablePaddingFix && Platform.OS === "ios"
+          Platform.OS === "android"
+            ? heightPercentageToDP("3%")
+            : !disablePaddingFix && Platform.OS === "ios"
             ? heightPercentageToDP("3%")
             : 0,
       },

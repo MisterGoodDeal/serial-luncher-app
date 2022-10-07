@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Image, StyleSheet, useColorScheme, View } from "react-native";
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from "react-native";
 import { LandingScreen } from "@screens/LandingScreen";
 import { EnrollmentNavigator } from "@navigation/EnrollmentNavigator";
 import { LoginScreen } from "@screens/LoginScreen";
@@ -231,7 +237,7 @@ export const tabsApp: AppTabs = [
 
 const styles = StyleSheet.create({
   imageContainer: {
-    marginTop: hp("3.5%"),
+    marginTop: Platform.OS === "ios" ? hp("3.5%") : 0,
     height: "100%",
     width: "100%",
     flex: 1,

@@ -63,12 +63,14 @@ export const RootNavigator: React.FC<{}> = () => {
 
   React.useEffect(() => {
     // onCredentialRevoked returns a function that will remove the event listener. useEffect will call this function when the component unmounts
-    return appleAuth.onCredentialRevoked(async () => {
-      console.warn(
-        "If this function executes, User Credentials have been Revoked"
-      );
-      deleteUser({});
-    });
+    if (appleAuth.isSupported) {
+      return appleAuth.onCredentialRevoked(async () => {
+        console.warn(
+          "If this function executes, User Credentials have been Revoked"
+        );
+        deleteUser({});
+      });
+    }
   }, []);
 
   const { loading, userInfos, hasGroup } = useSelector(applicationState);
