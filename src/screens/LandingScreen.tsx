@@ -219,8 +219,6 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
         oauth_service_id: ggui.user.id,
       });
     } catch (error: any) {
-      console.error("google login error => ", error);
-
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // when user cancels sign in process,
         Toast.show({
@@ -345,6 +343,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
               color={Colors.black}
               shadow
               onPress={() => handleAppleLogin()}
+              logo={require("@images/apple.png")}
+              logoScale={0.4}
             >
               {Lang.landing.apple}
             </Button>
@@ -356,6 +356,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
           color={Colors.green}
           onPress={() => googleSignIn()}
           shadow
+          logo={require("@images/google.png")}
+          logoScale={0.4}
         >
           {Lang.landing.google}
         </Button>

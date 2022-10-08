@@ -5,6 +5,8 @@ import {
   Text,
   View,
   Platform,
+  Image,
+  ImageSourcePropType,
 } from "react-native";
 import Svg, { Defs, ClipPath, Path, G, Rect } from "react-native-svg";
 import { hp, textColor, wp } from "@utils/functions";
@@ -19,6 +21,8 @@ interface ButtonProps {
   shadow?: boolean;
   onPress?: () => void;
   disabled?: boolean;
+  logo?: ImageSourcePropType;
+  logoScale?: number;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -30,6 +34,8 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
   shadow,
   onPress,
   disabled,
+  logo,
+  logoScale,
 }) => (
   <TouchableOpacity
     style={[
@@ -68,8 +74,25 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
         paddingHorizontal: hp("2%"),
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "row",
       }}
     >
+      {logo && (
+        <Image
+          source={logo}
+          style={{
+            tintColor: textColor(color ?? "#000000"),
+            marginRight: hp(".5%"),
+            height: height
+              ? height * (logoScale ?? 0.6)
+              : hp("7%") * (logoScale ?? 0.6),
+            width: height
+              ? height * (logoScale ?? 0.6)
+              : hp("7%") * (logoScale ?? 0.6),
+            resizeMode: "contain",
+          }}
+        />
+      )}
       <Text
         style={{
           fontSize: fontSize ?? texts.button,

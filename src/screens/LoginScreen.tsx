@@ -27,6 +27,7 @@ import { errorHandler } from "@utils/errors/register";
 import { Link } from "@components/ui/Molecules/Link";
 import { useFormik } from "formik";
 import { Routes } from "@navigation/Routes";
+import { Arrow } from "@components/ui/Atoms/Arrow";
 
 interface LoginScreenProps {}
 interface LoginForm {

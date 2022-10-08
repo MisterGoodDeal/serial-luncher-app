@@ -7,6 +7,7 @@ import { texts } from "@constants/TextsSizes";
 import { useKeyboard } from "@hooks/useKeyboard";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Routes } from "./Routes";
+import { ifIphoneX, isIphoneX } from "react-native-iphone-x-helper";
 
 export const EnrollmentNavigator: React.FC<{}> = () => {
   const isDark = useColorScheme() === "dark";
@@ -58,7 +59,7 @@ const tabStyle = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: Colors.transparent,
     position: "absolute",
-    top: hp("10%"),
+    top: isIphoneX() ? hp("15%") : hp("10%"),
     borderWidth: 0,
     borderTopColor: "transparent",
     paddingHorizontal: wp("15%"),

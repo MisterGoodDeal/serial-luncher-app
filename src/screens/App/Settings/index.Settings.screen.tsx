@@ -111,7 +111,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         >
           {Lang.settings.edit}
         </MenuLink>
-        <MenuLink
+        {/* <MenuLink
           isDark={isDark}
           onPress={() =>
             Alert.alert(
@@ -122,7 +122,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
           color={Colors.grey}
         >
           {Lang.settings.manage_group}
-        </MenuLink>
+        </MenuLink> */}
         <MenuLink
           isDark={isDark}
           onPress={() =>
