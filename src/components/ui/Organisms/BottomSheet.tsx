@@ -362,13 +362,13 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
                   position: "relative",
                   right: 0,
                   top: 0,
-                  flexDirection: 'row'
+                  flexDirection: "row",
                 }}
               >
                 <View
                   style={{
                     flexDirection: "column",
-                    marginRight:wp("2%")
+                    marginRight: hp("1%"),
                   }}
                 >
                   <Input
