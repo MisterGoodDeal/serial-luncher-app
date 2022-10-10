@@ -11,7 +11,9 @@
     "real-ios": "react-native run-ios --device='iPhone de Milan'",
     "open:ios": "open ios/SerialLuncher.xcworkspace",
     "bootstrap": "yarn && yarn pods:reset && yarn open:ios",
-    "signingReport": "keytool -list -v -keystore 'android/app/prod-keystore' -alias key0 -storepass '%#J8238ck5$$j@kg@6Pk' -keypass '%#J8238ck5$$j@kg@6Pk'"
+    "signingReport": "keytool -list -v -keystore 'android/app/prod-keystore' -alias key0 -storepass '%#J8238ck5$$j@kg@6Pk' -keypass '%#J8238ck5$$j@kg@6Pk'",
+    "reverse": "adb reverse tcp:8081 tcp:8081",
+    "shake": "adb shell input keyevent 82"
   },
   "rnpm": {
     "assets": [
