@@ -368,7 +368,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
                 <View
                   style={{
                     flexDirection: "column",
-                    marginRight: 5
+                    marginRight:wp("2%")
                   }}
                 >
                   <Input
