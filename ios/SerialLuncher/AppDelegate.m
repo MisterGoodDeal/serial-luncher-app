@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
-
 #import <GoogleMaps/GoogleMaps.h>
+#import <Firebase.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -32,6 +32,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GMSServices provideAPIKey:@"AIzaSyDEzHjCGAPs2Y2nXPig2H8mrMXwFzuxues"]; // add this line using the api key obtained from Google Console
+  [FIRApp configure];
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
