@@ -348,7 +348,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         },
       },
       register: {
-        title: "SIGN UP",
+        title: "Sign Up",
         step1: {
           title: "Your informations",
           firstname: "Firstname",
