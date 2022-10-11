@@ -25,4 +25,5 @@ export const reducerPath = "applicationApi";
 export const endpoint = {
   updateUser: "/user/edit",
   delete: "/user/delete",
+  mobileToken: "/notifications/token",
 };

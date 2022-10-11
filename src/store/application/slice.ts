@@ -3,6 +3,7 @@ import { baseQuery } from "@store/api";
 import { endpoint, initialState, reducerPath } from "./constants";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@store/model/enrollment";
+import { NotificationToken } from "@store/model/notifications";
 
 export const applicationAPI = createApi({
   reducerPath,
@@ -18,6 +19,19 @@ export const applicationAPI = createApi({
     deleteUser: builder.mutation<{}, {}>({
       query: () => ({
         url: endpoint.delete,
+        method: "DELETE",
+      }),
+    }),
+    addMobileToken: builder.mutation<{}, NotificationToken>({
+      query: (body) => ({
+        url: endpoint.mobileToken,
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteMobileToken: builder.mutation<{}, {}>({
+      query: () => ({
+        url: endpoint.mobileToken,
         method: "DELETE",
       }),
     }),
@@ -60,4 +74,9 @@ export const {
   setNotificationToken,
 } = applicationSlice.actions;
 
-export const { useEditUserMutation, useDeleteUserMutation } = applicationAPI;
+export const {
+  useEditUserMutation,
+  useDeleteUserMutation,
+  useAddMobileTokenMutation,
+  useDeleteMobileTokenMutation,
+} = applicationAPI;

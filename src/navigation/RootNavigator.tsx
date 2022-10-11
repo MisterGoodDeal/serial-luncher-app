@@ -11,7 +11,7 @@ import { Arrow } from "@components/ui/Atoms/Arrow";
 import { hp } from "@utils/functions";
 import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
-import { useColorScheme, Text } from "react-native";
+import { useColorScheme, Text, Platform } from "react-native";
 import { dark, light } from "@themes/Colors";
 import { GroupNavigator } from "./GroupNavigator";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
@@ -19,6 +19,7 @@ import {
   disconnect,
   setLoading,
   setNotificationToken,
+  useAddMobileTokenMutation,
   useDeleteUserMutation,
 } from "@store/application/slice";
 import Toast from "react-native-toast-message";
@@ -28,21 +29,7 @@ import { Lang } from "@constants/Lang";
 import messaging from "@react-native-firebase/messaging";
 import PushNotification from "react-native-push-notification";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
-
-interface FirebaseNotification {
-  messageId: string;
-  data: {
-    title: string;
-    body: string;
-    extra?: string;
-  };
-  notification: {
-    title: string;
-    body: string;
-    sound: string;
-  };
-  from: string;
-}
+import { FirebaseNotification } from "@store/model/notifications";
 
 const Stack = createStackNavigator();
 
@@ -50,8 +37,8 @@ export const RootNavigator: React.FC<{}> = () => {
   const isDark = useColorScheme() === "dark";
   const dispatch = useDispatch();
   const [deleteUser, deleteUserResult] = useDeleteUserMutation();
-  const { notification_token } = useSelector(applicationState);
-
+  const { loading, userInfos, hasGroup, notification_token } =
+    useSelector(applicationState);
   React.useEffect(() => {
     // Vérification de la permission
 
@@ -105,6 +92,17 @@ export const RootNavigator: React.FC<{}> = () => {
       }
     })();
   }, []);
+
+  const [addMobileToken, addMobileTokenResponse] = useAddMobileTokenMutation();
+
+  React.useEffect(() => {
+    if (userInfos.id !== -1 && notification_token !== "") {
+      addMobileToken({
+        token: notification_token,
+        platform: Platform.OS,
+      });
+    }
+  }, [userInfos, notification_token]);
 
   React.useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
@@ -161,8 +159,6 @@ export const RootNavigator: React.FC<{}> = () => {
       });
     }
   }, []);
-
-  const { loading, userInfos, hasGroup } = useSelector(applicationState);
 
   return (
     <>
