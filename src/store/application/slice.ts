@@ -45,10 +45,19 @@ export const applicationSlice = createSlice({
       state.token = initialState.token;
       state.loading = initialState.loading;
     },
+    setNotificationToken: (state, action: PayloadAction<string>) => {
+      state.notification_token = action.payload;
+    },
   },
 });
 
-export const { setUser, setToken, setLoading, setHasGroup, disconnect } =
-  applicationSlice.actions;
+export const {
+  setUser,
+  setToken,
+  setLoading,
+  setHasGroup,
+  disconnect,
+  setNotificationToken,
+} = applicationSlice.actions;
 
 export const { useEditUserMutation, useDeleteUserMutation } = applicationAPI;

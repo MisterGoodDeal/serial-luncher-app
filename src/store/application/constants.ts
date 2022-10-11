@@ -15,6 +15,7 @@ export const initialState: Application = {
     updated_at: new Date(),
   },
   token: "",
+  notification_token: "",
   loading: false,
   hasGroup: false,
 };

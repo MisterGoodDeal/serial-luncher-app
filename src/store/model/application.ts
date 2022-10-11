@@ -3,6 +3,7 @@ import { User } from "./enrollment";
 export type Application = {
   userInfos: User;
   token: string;
+  notification_token: string;
   loading: boolean;
   hasGroup: boolean;
 };
