@@ -144,6 +144,9 @@ const locales = {
         },
       },
     },
+    event: {
+      button_creation: "Evénement",
+    },
     navigation: {
       group: "Groupe",
       map: "Carte",
@@ -194,7 +197,6 @@ const locales = {
       link: "URL site web, menu...",
       is_required: "Les champs avec * sont requis",
       go: "Y aller !",
-      event: "Evénement",
       error: {
         oops: "😬 Oups",
         error_location:
@@ -449,6 +451,9 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
           },
         },
       },
+    },
+    event: {
+      button_creation: "Create event",
     },
     navigation: {
       group: "Group",

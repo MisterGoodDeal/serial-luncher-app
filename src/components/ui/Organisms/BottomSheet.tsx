@@ -309,7 +309,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               logo={require('@images/calendar.png')}
               logoScale={hp('.05%')}
             >
-              {Lang.map.event}
+              {Lang.event.button_creation}
             </Button>
           </Container>
           {place?.url !== "" && (
