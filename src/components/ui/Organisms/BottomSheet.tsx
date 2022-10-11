@@ -312,6 +312,23 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               {Lang.map.event}
             </Button>
           </Container>
+          {place?.url !== "" && (
+            <>
+              <Spacer space={"2%"} />
+              <Link
+                onPress={() => Linking.openURL(place?.url!)}
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+                style={{
+                  width: "100%",
+                }}
+              >
+                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
+              </Link>
+            </>
+          )}
           <Spacer space={"2%"} />
           <Container
             color={isDark ? dark.navBar.background : light.navBar.background}
@@ -408,23 +425,6 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
             {Lang.map.go}
           </Button>
-          {place?.url !== "" && (
-            <>
-              <Spacer space={"2%"} />
-              <Link
-                onPress={() => Linking.openURL(place?.url!)}
-                size={texts.small}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-                align={"center"}
-                style={{
-                  width: "100%",
-                }}
-              >
-                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
-              </Link>
-            </>
-          )}
           <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>
