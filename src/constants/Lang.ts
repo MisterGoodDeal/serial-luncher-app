@@ -146,7 +146,7 @@ const locales = {
     },
     event: {
       button_creation: "Evénement",
-      incomming_events: "Evénements à venir"
+      incomming_events: "Evénements à venir",
     },
     navigation: {
       group: "Groupe",
@@ -272,6 +272,13 @@ const locales = {
         error:
           "😠 Une erreur est survenue lors de la suppression de votre compte.",
         success: "🗑 Votre compte a été supprimé avec succès !",
+      },
+      app_settings: {
+        title: "Paramètres de l'application",
+        privacy_settings: "Paramètres de confidentialité",
+        privacy_settings_description:
+          "Certains paramètres nécéssitent de redémarrer l'application pour être pris en compte.",
+        push_notifications: "Notifications push",
       },
     },
     privacy_policy: `# Politique de confidentialité
@@ -455,7 +462,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
     },
     event: {
       button_creation: "Create event",
-      incomming_events: "Incoming events"
+      incomming_events: "Incoming events",
     },
     navigation: {
       group: "Group",
@@ -577,6 +584,13 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         cancel: "Cancel",
         success: "🗑 Account deleted successfully!",
         error: "😠 An error occurred while deleting the account.",
+      },
+      app_settings: {
+        title: "App settings",
+        privacy_settings: "Privacy settings",
+        privacy_settings_description:
+          "Some settings require a restart in order to take effect.",
+        push_notifications: "Push notifications",
       },
     },
     privacy_policy: `# Privacy Policy

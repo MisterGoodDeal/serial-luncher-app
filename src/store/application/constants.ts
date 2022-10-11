@@ -18,6 +18,9 @@ export const initialState: Application = {
   notification_token: "",
   loading: false,
   hasGroup: false,
+  settings: {
+    notification_enabled: true,
+  },
 };
 
 export const reducerPath = "applicationApi";

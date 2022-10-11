@@ -37,7 +37,7 @@ export const RootNavigator: React.FC<{}> = () => {
   const isDark = useColorScheme() === "dark";
   const dispatch = useDispatch();
   const [deleteUser, deleteUserResult] = useDeleteUserMutation();
-  const { loading, userInfos, hasGroup, notification_token } =
+  const { loading, userInfos, hasGroup, notification_token, settings } =
     useSelector(applicationState);
   React.useEffect(() => {
     // Vérification de la permission
@@ -107,13 +107,17 @@ export const RootNavigator: React.FC<{}> = () => {
   React.useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.warn("Message received. ", remoteMessage);
-      const fbMessage = remoteMessage as FirebaseNotification;
-      PushNotification.localNotificationSchedule({
-        channelId: "serialluncher",
-        title: fbMessage.data.title,
-        message: `${fbMessage.data.body}`,
-        date: new Date(Date.now()),
-      });
+
+      if (settings.notification_enabled) {
+        vibrate.warning();
+        const fbMessage = remoteMessage as FirebaseNotification;
+        PushNotification.localNotificationSchedule({
+          channelId: "serialluncher",
+          title: fbMessage.data.title,
+          message: `${fbMessage.data.body}`,
+          date: new Date(Date.now()),
+        });
+      }
     });
     return unsubscribe;
   }, []);

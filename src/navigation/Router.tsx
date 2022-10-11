@@ -24,6 +24,7 @@ import { ForceCreateGroupScreen } from "@screens/Groups/CreateGroup";
 import { ForceJoinGroupScreen } from "@screens/Groups/JoinGroup";
 import { ChangeInfos } from "@screens/App/Settings/ChangeInfos";
 import { SettingsNavigator } from "./SettingsNavigator";
+import { AppSettings } from "@screens/App/Settings/AppSettings";
 
 type StackScreen = {
   key: number;
@@ -120,6 +121,12 @@ export const tabsSettings: TabsScreen = [
     key: 1,
     name: Routes.SETTINGS_CHANGE_INFOS,
     component: ChangeInfos,
+    icon: (focused: boolean, keyboardStatus: boolean) => <></>,
+  },
+  {
+    key: 1,
+    name: Routes.SETTINGS_APP_SETTINGS,
+    component: AppSettings,
     icon: (focused: boolean, keyboardStatus: boolean) => <></>,
   },
 ];

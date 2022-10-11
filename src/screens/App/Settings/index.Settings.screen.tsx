@@ -138,6 +138,17 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         <MenuLink isDark={isDark} onPress={() => setPrivacyPolicyVisible(true)}>
           {Lang.settings.privacy_policy}
         </MenuLink>
+        <MenuLink
+          isDark={isDark}
+          onPress={() =>
+            // @ts-ignore
+            nav.navigate(`${Routes.SETTINGS_NAVIGATOR}`, {
+              screen: Routes.SETTINGS_APP_SETTINGS,
+            })
+          }
+        >
+          {Lang.settings.app_settings.title}
+        </MenuLink>
         <Spacer space="3%" />
         <MenuLink
           isDark={isDark}

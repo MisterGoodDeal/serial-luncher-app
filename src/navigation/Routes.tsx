@@ -13,4 +13,5 @@ export enum Routes {
   SETTINGS_NAVIGATOR = "SettingsNavigator",
   SETTINGS = "SettingsIndex",
   SETTINGS_CHANGE_INFOS = "SettingsChangeInfos",
+  SETTINGS_APP_SETTINGS = "SettingsAppSettings",
 }

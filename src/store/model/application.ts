@@ -6,10 +6,15 @@ export type Application = {
   notification_token: string;
   loading: boolean;
   hasGroup: boolean;
+  settings: AppSettings;
 };
 
 export interface Token {
   token: string;
+}
+
+export interface AppSettings {
+  notification_enabled: boolean;
 }
 
 export interface GenericApiReponse {
