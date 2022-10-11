@@ -297,6 +297,23 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           </Container>
           <Spacer space={"2%"} />
           <Container
+            direction={"row"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main} width={hp("20%")}>
+              {Lang.map.go}
+            </Button>
+            <Button
+              onPress={() => Linking.openURL(openMap!)} color={Colors.main} width={hp("25%")}
+              logo={require('@images/calendar.png')}
+              logoScale={hp('.05%')}
+            >
+              {Lang.map.event}
+            </Button>
+          </Container>
+          <Spacer space={"2%"} />
+          <Container
             color={isDark ? dark.navBar.background : light.navBar.background}
             disablePaddingFix
             style={{

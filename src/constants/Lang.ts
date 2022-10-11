@@ -194,6 +194,7 @@ const locales = {
       link: "URL site web, menu...",
       is_required: "Les champs avec * sont requis",
       go: "Y aller !",
+      event: "Evénement",
       error: {
         oops: "😬 Oups",
         error_location:
@@ -498,6 +499,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
       fromGallery: "Gallery",
       is_required: "Required fields are marked with *",
       go: "Go there!",
+      event: "Create event",
       error: {
         oops: "😬 Oops",
         error_location: "An error occurred while fetching your location.",
