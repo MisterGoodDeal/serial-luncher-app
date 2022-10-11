@@ -108,8 +108,14 @@ export const RootNavigator: React.FC<{}> = () => {
 
   React.useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log("Message received. ", remoteMessage);
+      console.warn("Message received. ", remoteMessage);
       const fbMessage = remoteMessage as FirebaseNotification;
+      PushNotification.localNotificationSchedule({
+        channelId: "serialluncher",
+        title: fbMessage.data.title,
+        message: `${fbMessage.data.body}`,
+        date: new Date(Date.now()),
+      });
     });
     return unsubscribe;
   }, []);
