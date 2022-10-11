@@ -32,6 +32,7 @@
     "@react-native-community/art": "^1.2.0",
     "@react-native-community/blur": "^4.2.0",
     "@react-native-community/checkbox": "^0.5.12",
+    "@react-native-community/cli-platform-android": "^9.1.0",
     "@react-native-community/cli-platform-ios": "^9.1.2",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/geolocation": "^3.0.1",
