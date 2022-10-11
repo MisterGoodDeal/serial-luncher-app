@@ -146,6 +146,7 @@ const locales = {
     },
     event: {
       button_creation: "Evénement",
+      incomming_events: "Evénements à venir"
     },
     navigation: {
       group: "Groupe",
@@ -454,6 +455,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
     },
     event: {
       button_creation: "Create event",
+      incomming_events: "Incoming events"
     },
     navigation: {
       group: "Group",

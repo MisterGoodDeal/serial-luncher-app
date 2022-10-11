@@ -276,6 +276,35 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             fontWeight={"600"}
             align={"center"}
           >
+            {Lang.event.incomming_events}
+          </CustomText>
+          <Spacer space={"2%"} />
+          {infos?.users.map((u, index: number) => (
+            <UserItem user={u} isDark={isDark} key={index} />
+          ))}
+        </Container>
+        <Spacer space={"5%"} />
+        <Container
+          color={isDark ? dark.navBar.background : light.navBar.background}
+          style={{
+            shadowColor: isDark ? Colors.black : Colors.grey,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            elevation: 3,
+            borderRadius: 20,
+            paddingBottom: hp("3%"),
+          }}
+        >
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            fontWeight={"600"}
+            align={"center"}
+          >
             {Lang.group.users}
           </CustomText>
           <Spacer space={"2%"} />
