@@ -145,8 +145,18 @@ const locales = {
       },
     },
     event: {
-      button_creation: "Evénement",
+      button_creation: "Créer un événement",
       incomming_events: "Evénements à venir",
+      create_event: "Créer un événement pour",
+      create: "Créer !",
+      success: {
+        title: "🎉 Félicitations !",
+        content: "Votre événement a bien été créé !",
+      },
+      error: {
+        title: "😬 Oups !",
+        content: "Une erreur est survenue, veuillez réessayer.",
+      },
     },
     navigation: {
       group: "Groupe",
@@ -463,6 +473,16 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
     event: {
       button_creation: "Create event",
       incomming_events: "Incoming events",
+      create_event: "Create event for",
+      create: "Create!",
+      success: {
+        title: "🎉 Event created!",
+        content: "Your event has been created successfully!",
+      },
+      error: {
+        title: "😬 Oops",
+        content: "An error has occurred, please try again.",
+      },
     },
     navigation: {
       group: "Group",

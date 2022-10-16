@@ -157,4 +157,9 @@ export const {
   useDeletePlaceMutation,
   useDeleteCommentMutation,
   useDeleteFavoriteMutation,
+  useGetEventsQuery,
+  useCreateEventMutation,
+  useDeleteEventMutation,
+  useJoinEventMutation,
+  useLeaveEventMutation,
 } = placesApi;
