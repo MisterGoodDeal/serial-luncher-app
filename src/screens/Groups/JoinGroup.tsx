@@ -114,7 +114,7 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
       <Popup
         visible={popup}
         animation={"slide"}
-        margin={{ x: wp("10%"), y: hp("30%") }}
+        margin={{ x: wp("10%"), y: hp("25%") }}
         onClose={() => setPopup(false)}
         color={isDark ? dark.navBar.background : light.navBar.background}
       >
@@ -131,6 +131,10 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
           size={texts.title}
           fontWeight={"500"}
           color={isDark ? dark.text : light.text}
+          align={"center"}
+          style={{
+            marginHorizontal: wp("2%"),
+          }}
         >
           {group?.name}
         </CustomText>
@@ -184,14 +188,24 @@ export const ForceJoinGroupScreen: React.FunctionComponent<
             borderBottomWidth: 1,
             color: isDark ? dark.text : light.text,
           }}
+          onCodeChanged={(code) => setGroupId(code)}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={(code) => {
-            setGroupId(code);
             handleFetchGroup(code);
           }}
           keyboardAppearance={isDark ? "dark" : "light"}
           keyboardType={"default"}
         />
+        <Spacer space="5%" />
+        <Button
+          color={Colors.main}
+          width={wp("50%")}
+          onPress={() => {
+            handleFetchGroup(groupId);
+          }}
+        >
+          {Lang.enrollment.register.step3.search}
+        </Button>
         <Spacer space="10%" />
         <CustomText
           size={texts.paragraph}

@@ -60,6 +60,7 @@ const locales = {
         },
         step3: {
           title: "Rejoignez\nvotre groupe",
+          search: "Rechercher",
           description: "Saisissez le code à 6 chiffres de votre groupe",
           no_group: "Vous n'avez pas de groupe ?",
           create_group: "Créez un groupe",
@@ -418,6 +419,7 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         },
         step3: {
           title: "Join\nyour group",
+          search: "Search",
           description: "Enter the 6-digit code of your group",
           no_group: "You don't have a group?",
           create_group: "Create a group",

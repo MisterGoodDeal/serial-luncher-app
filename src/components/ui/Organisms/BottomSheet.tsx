@@ -472,24 +472,33 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               }}
               disablePaddingFix
             >
-              <Input
-                placeholder={Lang.map.your_comment}
-                value={comment}
-                setValue={setComment}
-                type={"none"}
-                color={isDark ? dark.background : light.input.background}
-                isDark={isDark}
-                width={wp("70%")}
-                height={hp("5%")}
-                maxLength={160}
-              />
               <View
                 style={{
-                  position: "absolute",
+                  position: "relative",
                   right: 0,
                   top: 0,
+                  flexDirection: "row",
                 }}
               >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    marginRight: hp("1%"),
+                  }}
+                >
+                  <Input
+                    placeholder={Lang.map.your_comment}
+                    value={comment}
+                    setValue={setComment}
+                    type={"none"}
+                    color={isDark ? dark.background : light.input.background}
+                    isDark={isDark}
+                    // width={wp("50%")}
+                    width={wp("70%")}
+                    height={hp("5%")}
+                    maxLength={160}
+                  />
+                </View>
                 <Button
                   color={Colors.lightblue}
                   width={wp("14%")}
