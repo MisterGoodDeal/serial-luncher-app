@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  RefreshControl,
 } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
@@ -36,6 +37,9 @@ import { GroupInfo } from "@store/model/groups";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { PlaceItem } from "@components/ui/Organisms/PlacesItem";
 import { UserItem } from "@components/ui/Organisms/UserItem";
+import { EventItem } from "@components/ui/Organisms/EventItem";
+import { useGetEventsQuery } from "@store/places/slice";
+import { FormattedEvent } from "@store/model/events";
 
 interface GroupProps {}
 
@@ -52,7 +56,7 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
 
   const [infos, setInfos] = React.useState<GroupInfo>();
   const dispatch = useDispatch();
-  const { userInfos } = useSelector(applicationState);
+  const { userInfos, loading } = useSelector(applicationState);
 
   React.useEffect(() => {
     if (isFetching) {
@@ -113,9 +117,46 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
     }
   }, [deleteGroupReponse]);
 
+  const {
+    currentData: events,
+    isFetching: isFetchingEvents,
+    isError: isErrorEvents,
+    isSuccess: isSuccessEvents,
+    refetch: refetchEvents,
+    error: errorEvents,
+  } = useGetEventsQuery({});
+
+  const [formattedEvent, setFormattedEvent] = React.useState<FormattedEvent[]>(
+    []
+  );
+
+  React.useEffect(() => {
+    if (isFetchingEvents) {
+      dispatch(setLoading(true));
+    } else if (isErrorEvents || isSuccessEvents) {
+      if (isErrorEvents) {
+        Toast.show({
+          type: "error",
+          text1: Lang.group.error.oops,
+          text2: Lang.event.error.error_fetching,
+        });
+      } else {
+        const data = events as FormattedEvent[];
+
+        setFormattedEvent(data);
+      }
+      dispatch(setLoading(false));
+    }
+  }, [currentData, isFetchingEvents, isErrorEvents, errorEvents]);
+
+  const refresh = () => {
+    refetchGroupInfo();
+    refetchEvents();
+  };
+
   useFocusEffect(
     React.useCallback(() => {
-      refetchGroupInfo();
+      refresh();
       return () => null;
     }, [])
   );
@@ -198,6 +239,9 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
         }}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
       >
         <Spacer space={"2%"} />
         <CustomText
@@ -211,6 +255,58 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
           } ${getRandomStringInArray(["👋", "🙌", "✌️", "🫡"])}`}
         </CustomText>
         <Spacer space={"2%"} />
+        <Container
+          color={isDark ? dark.navBar.background : light.navBar.background}
+          style={{
+            shadowColor: isDark ? Colors.black : Colors.grey,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            elevation: 3,
+            borderRadius: 20,
+            paddingBottom: hp("3%"),
+          }}
+        >
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            fontWeight={"600"}
+            align={"center"}
+          >
+            {Lang.event.incomming_events}
+          </CustomText>
+          <Spacer space={"2%"} />
+          {formattedEvent.map((fe, index: number) => {
+            // Date of now minus 2 hours
+            const now = new Date();
+            now.setHours(now.getHours() - 2);
+
+            if (new Date(fe.date) > now) {
+              return (
+                <EventItem
+                  formattedEvent={fe}
+                  isDark={isDark}
+                  key={index}
+                  refetchEvents={refetchEvents}
+                />
+              );
+            }
+          })}
+          {formattedEvent.length === 0 && (
+            <CustomText
+              size={texts.paragraph}
+              color={isDark ? dark.text : light.text}
+              align={"center"}
+              fontWeight={"400"}
+            >
+              {Lang.event.no_events}
+            </CustomText>
+          )}
+        </Container>
+        <Spacer space={"5%"} />
         <Container
           color={isDark ? dark.navBar.background : light.navBar.background}
           style={{
@@ -252,35 +348,6 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
               isDark={isDark}
               isOdd={index % 2 === 0}
             />
-          ))}
-        </Container>
-        <Spacer space={"5%"} />
-        <Container
-          color={isDark ? dark.navBar.background : light.navBar.background}
-          style={{
-            shadowColor: isDark ? Colors.black : Colors.grey,
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 10,
-            elevation: 3,
-            borderRadius: 20,
-            paddingBottom: hp("3%"),
-          }}
-        >
-          <CustomText
-            size={texts.subtitle}
-            color={isDark ? dark.text : light.text}
-            fontWeight={"600"}
-            align={"center"}
-          >
-            {Lang.event.incomming_events}
-          </CustomText>
-          <Spacer space={"2%"} />
-          {infos?.users.map((u, index: number) => (
-            <UserItem user={u} isDark={isDark} key={index} />
           ))}
         </Container>
         <Spacer space={"5%"} />

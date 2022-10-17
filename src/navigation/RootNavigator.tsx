@@ -9,9 +9,8 @@ import { stack } from "@navigation/Router";
 import { Routes } from "./Routes";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import { hp } from "@utils/functions";
-import { initialState } from "@store/application/constants";
 import { AppNavigator } from "./AppNavigator";
-import { useColorScheme, Text, Platform } from "react-native";
+import { useColorScheme, Text, Platform, Alert } from "react-native";
 import { dark, light } from "@themes/Colors";
 import { GroupNavigator } from "./GroupNavigator";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
@@ -30,6 +29,7 @@ import messaging from "@react-native-firebase/messaging";
 import PushNotification from "react-native-push-notification";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import { FirebaseNotification } from "@store/model/notifications";
+import * as RNLocalize from "react-native-localize";
 
 const Stack = createStackNavigator();
 
@@ -100,23 +100,19 @@ export const RootNavigator: React.FC<{}> = () => {
       addMobileToken({
         token: notification_token,
         platform: Platform.OS,
+        lang: RNLocalize.getLocales()[0].languageCode,
       });
     }
   }, [userInfos, notification_token]);
 
+  /**
+   * Handle notification in foreground
+   */
   React.useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.warn("Message received. ", remoteMessage);
-
       if (settings.notification_enabled) {
         vibrate.warning();
         const fbMessage = remoteMessage as FirebaseNotification;
-        PushNotification.localNotificationSchedule({
-          channelId: "serialluncher",
-          title: fbMessage.data.title,
-          message: `${fbMessage.data.body}`,
-          date: new Date(Date.now()),
-        });
       }
     });
     return unsubscribe;
@@ -199,7 +195,11 @@ export const RootNavigator: React.FC<{}> = () => {
           </>
         </NavigationContainer>
       )}
-      {loaded && userInfos.id !== -1 && hasGroup && <AppNavigator />}
+      {loaded && userInfos.id !== -1 && hasGroup && (
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      )}
       {loaded && userInfos.id !== -1 && !hasGroup && <GroupNavigator />}
     </>
   );

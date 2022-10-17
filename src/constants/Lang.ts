@@ -146,16 +146,43 @@ const locales = {
     },
     event: {
       button_creation: "Créer un événement",
-      incomming_events: "Evénements à venir",
+      incomming_events: "Evènements à venir",
+      no_events:
+        "Aucun évènement à venir... \nVous pouvez en créer un depuis la carte !",
       create_event: "Créer un événement pour",
+      delete_event: "Supprimer l'évènement",
+      delete_event_content:
+        "Êtes-vous sûr de vouloir supprimer cet évènement ? Cette action est irréversible.",
+      no: "Non",
+      yes: "Oui",
       create: "Créer !",
+      proposed_by: "Proposé par",
+      participants: "Participants",
+      participating: "Je participe !",
+      not_participating: "Ne plus participer",
       success: {
         title: "🎉 Félicitations !",
         content: "Votre événement a bien été créé !",
+        successfully_joined: "Vous participez à cet évènement !",
+        successfully_left: "Vous ne participez plus à cet évènement !",
+        success_deleting: "L'évènement a bien été supprimé !",
       },
       error: {
         title: "😬 Oups !",
         content: "Une erreur est survenue, veuillez réessayer.",
+        error_fetching:
+          "Une erreur est survenue lors de la récupération des événements.",
+        error_joining:
+          "Une erreur est survenue lors de votre inscription à l'événement.",
+        error_leaving:
+          "Une erreur est survenue lors de votre désinscription de l'événement.",
+        error_deleting:
+          "Une erreur est survenue lors de la suppression de l'événement.",
+      },
+      notification: {
+        invite: "vous invite à un événement 🍽️",
+        invites_you: "vous invite à le rejoidre chez",
+        on: "le",
       },
     },
     navigation: {
@@ -473,15 +500,38 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
     event: {
       button_creation: "Create event",
       incomming_events: "Incoming events",
+      no_events: "No events... But you can create one via the map!",
       create_event: "Create event for",
+      delete_event: "Delete event",
+      delete_event_content: "Are you sure you want to delete this event?",
+      no: "No",
+      yes: "Yes",
       create: "Create!",
+      proposed_by: "Proposed by",
+      participants: "Participants",
+      participating: "I join!",
+      not_participating: "Nah, nevermind.",
       success: {
-        title: "🎉 Event created!",
+        title: "🎉 Congratulation!",
         content: "Your event has been created successfully!",
+        successfully_joined: "You have successfully joined the event!",
+        successfully_left: "You have successfully left the event!",
+        success_deleting: "Event deleted successfully!",
       },
       error: {
         title: "😬 Oops",
         content: "An error has occurred, please try again.",
+        error_fetching: "An error has occurred while fetching events.",
+        error_joining:
+          "An error has occurred while joining the event. Please try again.",
+        error_leaving:
+          "An error has occurred while leaving the event. Please try again.",
+        error_deleting: "An error has occurred while deleting the event.",
+      },
+      notification: {
+        invite: "invites you to an event 🍽️",
+        invites_you: "invites you to join him",
+        on: "on",
       },
     },
     navigation: {

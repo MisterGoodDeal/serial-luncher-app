@@ -7,7 +7,9 @@ import { hp, wp } from "@utils/functions";
 import { useKeyboard } from "@hooks/useKeyboard";
 import { tabsApp } from "./Router";
 import { Routes } from "./Routes";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import messaging from "@react-native-firebase/messaging";
+import { FirebaseNotification } from "@store/model/notifications";
 
 const Stack = createStackNavigator();
 
@@ -15,9 +17,25 @@ export const AppNavigator: React.FC<{}> = () => {
   const isDark = useColorScheme() === "dark";
   const Tab = createBottomTabNavigator();
   const [keyboardStatus] = useKeyboard();
+  const nav = useNavigation();
+
+  /**
+   * Handle when notification is opened
+   */
+  React.useEffect(() => {
+    const unsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
+      const fbMessage = remoteMessage as FirebaseNotification;
+      const extra = JSON.parse(fbMessage.data.extra!);
+      if (extra.type === "new_event") {
+        // @ts-ignore
+        nav.navigate(Routes.GROUP);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
-    <NavigationContainer>
+    <>
       {/* @ts-ignore */}
       <Tab.Navigator
         initialRouteName={Routes.MAP}
@@ -52,7 +70,7 @@ export const AppNavigator: React.FC<{}> = () => {
           />
         ))}
       </Tab.Navigator>
-    </NavigationContainer>
+    </>
   );
 };
 

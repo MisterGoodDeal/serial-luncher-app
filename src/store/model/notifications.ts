@@ -1,6 +1,10 @@
+import { User } from "./enrollment";
+import { Place } from "./places";
+
 export interface NotificationToken {
   token: string;
   platform: string;
+  lang: string;
 }
 
 export interface FirebaseNotification {
