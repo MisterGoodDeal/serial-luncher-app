@@ -15,8 +15,12 @@ export const initialState: Application = {
     updated_at: new Date(),
   },
   token: "",
+  notification_token: "",
   loading: false,
   hasGroup: false,
+  settings: {
+    notification_enabled: true,
+  },
 };
 
 export const reducerPath = "applicationApi";
@@ -24,4 +28,5 @@ export const reducerPath = "applicationApi";
 export const endpoint = {
   updateUser: "/user/edit",
   delete: "/user/delete",
+  mobileToken: "/notifications/token",
 };

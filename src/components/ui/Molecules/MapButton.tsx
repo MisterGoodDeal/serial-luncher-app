@@ -37,7 +37,7 @@ export const MapButton: React.FunctionComponent<MapButtonProps> = ({
       backgroundColor: color || Colors.main,
       justifyContent: "center",
       alignItems: "center",
-      borderRadius: size / 2,
+      borderRadius: 12,
     }}
     onPress={onPress}
     onLongPress={longPress}

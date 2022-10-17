@@ -8,5 +8,5 @@ export const texts = {
   smaller: hp("1.25%"),
   tiny: hp("1%"),
   input: hp("2%"),
-  button: hp("2.3%"),
+  button: hp("2%"),
 };

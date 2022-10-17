@@ -23,4 +23,11 @@ export const endpoint = {
     remove: (placeId: number, commentId: number) =>
       `places/${placeId}/comment/${commentId}`,
   },
+  events: {
+    create: "event",
+    delete: "event",
+    join: "event/join",
+    leave: "event/leave",
+    get: "events",
+  },
 };

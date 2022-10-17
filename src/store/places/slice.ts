@@ -12,6 +12,12 @@ import {
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
+import {
+  EventDelete,
+  EventInsert,
+  EventJoinAndLeave,
+  FormattedEvent,
+} from "@store/model/events";
 
 export const placesApi = createApi({
   reducerPath,
@@ -101,6 +107,43 @@ export const placesApi = createApi({
       transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
     }),
+    /**
+     * Events endpoints
+     */
+    getEvents: builder.query<FormattedEvent[] | GenericApiReponse, {}>({
+      query: () => ({
+        url: `${endpoint.events.get}`,
+        method: "GET",
+      }),
+    }),
+    createEvent: builder.mutation<GenericApiReponse, EventInsert>({
+      query: (body) => ({
+        url: `${endpoint.events.create}`,
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteEvent: builder.mutation<GenericApiReponse, EventDelete>({
+      query: (body) => ({
+        url: `${endpoint.events.delete}`,
+        method: "DELETE",
+        body,
+      }),
+    }),
+    joinEvent: builder.mutation<GenericApiReponse, EventJoinAndLeave>({
+      query: (body) => ({
+        url: `${endpoint.events.join}`,
+        method: "POST",
+        body,
+      }),
+    }),
+    leaveEvent: builder.mutation<GenericApiReponse, EventJoinAndLeave>({
+      query: (body) => ({
+        url: `${endpoint.events.leave}`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -114,4 +157,9 @@ export const {
   useDeletePlaceMutation,
   useDeleteCommentMutation,
   useDeleteFavoriteMutation,
+  useGetEventsQuery,
+  useCreateEventMutation,
+  useDeleteEventMutation,
+  useJoinEventMutation,
+  useLeaveEventMutation,
 } = placesApi;

@@ -28,6 +28,13 @@ import { Rating } from "react-native-ratings";
 import { PlaceComment } from "./PlaceComment";
 import { Input } from "../Atoms/Input";
 import { Button } from "../Atoms/Button";
+import { Popup } from "../Molecules/Popup";
+import DatePicker from "react-native-date-picker";
+import * as RNLocalize from "react-native-localize";
+import { useCreateEventMutation } from "@store/places/slice";
+import { setLoading } from "@store/application/slice";
+import { useDispatch } from "react-redux";
+import Toast from "react-native-toast-message";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -102,6 +109,38 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
     ios: `${scheme}${label}@${latLng}`,
     android: `${scheme}${latLng}(${label})`,
   });
+
+  /**
+   * Create event
+   */
+
+  const dispatch = useDispatch();
+  const [showAddEvent, setShowAddEvent] = React.useState(false);
+  const [date, setDate] = React.useState(new Date());
+  const [createEvent, createEventResult] = useCreateEventMutation();
+
+  React.useEffect(() => {
+    if (createEventResult.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (createEventResult.status === "fulfilled") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "success",
+        text1: Lang.event.success.title,
+        text2: Lang.event.success.content,
+      });
+      setDate(new Date());
+      setShowAddEvent(false);
+    } else if (createEventResult.status === "rejected") {
+      dispatch(setLoading(false));
+      Toast.show({
+        type: "error",
+        text1: Lang.event.error.title,
+        text2: Lang.event.error.content,
+      });
+    }
+  }, [createEventResult]);
+
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View
@@ -296,6 +335,82 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             </CustomText>
           </Container>
           <Spacer space={"2%"} />
+
+          <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
+            {Lang.map.go}
+          </Button>
+          <Spacer space={"2%"} />
+          <Button
+            onPress={() => setShowAddEvent(true)}
+            color={Colors.main}
+            logo={require("@images/calendar.png")}
+            logoScale={hp(".05%")}
+          >
+            {Lang.event.button_creation}
+          </Button>
+          <Popup
+            animation="slide"
+            visible={showAddEvent}
+            onClose={() => {
+              setDate(new Date());
+              setShowAddEvent(false);
+            }}
+            color={isDark ? dark.input.background : light.background}
+            margin={{ x: wp("10%"), y: hp("23%") }}
+          >
+            <Container>
+              <CustomText
+                size={texts.subtitle}
+                fontWeight={"600"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+              >
+                {`${Lang.event.create_event} \n« ${place?.name} »`}
+              </CustomText>
+              <Spacer space={"2%"} />
+              <DatePicker
+                date={date}
+                onDateChange={setDate}
+                minimumDate={new Date()}
+                locale={RNLocalize.getLocales()[0].languageCode}
+                theme={isDark ? "dark" : "light"}
+              />
+              <Spacer space={"2%"} />
+              <Button
+                color={Colors.main}
+                width={wp("70%")}
+                onPress={() =>
+                  createEvent({
+                    date,
+                    place: place?.id ?? -1,
+                    group: place.fk_lunch_group ?? -1,
+                  })
+                }
+              >
+                {Lang.event.create}
+              </Button>
+              <Spacer space={"2%"} />
+            </Container>
+          </Popup>
+          <Spacer space={"2%"} />
+
+          {place?.url !== "" && (
+            <>
+              <Link
+                onPress={() => Linking.openURL(place?.url!)}
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+                style={{
+                  width: "100%",
+                }}
+              >
+                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
+              </Link>
+            </>
+          )}
+          <Spacer space={"2%"} />
           <Container
             color={isDark ? dark.navBar.background : light.navBar.background}
             disablePaddingFix
@@ -400,23 +515,6 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
             {Lang.map.go}
           </Button>
-          {place?.url !== "" && (
-            <>
-              <Spacer space={"2%"} />
-              <Link
-                onPress={() => Linking.openURL(place?.url!)}
-                size={texts.small}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-                align={"center"}
-                style={{
-                  width: "100%",
-                }}
-              >
-                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
-              </Link>
-            </>
-          )}
           <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>

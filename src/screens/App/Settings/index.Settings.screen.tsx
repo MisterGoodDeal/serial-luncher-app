@@ -17,6 +17,7 @@ import { Routes } from "@navigation/Routes";
 import {
   disconnect,
   setLoading,
+  useDeleteMobileTokenMutation,
   useDeleteUserMutation,
 } from "@store/application/slice";
 import appleAuth from "@invertase/react-native-apple-authentication";
@@ -54,6 +55,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
   };
 
   const [deleteUser, deleteUserResult] = useDeleteUserMutation();
+  const [deleteMobileToken] = useDeleteMobileTokenMutation();
 
   const [privacyPolicyVisible, setPrivacyPolicyVisible] = React.useState(false);
 
@@ -136,10 +138,24 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         <MenuLink isDark={isDark} onPress={() => setPrivacyPolicyVisible(true)}>
           {Lang.settings.privacy_policy}
         </MenuLink>
+        <MenuLink
+          isDark={isDark}
+          onPress={() =>
+            // @ts-ignore
+            nav.navigate(`${Routes.SETTINGS_NAVIGATOR}`, {
+              screen: Routes.SETTINGS_APP_SETTINGS,
+            })
+          }
+        >
+          {Lang.settings.app_settings.title}
+        </MenuLink>
         <Spacer space="3%" />
         <MenuLink
           isDark={isDark}
-          onPress={() => dispatch(disconnect())}
+          onPress={() => {
+            deleteMobileToken();
+            dispatch(disconnect());
+          }}
           color={isDark ? dark.text : light.text}
         >
           {Lang.settings.disconnect}
