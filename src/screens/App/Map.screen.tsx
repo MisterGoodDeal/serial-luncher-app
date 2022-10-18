@@ -5,7 +5,7 @@ import { getMarkerAsset, hp, wp } from "@utils/functions";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-map-clustering";
-import { Callout, Marker } from "react-native-maps";
+import { Callout, LatLng, Marker } from "react-native-maps";
 import {
   useColorScheme,
   Text,
@@ -43,6 +43,7 @@ import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
 import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
 import { vibrate } from "@utils/vibrate";
 import { darkMap } from "@constants/darkMap";
+import { CustomMarkerSheet } from "@components/ui/Organisms/CustomMarkerSheet";
 
 interface MapProps {}
 
@@ -197,8 +198,8 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         can_bring_reusable_content: canBringReusableContent,
         image: picture!,
         country_speciality: selected?.code ?? -1,
-        lat: userCoordinates!.latitude,
-        lng: userCoordinates!.longitude,
+        lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
+        lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
         url: urlRegex.test(url) ? url : "",
       });
     } else {
@@ -226,18 +227,27 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       vibrate.success();
       (async () => {
         await getCurrentLocation();
-        // @ts-ignore
-        mapRef.current.animateCamera(
-          {
-            center: userCoordinates,
-            pitch: 10,
-            heading: 20,
-            altitude: 10,
-            zoom: 15,
-          },
-          { duration: 1000 }
-        );
+        manualMarker === undefined &&
+          // @ts-ignore
+          mapRef.current.animateCamera(
+            {
+              center: userCoordinates,
+              pitch: 10,
+              heading: 20,
+              altitude: 10,
+              zoom: 15,
+            },
+            { duration: 1000 }
+          );
       })();
+      setManualMarker(undefined);
+      setPlaceName("");
+      setRating(0);
+      setPriceRange(0);
+      setCanBringReusableContent(false);
+      setSelected(undefined);
+      setUrl("");
+      setPicture("");
     } else if (addPlaceResult.status === "rejected") {
       dispatch(setLoading(false));
       Toast.show({
@@ -369,6 +379,10 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     }
   }, [places, selectedFilter]);
 
+  const [manualMarker, setManualMarker] = React.useState<LatLng>();
+  const [showCustomMarkerDrawer, setShowCustomMarkerDrawer] =
+    React.useState(false);
+
   return (
     <Container
       color={Colors.background}
@@ -380,6 +394,13 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <CustomMarkerSheet
+        setShowDrawer={setShowCustomMarkerDrawer}
+        showDrawer={showCustomMarkerDrawer}
+        isDark={isDark}
+        setCustomMarker={setManualMarker}
+        setShowPopup={setAddPlaceVisible}
+      />
       <MapView
         // @ts-ignore
         ref={mapRef}
@@ -399,6 +420,11 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         moveOnMarkerPress={true}
         showsPointsOfInterest={true}
         customMapStyle={isDark ? darkMap : []}
+        onLongPress={(e) => {
+          vibrate.warning();
+          setManualMarker(e.nativeEvent.coordinate);
+          setShowCustomMarkerDrawer(true);
+        }}
         style={{
           position: "absolute",
           top: 0,
@@ -407,6 +433,21 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
           height: hp("100%"),
         }}
       >
+        {manualMarker && (
+          <Marker
+            coordinate={{
+              latitude: manualMarker.latitude,
+              longitude: manualMarker.longitude,
+            }}
+            title={"custom_marker"}
+            description={"custom_marker"}
+            image={require("@images/pin-manual/pin.png")}
+          >
+            <Callout tooltip={true}>
+              <Text></Text>
+            </Callout>
+          </Marker>
+        )}
         {filteredPlaces &&
           filteredPlaces.map((place) => (
             <Marker
@@ -488,7 +529,10 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       <Popup
         animation="slide"
         visible={addPlaceVisible}
-        onClose={() => setAddPlaceVisible(false)}
+        onClose={() => {
+          setAddPlaceVisible(false);
+          setManualMarker(undefined);
+        }}
         color={isDark ? dark.background : light.background}
         margin={{ x: wp("10%"), y: hp("15%") }}
       >
