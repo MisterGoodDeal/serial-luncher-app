@@ -236,6 +236,8 @@ const locales = {
       link: "URL site web, menu...",
       is_required: "Les champs avec * sont requis",
       go: "Y aller !",
+      add_this_one: "Ajouter ce restaurant ?",
+      yes: "Oui !",
       error: {
         oops: "😬 Oups",
         error_location:
@@ -585,6 +587,8 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
       fromGallery: "Gallery",
       is_required: "Required fields are marked with *",
       go: "Go there!",
+      add_this_one: "Add this one!",
+      yes: "Yep this one!",
       event: "Create event",
       error: {
         oops: "😬 Oops",
