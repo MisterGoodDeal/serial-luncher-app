@@ -21,6 +21,7 @@ export const initialState: Application = {
   settings: {
     notification_enabled: true,
   },
+  options: {},
 };
 
 export const reducerPath = "applicationApi";

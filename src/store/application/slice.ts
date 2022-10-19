@@ -65,6 +65,9 @@ export const applicationSlice = createSlice({
     setNotificationEnabled: (state, action: PayloadAction<boolean>) => {
       state.settings.notification_enabled = action.payload;
     },
+    setOptions: (state, action: PayloadAction<object>) => {
+      state.options = action.payload;
+    },
   },
 });
 
@@ -76,6 +79,7 @@ export const {
   disconnect,
   setNotificationToken,
   setNotificationEnabled,
+  setOptions,
 } = applicationSlice.actions;
 
 export const {

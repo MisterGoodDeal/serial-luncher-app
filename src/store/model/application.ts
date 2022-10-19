@@ -7,6 +7,7 @@ export type Application = {
   loading: boolean;
   hasGroup: boolean;
   settings: AppSettings;
+  options: any;
 };
 
 export interface Token {

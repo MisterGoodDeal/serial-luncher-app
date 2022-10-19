@@ -33,6 +33,8 @@ export interface GroupInfo {
     can_bring_reusable_contents: boolean;
     creator: Partial<User>;
     created_at: string;
+    lat: number;
+    lng: number;
   }[];
   random_image: string;
 }

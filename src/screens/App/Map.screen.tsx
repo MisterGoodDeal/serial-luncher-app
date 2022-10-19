@@ -19,10 +19,10 @@ import {
   useGetPlacesQuery,
 } from "@store/places/slice";
 import { StuffedPlace } from "@store/model/places";
-import { setLoading } from "@store/application/slice";
+import { setLoading, setOptions } from "@store/application/slice";
 import { Lang } from "@constants/Lang";
 import Toast from "react-native-toast-message";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 import Geolocation from "@react-native-community/geolocation";
 import { MapButton } from "@components/ui/Molecules/MapButton";
 import { BottomSheet } from "@components/ui/Organisms/BottomSheet";
@@ -49,9 +49,27 @@ interface MapProps {}
 
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
-
   const dispatch = useDispatch();
-  const { userInfos } = useSelector(applicationState);
+  const { userInfos, options } = useSelector(applicationState);
+
+  React.useEffect(() => {
+    if (options.place2Nav) {
+      console.log("options.place2Nav", options.place2Nav);
+
+      const { lat, lng } = options.place2Nav;
+      // @ts-ignore
+      mapRef.current.animateToRegion(
+        {
+          latitude: lat,
+          longitude: lng,
+          latitudeDelta: 0.005, //this.state.latitudeDelta,
+          longitudeDelta: 0.005, //this.state.longitudeDelta,
+        },
+        300
+      );
+      dispatch(setOptions({}));
+    }
+  }, [options.place2Nav]);
 
   const { currentData, isFetching, isError, isSuccess, refetch, error } =
     useGetPlacesQuery({});

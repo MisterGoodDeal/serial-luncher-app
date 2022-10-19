@@ -23,14 +23,19 @@ import { CustomText } from "@components/ui/Atoms/CustomText";
 import { texts } from "@constants/TextsSizes";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
-import { disconnect, setHasGroup, setLoading } from "@store/application/slice";
+import {
+  disconnect,
+  setHasGroup,
+  setLoading,
+  setOptions,
+} from "@store/application/slice";
 import { Button } from "@components/ui/Atoms/Button";
 import {
   useDeleteGroupMutation,
   useGetGroupInfoQuery,
   useLeaveGroupMutation,
 } from "@store/groups/slice";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { Lang } from "@constants/Lang";
 import { GroupInfo } from "@store/model/groups";
@@ -40,6 +45,7 @@ import { UserItem } from "@components/ui/Organisms/UserItem";
 import { EventItem } from "@components/ui/Organisms/EventItem";
 import { useGetEventsQuery } from "@store/places/slice";
 import { FormattedEvent } from "@store/model/events";
+import { Routes } from "@navigation/Routes";
 
 interface GroupProps {}
 
@@ -53,6 +59,8 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
     refetch: refetchGroupInfo,
     error,
   } = useGetGroupInfoQuery({});
+
+  const nav = useNavigation();
 
   const [infos, setInfos] = React.useState<GroupInfo>();
   const dispatch = useDispatch();
@@ -342,12 +350,20 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
             </CustomText>
           )}
           {infos?.last_places.map((p, index: number) => (
-            <PlaceItem
-              key={index}
-              place={p}
-              isDark={isDark}
-              isOdd={index % 2 === 0}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(setOptions({ place2Nav: { lat: p.lat, lng: p.lng } }));
+                // @ts-ignore
+                nav.navigate(Routes.MAP, { params: { place: p } });
+              }}
+            >
+              <PlaceItem
+                key={index}
+                place={p}
+                isDark={isDark}
+                isOdd={index % 2 === 0}
+              />
+            </TouchableOpacity>
           ))}
         </Container>
         <Spacer space={"5%"} />
