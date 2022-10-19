@@ -82,7 +82,6 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
       ? (translateY.value = withSpring(-MAX_HEIGHT, { damping: 50 }))
       : null;
     showDrawerShared.value === false && setShowDrawer(false);
-    console.log(place);
   }, [showDrawer, showDrawerShared.value]);
 
   const rBottomSheetStyle = useAnimatedStyle(() => {
