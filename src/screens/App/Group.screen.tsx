@@ -421,7 +421,9 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
           </CustomText>
           <Spacer space={"2%"} />
           <Button
-            onPress={() => leaveGroup({ id: infos?.group.id ?? -1 })}
+            onPress={() =>
+              leaveGroup({ id: infos?.group.id ?? -1, is_soft: false })
+            }
             color={Colors.main}
           >
             {Lang.group.leave_group}
