@@ -1,3 +1,4 @@
+import { Lang } from "@constants/Lang";
 import { Colors } from "@themes/Colors";
 import { Platform } from "react-native";
 import ImageColors from "react-native-image-colors";
@@ -49,4 +50,27 @@ export const getDomainName = (url: string | undefined) => {
     return domain.split(":")[0];
   }
   return "";
+};
+
+// Convert meters to kilometers round two decimals if needed
+export const convertMetersToKilometersIfNecessary = (value: number) => {
+  if (value < 1000) {
+    return `${value}m`;
+  }
+  return `${(value / 1000).toFixed(2)}km`;
+};
+
+// Convert meters to miles round two decimals
+export const convertMetersToMiles = (value: number) => {
+  return `${(value / 1609.344).toFixed(2)}mi`;
+};
+
+// Convert minutes to hours if needed
+export const convertMinutesToHoursIfNecessary = (value: number) => {
+  if (value < 60) {
+    return `${value} minute${value > 1 ? "s" : ""}`;
+  }
+  return `${Math.floor(value / 60)} ${Lang.map.route_planning.hour}${
+    Math.floor(value / 60) > 1 ? "s" : ""
+  } ${value % 60} minute${value % 60 > 1 ? "s" : ""}`;
 };

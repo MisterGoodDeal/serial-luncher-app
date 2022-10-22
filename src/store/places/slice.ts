@@ -9,6 +9,8 @@ import {
   Comment,
   CommentId,
   StuffedPlace,
+  RoutePlannerResponse,
+  RoutePlannerRequest,
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
@@ -144,6 +146,19 @@ export const placesApi = createApi({
         body,
       }),
     }),
+    requestRoutePlanning: builder.mutation<
+      RoutePlannerResponse | GenericApiReponse,
+      RoutePlannerRequest
+    >({
+      query: (params) => ({
+        url: `place/${params.placeId}/route`,
+        method: "POST",
+        body: {
+          startLat: params.startLat,
+          startLng: params.startLng,
+        },
+      }),
+    }),
   }),
 });
 
@@ -162,4 +177,5 @@ export const {
   useDeleteEventMutation,
   useJoinEventMutation,
   useLeaveEventMutation,
+  useRequestRoutePlanningMutation,
 } = placesApi;

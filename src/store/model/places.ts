@@ -62,3 +62,15 @@ export interface CommentId {
 export interface AddComment {
   comment: string;
 }
+
+export interface RoutePlannerResponse {
+  time: number;
+  distance: number;
+  polyline: { latitude: number; longitude: number }[];
+}
+
+export interface RoutePlannerRequest {
+  startLat: number;
+  startLng: number;
+  placeId: number;
+}

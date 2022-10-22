@@ -46,6 +46,7 @@ interface BottomSheetProps {
   comment: string;
   setComment: React.Dispatch<React.SetStateAction<string>>;
   submitComment: () => void;
+  planRoute: (params: { link: string; placeId: number }) => void;
 }
 
 export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
@@ -56,6 +57,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   comment,
   setComment,
   submitComment,
+  planRoute,
 }) => {
   const MAX_HEIGHT = SCREEN_HEIGHT * 0.8;
   const THRESHOLD = SCREEN_HEIGHT * 0.79;
@@ -335,7 +337,15 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           </Container>
           <Spacer space={"2%"} />
 
-          <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
+          <Button
+            onPress={() =>
+              planRoute({
+                link: openMap!,
+                placeId: place?.id ?? -1,
+              })
+            }
+            color={Colors.main}
+          >
             {Lang.map.go}
           </Button>
           <Spacer space={"2%"} />
@@ -510,10 +520,6 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             </Container>
             <Spacer space={"2%"} />
           </Container>
-          <Spacer space={"2%"} />
-          <Button onPress={() => Linking.openURL(openMap!)} color={Colors.main}>
-            {Lang.map.go}
-          </Button>
           <Spacer space={"15%"} />
         </ScrollView>
       </Animated.View>
