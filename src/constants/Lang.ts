@@ -253,6 +253,12 @@ const locales = {
         comment_added: "Votre commentaire a été ajouté avec succès !",
         place_added: "Le restarant a été ajouté avec succès !",
       },
+      route_planning: {
+        title: "Itinéraire",
+        hour: "heure",
+        onFeets: "à pieds",
+        reach: "pour y arriver (balayez pour annuler).",
+      },
     },
     country_specialities: {
       title: "Sélectionnez une spécialité",
@@ -319,6 +325,9 @@ const locales = {
         privacy_settings_description:
           "Certains paramètres nécéssitent de redémarrer l'application pour être pris en compte.",
         push_notifications: "Notifications push",
+        unit_settings: "Unités de mesure",
+        unit_metric: "Unités métriques",
+        unit_imperial: "Unités impériales",
       },
     },
     privacy_policy: `# Politique de confidentialité
@@ -603,6 +612,12 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         comment_added: "Your comment has been added successfully!",
         place_added: "The restaurant has been added successfully!",
       },
+      route_planning: {
+        title: "Route planning",
+        hour: "hour",
+        onFeets: "on feets",
+        reach: "to reach your destination (swipe to dismiss).",
+      },
     },
     country_specialities: {
       title: "Select a country speciality",
@@ -667,6 +682,9 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         privacy_settings_description:
           "Some settings require a restart in order to take effect.",
         push_notifications: "Push notifications",
+        unit_settings: "Unit settings",
+        unit_metric: "Metric units",
+        unit_imperial: "Imperial units",
       },
     },
     privacy_policy: `# Privacy Policy
