@@ -16,6 +16,7 @@ export interface Token {
 
 export interface AppSettings {
   notification_enabled: boolean;
+  units: "metric" | "imperial";
 }
 
 export interface GenericApiReponse {

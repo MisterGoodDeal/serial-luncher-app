@@ -20,6 +20,7 @@ export const initialState: Application = {
   hasGroup: false,
   settings: {
     notification_enabled: true,
+    units: "metric",
   },
   options: {},
 };
