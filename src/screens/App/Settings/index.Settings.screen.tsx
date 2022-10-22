@@ -113,18 +113,17 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         >
           {Lang.settings.edit}
         </MenuLink>
-        {/* <MenuLink
+        <MenuLink
           isDark={isDark}
           onPress={() =>
-            Alert.alert(
-              Lang.misc.no_feature.title,
-              Lang.misc.no_feature.content
-            )
+            // @ts-ignore
+            nav.navigate(`${Routes.SETTINGS_NAVIGATOR}`, {
+              screen: Routes.SETTINGS_GROUP_SETTINGS,
+            })
           }
-          color={Colors.grey}
         >
           {Lang.settings.manage_group}
-        </MenuLink> */}
+        </MenuLink>
         <MenuLink
           isDark={isDark}
           onPress={() =>

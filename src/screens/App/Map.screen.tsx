@@ -585,7 +585,6 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       />
       <MapButton
         onPress={() => {
-          vibrate.impactLight();
           onOpen("country_filter");
         }}
         longPress={() => {
