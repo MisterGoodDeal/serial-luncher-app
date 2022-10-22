@@ -527,7 +527,7 @@
 					"${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
@@ -563,7 +563,7 @@
 					"${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.turtlecorp.sl;
 				PRODUCT_NAME = SerialLuncher;
