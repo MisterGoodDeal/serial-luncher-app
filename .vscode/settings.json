@@ -2,8 +2,8 @@
   "editor.formatOnSave": true,
   "workbench.colorCustomizations": {
         "activityBar.activeBorder": "#454F63",
-        "activityBar.foreground": "#454F63",
-        "activityBar.inactiveForeground": "#3ACCE1",
+        "activityBar.inactiveForeground": "#454F63",
+        "activityBar.foreground": "#3ACCE1",
         "activityBarBadge.background": "#454F63",
         "activityBarBadge.foreground": "#3ACCE1",
         "sash.hoverBorder": "#454F63",
