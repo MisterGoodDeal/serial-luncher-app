@@ -65,6 +65,9 @@ export const applicationSlice = createSlice({
     setNotificationEnabled: (state, action: PayloadAction<boolean>) => {
       state.settings.notification_enabled = action.payload;
     },
+    setUnits: (state, action: PayloadAction<"metric" | "imperial">) => {
+      state.settings.units = action.payload;
+    },
     setOptions: (state, action: PayloadAction<object>) => {
       state.options = action.payload;
     },
@@ -79,6 +82,7 @@ export const {
   disconnect,
   setNotificationToken,
   setNotificationEnabled,
+  setUnits,
   setOptions,
 } = applicationSlice.actions;
 

@@ -1,24 +1,33 @@
 import * as React from "react";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
-import { getMarkerAsset, hp, wp } from "@utils/functions";
+import {
+  convertMetersToKilometersIfNecessary,
+  convertMetersToMiles,
+  convertMinutesToHoursIfNecessary,
+  getMarkerAsset,
+  hp,
+  wp,
+} from "@utils/functions";
 import { applicationState } from "@store/application/selector";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-map-clustering";
-import { Callout, LatLng, Marker } from "react-native-maps";
+import { Callout, LatLng, Marker, Polyline } from "react-native-maps";
 import {
   useColorScheme,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import {
   useAddCommentMutation,
   useAddPlaceMutation,
   useGetPlacesQuery,
+  useRequestRoutePlanningMutation,
 } from "@store/places/slice";
-import { StuffedPlace } from "@store/model/places";
+import { RoutePlannerResponse, StuffedPlace } from "@store/model/places";
 import { setLoading, setOptions } from "@store/application/slice";
 import { Lang } from "@constants/Lang";
 import Toast from "react-native-toast-message";
@@ -50,10 +59,10 @@ interface MapProps {}
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
   const dispatch = useDispatch();
-  const { userInfos, options } = useSelector(applicationState);
+  const { userInfos, options, settings } = useSelector(applicationState);
 
   React.useEffect(() => {
-    if (options.place2Nav) {
+    if (options?.place2Nav) {
       console.log("options.place2Nav", options.place2Nav);
 
       const { lat, lng } = options.place2Nav;
@@ -69,7 +78,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
       );
       dispatch(setOptions({}));
     }
-  }, [options.place2Nav]);
+  }, [options]);
 
   const { currentData, isFetching, isError, isSuccess, refetch, error } =
     useGetPlacesQuery({});
@@ -401,6 +410,53 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const [showCustomMarkerDrawer, setShowCustomMarkerDrawer] =
     React.useState(false);
 
+  const [requestRoutePlanning, requestRoutePlanningResult] =
+    useRequestRoutePlanningMutation();
+  const [routePlan, setRoutePlan] = React.useState<RoutePlannerResponse>();
+  const [link, setLink] = React.useState<string>();
+
+  const handlePlanRoute = (params: { link: string; placeId: number }) => {
+    (async () => {
+      await getCurrentLocation();
+      requestRoutePlanning({
+        placeId: params.placeId,
+        startLat: userCoordinates?.latitude ?? 0,
+        startLng: userCoordinates?.longitude ?? 0,
+      });
+      setLink(params.link);
+    })();
+  };
+
+  React.useEffect(() => {
+    if (requestRoutePlanningResult.status === "pending") {
+      dispatch(setLoading(true));
+    } else if (requestRoutePlanningResult.status === "fulfilled") {
+      const data = requestRoutePlanningResult.data as RoutePlannerResponse;
+      dispatch(setLoading(false));
+      setShowBottomSheet(false);
+      console.log(data);
+      setRoutePlan(data);
+      Toast.show({
+        type: "info",
+        text1: Lang.map.route_planning.title,
+        text2: `${convertMinutesToHoursIfNecessary(data.time)} ${
+          Lang.map.route_planning.onFeets
+        } (${
+          settings.units === "metric"
+            ? convertMetersToKilometersIfNecessary(data.distance)
+            : convertMetersToMiles(data.distance)
+        }) ${Lang.map.route_planning.reach}`,
+        autoHide: false,
+        onHide() {
+          setRoutePlan(undefined);
+        },
+      });
+    } else if (requestRoutePlanningResult.status === "rejected") {
+      setShowBottomSheet(false);
+      Linking.openURL(link!);
+    }
+  }, [requestRoutePlanningResult]);
+
   return (
     <Container
       color={Colors.background}
@@ -451,6 +507,13 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
           height: hp("100%"),
         }}
       >
+        {routePlan && (
+          <Polyline
+            coordinates={routePlan.polyline}
+            strokeWidth={5}
+            strokeColor={Colors.main}
+          />
+        )}
         {manualMarker && (
           <Marker
             coordinate={{
@@ -761,6 +824,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         comment={comment}
         setComment={setComment}
         submitComment={handleAddComment}
+        planRoute={handlePlanRoute}
       />
     </Container>
   );
