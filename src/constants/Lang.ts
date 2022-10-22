@@ -289,7 +289,7 @@ const locales = {
     settings: {
       title: "Paramètres",
       edit: "Modifier mon profil",
-      manage_group: "Gérer mon groupe",
+      manage_group: "Gérer le groupe",
       contact_us: "Nous contacter",
       privacy_policy: "Politique de confidentialité",
       edit_pp: "Modifier la photo de profil",
@@ -328,6 +328,17 @@ const locales = {
         unit_settings: "Unités de mesure",
         unit_metric: "Unités métriques",
         unit_imperial: "Unités impériales",
+      },
+      group_settings: {
+        title: "Paramètres de groupe",
+        change_group: "Changer de groupe",
+        label_filter: "Choisissez le groupe sur lequel vous souahitez changer",
+        placeholder_filter: "Rechercher un groupe...",
+        not_found_filter: "Aucun groupe trouvé",
+        group_switched: "✅ Vous avez changé de groupe avec succès !",
+        group_switched_error:
+          "😠 Une erreur est survenue lors du changement de groupe.",
+        joinAnotherGroup: "Rejoindre un autre groupe",
       },
     },
     privacy_policy: `# Politique de confidentialité
@@ -685,6 +696,16 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
         unit_settings: "Unit settings",
         unit_metric: "Metric units",
         unit_imperial: "Imperial units",
+      },
+      group_settings: {
+        title: "Group settings",
+        change_group: "Change group",
+        label_filter: "Choose a group you want to switch to",
+        placeholder_filter: "Search a group...",
+        not_found_filter: "No group found",
+        group_switched: "✅ Group switched successfully!",
+        group_switched_error: "😠 An error occurred while switching the group.",
+        joinAnotherGroup: "Join another group",
       },
     },
     privacy_policy: `# Privacy Policy
