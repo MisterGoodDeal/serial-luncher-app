@@ -21,7 +21,7 @@ import { Lang } from "@constants/Lang";
 import { useNavigation } from "@react-navigation/native";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import ToggleSwitch from "toggle-switch-react-native";
-import { setNotificationEnabled } from "@store/application/slice";
+import { setNotificationEnabled, setUnits } from "@store/application/slice";
 
 interface AppSettingsProps {}
 
@@ -116,6 +116,48 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
               offColor={isDark ? dark.input.background : light.input.background}
               size="large"
               onToggle={(isOn) => dispatch(setNotificationEnabled(isOn))}
+            />
+          </Container>
+          <Spacer space="5%" />
+          <CustomText
+            size={texts.subtitle}
+            color={isDark ? dark.text : light.text}
+            align={"left"}
+            fontWeight={"600"}
+            style={{
+              width: wp("80%"),
+            }}
+          >
+            {Lang.settings.app_settings.unit_settings}
+          </CustomText>
+          <Spacer space="2%" />
+          <Container
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            disablePaddingFix
+            style={{
+              width: wp("80%"),
+            }}
+          >
+            <CustomText
+              size={texts.paragraph}
+              color={isDark ? dark.text : light.text}
+              align={"left"}
+              fontWeight={"400"}
+            >
+              {settings.units === "metric"
+                ? Lang.settings.app_settings.unit_metric
+                : Lang.settings.app_settings.unit_imperial}
+            </CustomText>
+            <ToggleSwitch
+              isOn={settings.units === "metric"}
+              onColor={Colors.main}
+              offColor={isDark ? dark.input.background : light.input.background}
+              size="large"
+              onToggle={(isOn) =>
+                dispatch(setUnits(isOn ? "metric" : "imperial"))
+              }
             />
           </Container>
         </ScrollView>
