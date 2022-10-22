@@ -46,8 +46,8 @@ export const MapButton: React.FunctionComponent<MapButtonProps> = ({
       source={icon}
       style={[
         {
-          width: size * 0.8,
-          height: size * 0.8,
+          width: size * 0.6,
+          height: size * 0.6,
           tintColor: textColor(color ?? Colors.main),
         },
       ]}

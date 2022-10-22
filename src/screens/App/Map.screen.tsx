@@ -566,7 +566,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
             { duration: 1000 }
           );
         }}
-        icon={require("@images/map.png")}
+        icon={require("@images/my_position.png")}
         size={hp("5.5%")}
         top={hp("8%")}
         right={wp("4%")}
