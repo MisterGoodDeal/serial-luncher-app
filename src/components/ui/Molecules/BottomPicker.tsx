@@ -15,6 +15,9 @@ interface BottomPickerProps {
   label: string;
   onSearch: (value: string) => void;
   setSelected: React.Dispatch<any>;
+  closeText?: string;
+  placeholderText?: string;
+  noDataFoundText?: string;
 }
 
 export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
@@ -25,6 +28,9 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
   onSearch,
   setSelected,
   label,
+  closeText,
+  placeholderText,
+  noDataFoundText,
 }) => (
   <Picker
     id={id}
@@ -35,9 +41,9 @@ export const BottomPicker: React.FunctionComponent<BottomPickerProps> = ({
     label={label}
     setSelected={setSelected}
     onSearch={onSearch}
-    closeText={Lang.country_specialities.close}
-    placeholderText={Lang.country_specialities.search}
-    noDataFoundText={Lang.country_specialities.no_result}
+    closeText={closeText ?? Lang.country_specialities.close}
+    placeholderText={placeholderText ?? Lang.country_specialities.search}
+    noDataFoundText={noDataFoundText ?? Lang.country_specialities.no_result}
     style={{
       actionSheet: {
         backgroundColor: isDark ? dark.background : light.background,
