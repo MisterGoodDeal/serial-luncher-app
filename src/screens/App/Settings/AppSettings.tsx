@@ -2,12 +2,8 @@ import * as React from "react";
 import {
   ScrollView,
   useColorScheme,
-  Image,
-  TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
   Platform,
-  View,
 } from "react-native";
 import { Colors, dark, light } from "@themes/Colors";
 import { Container } from "@components/common/Container";
@@ -21,7 +17,15 @@ import { Lang } from "@constants/Lang";
 import { useNavigation } from "@react-navigation/native";
 import { Arrow } from "@components/ui/Atoms/Arrow";
 import ToggleSwitch from "toggle-switch-react-native";
-import { setNotificationEnabled, setUnits } from "@store/application/slice";
+import {
+  setNotificationEnabled,
+  setNotificationToken,
+  setUnits,
+  useAddMobileTokenMutation,
+  useDeleteMobileTokenMutation,
+} from "@store/application/slice";
+import messaging from "@react-native-firebase/messaging";
+import * as RNLocalize from "react-native-localize";
 
 interface AppSettingsProps {}
 
@@ -32,6 +36,25 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
   const { userInfos, settings } = useSelector(applicationState);
 
   const nav = useNavigation();
+
+  const [addMobileToken] = useAddMobileTokenMutation();
+  const [deleteMobileToken] = useDeleteMobileTokenMutation();
+  const handleNotificationSettings = async (isOn: boolean) => {
+    if (isOn) {
+      const token = await messaging().getToken();
+      dispatch(setNotificationToken(token));
+      dispatch(setNotificationEnabled(isOn));
+      addMobileToken({
+        token: token,
+        platform: Platform.OS,
+        lang: RNLocalize.getLocales()[0].languageCode,
+      });
+    } else {
+      dispatch(setNotificationEnabled(isOn));
+      dispatch(setNotificationToken(""));
+      deleteMobileToken({});
+    }
+  };
 
   return (
     <Container
@@ -80,18 +103,6 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
           >
             {Lang.settings.app_settings.privacy_settings}
           </CustomText>
-          <Spacer space=".5%" />
-          <CustomText
-            size={texts.small}
-            color={isDark ? dark.text : light.text}
-            align={"left"}
-            fontWeight={"400"}
-            style={{
-              width: wp("80%"),
-            }}
-          >
-            {Lang.settings.app_settings.privacy_settings_description}
-          </CustomText>
           <Spacer space="2%" />
           <Container
             direction="row"
@@ -115,7 +126,7 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
               onColor={Colors.main}
               offColor={isDark ? dark.input.background : light.input.background}
               size="large"
-              onToggle={(isOn) => dispatch(setNotificationEnabled(isOn))}
+              onToggle={(isOn) => handleNotificationSettings(isOn)}
             />
           </Container>
           <Spacer space="5%" />
