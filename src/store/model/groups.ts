@@ -51,3 +51,7 @@ export interface GetAndJoinGroup {
 export interface LeaveAndDeleteGroup {
   id: number;
 }
+
+export interface SoftOperation {
+  is_soft: boolean;
+}
