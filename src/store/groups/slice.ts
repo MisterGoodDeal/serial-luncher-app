@@ -9,6 +9,7 @@ import {
   LeaveAndDeleteGroup,
   Group,
   GroupInfo,
+  SoftOperation,
 } from "@store/model/groups";
 
 import { GenericApiReponse, Token } from "@store/model/application";
@@ -23,6 +24,14 @@ export const groupsApi = createApi({
     getGroup: builder.mutation<Group | GenericApiReponse, GetAndJoinGroup>({
       query: ({ group_key }) => ({
         url: `${endpoint.get}/${group_key}`,
+        method: "GET",
+      }),
+    }),
+
+    // Get groups
+    getGroups: builder.query<Partial<Group>[], void>({
+      query: () => ({
+        url: endpoint.getAll,
         method: "GET",
       }),
     }),
@@ -46,10 +55,14 @@ export const groupsApi = createApi({
       }),
     }),
 
-    leaveGroup: builder.mutation<GenericApiReponse, LeaveAndDeleteGroup>({
-      query: ({ id }) => ({
+    leaveGroup: builder.mutation<
+      GenericApiReponse,
+      LeaveAndDeleteGroup & SoftOperation
+    >({
+      query: ({ id, is_soft }) => ({
         url: `${endpoint.leave}/${id}`,
         method: "DELETE",
+        body: { softLeave: is_soft },
       }),
 
       transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
@@ -82,6 +95,7 @@ export const { setGroup } = groupSlice.actions;
 
 export const {
   useGetGroupMutation,
+  useGetGroupsQuery,
   useGetGroupInfoQuery,
   useCreateGroupMutation,
   useJoinGroupMutation,

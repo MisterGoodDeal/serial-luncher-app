@@ -20,5 +20,6 @@ export const endpoint = {
   leave: "group/leave",
   delete: "group/delete",
   get: "group",
+  getAll: "groups",
   info: "group/info",
 };
