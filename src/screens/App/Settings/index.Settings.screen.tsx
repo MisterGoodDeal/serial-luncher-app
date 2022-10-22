@@ -153,7 +153,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         <MenuLink
           isDark={isDark}
           onPress={() => {
-            deleteMobileToken();
+            deleteMobileToken({});
             dispatch(disconnect());
           }}
           color={isDark ? dark.text : light.text}

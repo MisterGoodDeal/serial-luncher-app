@@ -96,7 +96,11 @@ export const RootNavigator: React.FC<{}> = () => {
   const [addMobileToken, addMobileTokenResponse] = useAddMobileTokenMutation();
 
   React.useEffect(() => {
-    if (userInfos.id !== -1 && notification_token !== "") {
+    if (
+      userInfos.id !== -1 &&
+      notification_token !== "" &&
+      settings.notification_enabled
+    ) {
       addMobileToken({
         token: notification_token,
         platform: Platform.OS,
@@ -110,10 +114,8 @@ export const RootNavigator: React.FC<{}> = () => {
    */
   React.useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      if (settings.notification_enabled) {
-        vibrate.warning();
-        const fbMessage = remoteMessage as FirebaseNotification;
-      }
+      vibrate.warning();
+      const fbMessage = remoteMessage as FirebaseNotification;
     });
     return unsubscribe;
   }, []);
