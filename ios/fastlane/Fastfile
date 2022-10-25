@@ -13,13 +13,57 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+fastlane_require 'dotenv'
+
+before_all do
+  Dotenv.overload '.env'
+end
+
 default_platform(:ios)
 
 platform :ios do
   desc "Push a new release build to the App Store"
   lane :release do
     increment_build_number(xcodeproj: "SerialLuncher.xcodeproj")
-    build_app(workspace: "SerialLuncher.xcworkspace", scheme: "SerialLuncher")
+    build_app(workspace: "SerialLuncher.xcworkspace", scheme: "SerialLuncher", xcargs: "-allowProvisioningUpdates")
     upload_to_app_store
+    discord_notifier(
+      webhook_url:"https://discord.com/api/webhooks/1034458031867580466/wee_AWeZRKPnzSoY8FM32Vo9gIJctmdN8yGe3yjeGVIIrNBOuk-s_EOF0sFYetyGPy4i",
+      title: "Fastlane iOS — Build AppStore",
+      description: "Le build AppStore a été envoyé avec succès ! Il sera disponible dans quelques minutes.",
+    )
+    notify_after_build(platform: "iOS", release_type: "App Store", version: get_version_number(xcodeproj: "SerialLuncher.xcodeproj"), app_name: "SerialLuncher")
+  end
+
+  desc "Push a new release build to TestFlight"
+  lane :beta do
+    increment_build_number(xcodeproj: "SerialLuncher.xcodeproj")
+    build_app(workspace: "SerialLuncher.xcworkspace", scheme: "SerialLuncher", xcargs: "-allowProvisioningUpdates")
+    upload_to_testflight
+    discord_notifier(
+      webhook_url:"https://discord.com/api/webhooks/1034458031867580466/wee_AWeZRKPnzSoY8FM32Vo9gIJctmdN8yGe3yjeGVIIrNBOuk-s_EOF0sFYetyGPy4i",
+      title: "Fastlane iOS — Build TestFlight",
+      description: "Le build TestFlight a été envoyé avec succès ! Il sera disponible dans quelques minutes.",
+    )
+    notify_after_build(platform: "iOS", release_type: "TestFlight", version: get_version_number(xcodeproj: "SerialLuncher.xcodeproj"), app_name: "SerialLuncher")
+  end
+
+  lane :notify_after_build do |options|
+    teams(
+      title: "Fastlane deployment — #{options[:app_name]} (#{options[:version]})",
+      message: "The app has been successfully built and released! It will be available in a few minutes.",
+      facts:[
+        {
+          "name"=>"Platform",
+          "value"=>"#{options[:platform]}"
+        },
+        {
+          "name"=>"Lane",
+          "value"=>"#{options[:release_type]}"
+        }
+      ],
+      teams_url: "#{ENV['TEAMS_WEBHOOK']}"      
+
+    )
   end
 end
