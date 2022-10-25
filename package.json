@@ -14,7 +14,8 @@
     "signingReport": "keytool -list -v -keystore 'android/app/prod-keystore' -alias key0 -storepass '%#J8238ck5$$j@kg@6Pk' -keypass '%#J8238ck5$$j@kg@6Pk'",
     "reverse": "adb reverse tcp:8081 tcp:8081",
     "shake": "adb shell input keyevent 82",
-    "deploy-ios:prod": "cd ios/ && fastlane release --verbose && cd .."
+    "deploy-ios:appstore": "cd ios/ && fastlane release --verbose && cd ..",
+    "deploy-ios:beta": "cd ios/ && fastlane beta --verbose && cd .."
   },
   "rnpm": {
     "assets": [
