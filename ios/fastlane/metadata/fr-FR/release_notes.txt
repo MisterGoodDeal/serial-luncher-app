@@ -1,0 +1,3 @@
+Désormais vous n'avez plus besoin de vous déplacer au restaurant pour l'ajouter ! Avec un clic maintenu à l'endroit voulu sur la carte, il vous sera proposé d'ajouter un restaurant à cet emplacement.
+Vous pouvez désormais avoir plusieurs groupes, tracer un itinéraire depuis votre position vers le restaurant de votre choix et afficher sur les carte les restaurants récents depuis la page de votre groupe.
+Nous avons également corrigé quelques bugs
