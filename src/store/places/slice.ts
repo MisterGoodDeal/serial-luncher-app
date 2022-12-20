@@ -180,6 +180,8 @@ export const placesSlice = createSlice({
   },
 });
 
+export const { setSpecialties } = placesSlice.actions;
+
 export const {
   useGetPlacesQuery,
   useGetCommentsQuery,
@@ -196,4 +198,5 @@ export const {
   useJoinEventMutation,
   useLeaveEventMutation,
   useRequestRoutePlanningMutation,
+  useGetSpecialtiesQuery,
 } = placesApi;
