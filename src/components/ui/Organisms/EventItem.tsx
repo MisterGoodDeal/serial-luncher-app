@@ -24,6 +24,7 @@ import {
 import { useDispatch } from "react-redux";
 import { setLoading } from "@store/application/slice";
 import Toast from "react-native-toast-message";
+import { placesState } from "@store/places/selector";
 
 interface EventItemProps {
   formattedEvent: FormattedEvent;
@@ -39,6 +40,7 @@ export const EventItem: React.FunctionComponent<EventItemProps> = ({
   const dispatch = useDispatch();
   const [showPopup, setShowPopup] = React.useState(false);
   const { userInfos } = useSelector(applicationState);
+  const { specialties } = useSelector(placesState);
 
   const [join, joinResult] = useJoinEventMutation();
   const [leave, leaveResult] = useLeaveEventMutation();
@@ -238,7 +240,7 @@ export const EventItem: React.FunctionComponent<EventItemProps> = ({
             align={"center"}
           >
             {
-              Lang.country_specialities.countries.find(
+              specialties.find(
                 (country) =>
                   country.code ===
                   Number(formattedEvent.place.fk_country_speciality ?? "-1")

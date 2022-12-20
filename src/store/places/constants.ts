@@ -2,6 +2,7 @@ import { Places } from "@store/model/places";
 
 export const initialState: Places = {
   places: [],
+  specialties: [],
 };
 
 export const reducerPath = "placesApi";
@@ -29,5 +30,8 @@ export const endpoint = {
     join: "event/join",
     leave: "event/leave",
     get: "events",
+  },
+  specialties: {
+    get: "specialties",
   },
 };
