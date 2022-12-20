@@ -1,6 +1,6 @@
 export type Places = {
   places: Place[];
-  specialties: Specialty[];
+  specialties: SpecialtyStore[];
 };
 
 export interface Place {
@@ -80,4 +80,9 @@ export interface Specialty {
   id: number;
   fr: string;
   en: string;
+}
+
+export interface SpecialtyStore {
+  name: string;
+  code: number;
 }

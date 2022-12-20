@@ -12,6 +12,7 @@ import {
   RoutePlannerResponse,
   RoutePlannerRequest,
   Specialty,
+  SpecialtyStore,
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
@@ -174,7 +175,7 @@ export const placesSlice = createSlice({
   name: "placesSlice",
   initialState,
   reducers: {
-    setSpecialties: (state, action: PayloadAction<Specialty[]>) => {
+    setSpecialties: (state, action: PayloadAction<SpecialtyStore[]>) => {
       state.specialties = action.payload;
     },
   },
