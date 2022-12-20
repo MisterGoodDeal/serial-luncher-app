@@ -1,5 +1,6 @@
 export type Places = {
   places: Place[];
+  specialties: Specialty[];
 };
 
 export interface Place {
@@ -73,4 +74,10 @@ export interface RoutePlannerRequest {
   startLat: number;
   startLng: number;
   placeId: number;
+}
+
+export interface Specialty {
+  id: number;
+  fr: string;
+  en: string;
 }
