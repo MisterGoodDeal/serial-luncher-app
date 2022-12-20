@@ -33,8 +33,9 @@ import DatePicker from "react-native-date-picker";
 import * as RNLocalize from "react-native-localize";
 import { useCreateEventMutation } from "@store/places/slice";
 import { setLoading } from "@store/application/slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
+import { placesState } from "@store/places/selector";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -59,6 +60,8 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   submitComment,
   planRoute,
 }) => {
+  const { specialties } = useSelector(placesState);
+
   const MAX_HEIGHT = SCREEN_HEIGHT * 0.8;
   const THRESHOLD = SCREEN_HEIGHT * 0.79;
   const translateY = useSharedValue(0);
@@ -102,7 +105,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   });
   const latLng = `${place?.lat},${place?.lng}`;
   const label = `${place?.name} (${
-    Lang.country_specialities.countries.find(
+    specialties.find(
       (country) => country.code === Number(place?.fk_country_speciality ?? "-1")
     )?.name
   })`;
@@ -251,7 +254,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               color={Colors.white}
             >
               {
-                Lang.country_specialities.countries.find(
+                specialties.find(
                   (country) =>
                     country.code ===
                     Number(place?.fk_country_speciality ?? "-1")
