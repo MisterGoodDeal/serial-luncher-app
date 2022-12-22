@@ -279,44 +279,18 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   }, [addPlaceVisible]);
 
   const handleAddPlace = () => {
-    Alert.alert(
-      "Debug add place",
-      JSON.stringify({
-        "placeName.length": placeName.length > 0,
-        rating: rating !== 0,
-        priceRange: priceRange !== 0,
-        picture: picture !== "",
-        selected: selected?.code !== -1,
-        userCoordinates1: userCoordinates,
-      })
-    );
-    if (
-      placeName.length > 0 &&
-      rating !== 0 &&
-      priceRange !== 0 &&
-      picture !== "" &&
-      selected?.code !== -1 &&
-      userCoordinates
-    ) {
-      dispatch(setLoading(true));
-      addPlace({
-        name: placeName,
-        rating: rating,
-        price_range: priceRange,
-        can_bring_reusable_content: canBringReusableContent,
-        image: picture!,
-        country_speciality: selected?.code ?? -1,
-        lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
-        lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
-        url: urlRegex.test(url) ? url : "",
-      });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: Lang.map.error.oops,
-        text2: Lang.map.error.missing_fields,
-      });
-    }
+    dispatch(setLoading(true));
+    addPlace({
+      name: placeName,
+      rating: rating,
+      price_range: priceRange,
+      can_bring_reusable_content: canBringReusableContent,
+      image: picture!,
+      country_speciality: selected?.code ?? -1,
+      lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
+      lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
+      url: urlRegex.test(url) ? url : "",
+    });
   };
 
   React.useEffect(() => {
