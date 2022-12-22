@@ -38,6 +38,7 @@ import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
 import { dark, light } from "@themes/Colors";
 import { Button } from "@components/ui/Atoms/Button";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface CreateGroupScreenProps {
   nextStep: () => void;
@@ -59,6 +60,8 @@ export const CreateGroupScreen: React.FunctionComponent<
   const [createGroup, resultCreateGroup] = useCreateGroupMutation();
 
   const { user } = useSelector(enrollmentState);
+
+  const { loading } = useSelector(applicationState);
 
   const [registeredUser, setRegisteredUser] = React.useState<User>();
 
@@ -227,6 +230,7 @@ export const CreateGroupScreen: React.FunctionComponent<
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <Popup
         visible={modalPP}
         animation={"slide"}

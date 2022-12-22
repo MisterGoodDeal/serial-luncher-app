@@ -39,6 +39,7 @@ import { Input } from "@components/ui/Atoms/Input";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 import { useNavigation } from "@react-navigation/native";
 import { Arrow } from "@components/ui/Atoms/Arrow";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface ChangeInfosProps {}
 
@@ -46,7 +47,7 @@ export const ChangeInfos: React.FunctionComponent<ChangeInfosProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
-  const { userInfos } = useSelector(applicationState);
+  const { userInfos, loading } = useSelector(applicationState);
 
   const [modalPP, setModalPP] = React.useState(false);
   const [picture, setPicture] = React.useState<
@@ -209,6 +210,7 @@ export const ChangeInfos: React.FunctionComponent<ChangeInfosProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <Arrow
         onPress={() => nav.goBack()}
         color={isDark ? dark.text : light.text}

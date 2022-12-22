@@ -42,6 +42,8 @@ import {
   User as GoogleUser,
 } from "@react-native-community/google-signin";
 import { WEB_CLIENT_ID } from "@environments/prod.environment";
+import { applicationState } from "@store/application/selector";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface LandingScreenProps {
   userInfo: string;
@@ -56,6 +58,8 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
 
   const nav = useNavigation();
   const dispatch = useDispatch();
+
+  const { loading } = useSelector(applicationState);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -295,6 +299,7 @@ export const LandingScreen: React.FunctionComponent<LandingScreenProps> = ({
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <StatusBar barStyle={isDark ? "light-content" : "light-content"} />
       <Overlay image={require("@images/landing_bg.jpeg")} opacity={0.5} />
       <Container flex={1} alignItems={"center"} justifyContent={"center"}>

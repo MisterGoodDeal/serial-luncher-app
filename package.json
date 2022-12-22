@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-native start",
     "android": "npx react-native run-android",
+    "android:release": "npx react-native run-android --variant=release",
     "pods": "cd ios && pod install && cd ..",
     "pods:reset": "cd ios && pod deintegrate && cd .. && yarn pods",
     "ios": "react-native run-ios",

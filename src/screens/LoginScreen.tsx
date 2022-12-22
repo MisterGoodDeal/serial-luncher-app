@@ -28,6 +28,7 @@ import { Link } from "@components/ui/Molecules/Link";
 import { useFormik } from "formik";
 import { Routes } from "@navigation/Routes";
 import { Arrow } from "@components/ui/Atoms/Arrow";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface LoginScreenProps {}
 interface LoginForm {
@@ -40,7 +41,7 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
 
   const dispatch = useDispatch();
   const nav = useNavigation();
-  const { userInfos, token } = useSelector(applicationState);
+  const { userInfos, token, loading } = useSelector(applicationState);
   const [login, result] = useLoginMutation();
   const initialValues: LoginForm = { email: userInfos.email, password: "" };
 
@@ -82,6 +83,7 @@ export const LoginScreen: React.FunctionComponent<LoginScreenProps> = ({}) => {
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <Container
         flex={1}
