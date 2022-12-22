@@ -16,6 +16,8 @@ import { FormikHelpers, useFormik } from "formik";
 import Toast from "react-native-toast-message";
 import { setSecondStep } from "@store/enrollment/slice";
 import { useColorScheme } from "react-native";
+import { Loader } from "@components/ui/Molecules/Loader";
+import { enrollmentState } from "@store/enrollment/selector";
 
 interface CredentialsScreenProps {
   nextStep: () => void;
@@ -34,6 +36,8 @@ export const CredentialsScreen: React.FunctionComponent<
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
+
+  const { loading } = useSelector(enrollmentState);
 
   // Register infos
   const initialValues: CredentialsForm = {
@@ -101,6 +105,7 @@ export const CredentialsScreen: React.FunctionComponent<
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <Container
         flex={1}
         alignItems={"center"}

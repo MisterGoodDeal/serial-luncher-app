@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "@themes/Colors";
+import { isIphoneX } from "react-native-iphone-x-helper";
+
 import LottieView from "lottie-react-native";
 import { hp } from "@utils/functions";
 
@@ -25,7 +26,7 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
   <View
     style={{
       position: "absolute",
-      top: top ?? hp("1%"),
+      top: isIphoneX() ? hp("1%") : -hp("2%"),
       zIndex: 99,
       width: "100%",
       alignItems: "center",

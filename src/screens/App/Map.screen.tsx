@@ -20,6 +20,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import {
   setSpecialties,
@@ -61,13 +62,14 @@ import { darkMap } from "@constants/darkMap";
 import { CustomMarkerSheet } from "@components/ui/Organisms/CustomMarkerSheet";
 import { placesState } from "@store/places/selector";
 import * as RNLocalize from "react-native-localize";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface MapProps {}
 
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
   const dispatch = useDispatch();
-  const { userInfos, options, settings } = useSelector(applicationState);
+  const { options, settings, loading } = useSelector(applicationState);
 
   // Specialties
   const { specialties } = useSelector(placesState);
@@ -272,35 +274,23 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const urlRegex =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/;
 
+  React.useEffect(() => {
+    specialtiesRefetch();
+  }, [addPlaceVisible]);
+
   const handleAddPlace = () => {
-    if (
-      placeName.length > 0 &&
-      rating !== 0 &&
-      priceRange !== 0 &&
-      picture !== "" &&
-      selected?.code !== -1 &&
-      userCoordinates &&
-      userCoordinates
-    ) {
-      dispatch(setLoading(true));
-      addPlace({
-        name: placeName,
-        rating: rating,
-        price_range: priceRange,
-        can_bring_reusable_content: canBringReusableContent,
-        image: picture!,
-        country_speciality: selected?.code ?? -1,
-        lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
-        lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
-        url: urlRegex.test(url) ? url : "",
-      });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: Lang.map.error.oops,
-        text2: Lang.map.error.missing_fields,
-      });
-    }
+    dispatch(setLoading(true));
+    addPlace({
+      name: placeName,
+      rating: rating,
+      price_range: priceRange,
+      can_bring_reusable_content: canBringReusableContent,
+      image: picture!,
+      country_speciality: selected?.code ?? -1,
+      lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
+      lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
+      url: urlRegex.test(url) ? url : "",
+    });
   };
 
   React.useEffect(() => {
@@ -534,6 +524,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <CustomMarkerSheet
         setShowDrawer={setShowCustomMarkerDrawer}
         showDrawer={showCustomMarkerDrawer}

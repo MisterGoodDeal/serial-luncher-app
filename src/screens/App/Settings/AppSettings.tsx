@@ -26,6 +26,7 @@ import {
 } from "@store/application/slice";
 import messaging from "@react-native-firebase/messaging";
 import * as RNLocalize from "react-native-localize";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface AppSettingsProps {}
 
@@ -33,7 +34,7 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
-  const { userInfos, settings } = useSelector(applicationState);
+  const { userInfos, settings, loading } = useSelector(applicationState);
 
   const nav = useNavigation();
 
@@ -66,6 +67,7 @@ export const AppSettings: React.FunctionComponent<AppSettingsProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <Arrow
         onPress={() => nav.goBack()}
         color={isDark ? dark.text : light.text}
