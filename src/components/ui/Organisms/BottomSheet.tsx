@@ -31,10 +31,16 @@ import { Button } from "../Atoms/Button";
 import { Popup } from "../Molecules/Popup";
 import DatePicker from "react-native-date-picker";
 import * as RNLocalize from "react-native-localize";
-import { useCreateEventMutation } from "@store/places/slice";
+import {
+  useCreateEventMutation,
+  useCreateRatingMutation,
+} from "@store/places/slice";
 import { setLoading } from "@store/application/slice";
 import { useDispatch } from "react-redux";
 import Toast from "react-native-toast-message";
+import { useSelector } from "react-redux";
+import { applicationState } from "@store/application/selector";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -42,6 +48,8 @@ interface BottomSheetProps {
   showDrawer: boolean;
   setShowDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   place: StuffedPlace;
+  address: string;
+  refetch: () => void;
   isDark: boolean;
   comment: string;
   setComment: React.Dispatch<React.SetStateAction<string>>;
@@ -53,8 +61,10 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   showDrawer,
   setShowDrawer,
   place,
+  address,
   isDark,
   comment,
+  refetch,
   setComment,
   submitComment,
   planRoute,
@@ -64,6 +74,8 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   const translateY = useSharedValue(0);
   const showDrawerShared = useSharedValue(showDrawer);
   const context = useSharedValue({ y: 0 });
+  const { userInfos } = useSelector(applicationState);
+
   const gesture = Gesture.Pan()
     .onStart((e) => {
       context.value = { y: translateY.value };
@@ -119,6 +131,9 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   const [showAddEvent, setShowAddEvent] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const [createEvent, createEventResult] = useCreateEventMutation();
+  const [createRating] = useCreateRatingMutation();
+  const [rating, setRating] = React.useState(0);
+  const usersRated = place?.user_rated?.map((el) => el.userId);
 
   React.useEffect(() => {
     if (createEventResult.status === "pending") {
@@ -141,6 +156,25 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
       });
     }
   }, [createEventResult]);
+
+  const createPriceSign = (price: number) => {
+    const priceSigns = [];
+    for (let i = 0; i <= price; i++) {
+      priceSigns.push(
+        <Image
+          source={require("@images/euro-sign.png")}
+          style={{
+            tintColor: textColor(isDark ? light.text : dark.text),
+            width: hp("3%"),
+            height: hp("3%"),
+            marginRight: 4,
+          }}
+          key={i}
+        />
+      );
+    }
+    return priceSigns;
+  };
 
   return (
     <GestureDetector gesture={gesture}>
@@ -266,54 +300,43 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
             justifyContent={"space-between"}
           >
             <CustomText
-              size={texts.paragraph}
-              fontWeight={"600"}
+              size={texts.small}
+              fontWeight={"400"}
               color={isDark ? dark.text : light.text}
             >
-              {Lang.map.rating}
+              {address}
             </CustomText>
+          </Container>
+          <Container direction={"row"} alignItems={"center"}>
+            {place?.rating !== null && (
+              <CustomText
+                size={texts.small}
+                fontWeight={"600"}
+                color={isDark ? dark.text : light.text}
+                style={{
+                  marginRight: 3,
+                }}
+              >
+                {`${place?.rating?.toFixed(1).toString()}/5`}
+              </CustomText>
+            )}
             <Rating
               type="custom"
               ratingImage={require("@images/star.png")}
-              jumpValue={0.5}
               ratingCount={5}
-              imageSize={hp("4%")}
+              imageSize={hp("3%")}
               onFinishRating={() => null}
               readonly
-              startingValue={place?.rating}
+              fractions={true}
+              startingValue={place?.rating!}
               tintColor={isDark ? dark.background : light.background}
               ratingBackgroundColor={
                 isDark ? dark.input.background : light.input.background
               }
             />
           </Container>
-          <Container
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <CustomText
-              size={texts.paragraph}
-              fontWeight={"600"}
-              color={isDark ? dark.text : light.text}
-            >
-              {Lang.map.price_range}
-            </CustomText>
-            <Rating
-              type="custom"
-              ratingImage={require("@images/cash.png")}
-              jumpValue={0.5}
-              ratingCount={5}
-              imageSize={hp("4%")}
-              onFinishRating={() => null}
-              readonly
-              startingValue={place?.price_range}
-              tintColor={isDark ? dark.background : light.background}
-              ratingBackgroundColor={
-                isDark ? dark.input.background : light.input.background
-              }
-              ratingColor={Colors.green}
-            />
+          <Container direction={"row"} alignItems={"center"}>
+            {createPriceSign(place?.price_range)}
           </Container>
           <Container
             direction={"row"}
@@ -404,22 +427,136 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
           <Spacer space={"2%"} />
 
           {place?.url !== "" && (
-            <>
-              <Link
-                onPress={() => Linking.openURL(place?.url!)}
+            <Link
+              onPress={() => Linking.openURL(place?.url!)}
+              size={texts.small}
+              fontWeight={"400"}
+              color={isDark ? dark.text : light.text}
+              align={"center"}
+              style={{
+                width: "100%",
+              }}
+            >
+              {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
+            </Link>
+          )}
+          <Spacer space={"2%"} />
+          {!usersRated?.includes(userInfos.id) ? (
+            <Container
+              color={isDark ? dark.navBar.background : light.navBar.background}
+              disablePaddingFix
+              style={{
+                shadowColor: isDark ? Colors.black : Colors.grey,
+                shadowOffset: {
+                  width: 0,
+                  height: 0,
+                },
+                shadowOpacity: 0.1,
+                shadowRadius: 5,
+                elevation: 1.5,
+                borderRadius: 15,
+              }}
+            >
+              <Spacer space={"2%"} />
+              <CustomText
+                size={texts.paragraph}
+                fontWeight={"600"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+              >
+                {Lang.map.add_review}
+              </CustomText>
+              <Spacer space={"2%"} />
+              <CustomText
                 size={texts.small}
                 fontWeight={"400"}
                 color={isDark ? dark.text : light.text}
                 align={"center"}
-                style={{
-                  width: "100%",
-                }}
               >
-                {`${Lang.map.open_link} ${getDomainName(place?.url!)}`}
-              </Link>
-            </>
+                {Lang.map.give_review}
+              </CustomText>
+              <Container
+                direction={"row"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <CustomText
+                  size={texts.small}
+                  fontWeight={"600"}
+                  color={isDark ? dark.text : light.text}
+                  align={"center"}
+                  style={{
+                    textTransform: "lowercase",
+                    marginRight: 10,
+                  }}
+                >
+                  {`@${userInfos.firstname + userInfos.lastname}`}
+                </CustomText>
+                <Rating
+                  type="custom"
+                  ratingImage={require("@images/star.png")}
+                  fractions
+                  ratingCount={5}
+                  imageSize={hp("3%")}
+                  onFinishRating={(value: number) => setRating(value)}
+                  startingValue={0}
+                  tintColor={isDark ? dark.background : light.background}
+                  ratingBackgroundColor={
+                    isDark ? dark.input.background : light.input.background
+                  }
+                />
+              </Container>
+              <Spacer space={"2%"} />
+              <Button
+                onPress={() => {
+                  dispatch(setLoading(true));
+                  createRating({
+                    rating,
+                    restaurantId: place.id,
+                    userId: userInfos.id,
+                  }).then(() => {
+                    refetch();
+                    dispatch(setLoading(false));
+                  });
+                }}
+                color={Colors.main}
+                disabled={usersRated?.includes(userInfos.id)}
+              >
+                {Lang.map.publish_review}
+              </Button>
+              <Spacer space={"2%"} />
+            </Container>
+          ) : (
+            <Container
+              color={isDark ? dark.navBar.background : light.navBar.background}
+              disablePaddingFix
+              style={{
+                shadowColor: isDark ? Colors.black : Colors.grey,
+                shadowOffset: {
+                  width: 0,
+                  height: 0,
+                },
+                shadowOpacity: 0.1,
+                shadowRadius: 5,
+                elevation: 1.5,
+                borderRadius: 15,
+              }}
+            >
+              <Spacer space={"2%"} />
+
+              <CustomText
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+              >
+                {Lang.map.review_already_added}
+              </CustomText>
+              <Spacer space={"2%"} />
+            </Container>
           )}
           <Spacer space={"2%"} />
+
           <Container
             color={isDark ? dark.navBar.background : light.navBar.background}
             disablePaddingFix
@@ -445,7 +582,16 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               {Lang.map.comments}
             </CustomText>
             <Spacer space={"2%"} />
-            {place?.comments.length !== 0 && (
+            {place?.comments.length === 0 ? (
+              <CustomText
+                size={texts.small}
+                fontWeight={"400"}
+                color={isDark ? dark.text : light.text}
+                align={"center"}
+              >
+                {Lang.map.no_comment}
+              </CustomText>
+            ) : (
               <ScrollView
                 style={{
                   height: hp("25%"),
@@ -464,16 +610,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
                 ))}
               </ScrollView>
             )}
-            {place?.comments.length === 0 && (
-              <CustomText
-                size={texts.small}
-                fontWeight={"400"}
-                color={isDark ? dark.text : light.text}
-                align={"center"}
-              >
-                {Lang.map.no_comment}
-              </CustomText>
-            )}
+
             <Spacer space={"2%"} />
             <Container
               style={{
