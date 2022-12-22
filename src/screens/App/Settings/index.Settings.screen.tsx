@@ -26,6 +26,7 @@ import { vibrate } from "@utils/vibrate";
 import { PrivacyPolicy } from "@components/ui/Organisms/PrivacyPolicy";
 
 import { GoogleSignin } from "@react-native-community/google-signin";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 const googleSignOut = async () => {
   try {
@@ -42,7 +43,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
   const nav = useNavigation();
   const dispatch = useDispatch();
-  const { userInfos } = useSelector(applicationState);
+  const { userInfos, loading } = useSelector(applicationState);
   const getProfilePicture = () => {
     if (userInfos.profile_picture.length > 0) {
       return { uri: userInfos.profile_picture };
@@ -68,6 +69,7 @@ export const Settings: React.FunctionComponent<SettingsProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <Header>
         <Avatar
           source={getProfilePicture()}

@@ -20,14 +20,21 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import {
+  setSpecialties,
   useAddCommentMutation,
   useAddPlaceMutation,
   useGetPlacesQuery,
+  useGetSpecialtiesQuery,
   useRequestRoutePlanningMutation,
 } from "@store/places/slice";
-import { RoutePlannerResponse, StuffedPlace } from "@store/model/places";
+import {
+  RoutePlannerResponse,
+  Specialty,
+  StuffedPlace,
+} from "@store/model/places";
 import { setLoading, setOptions } from "@store/application/slice";
 import { Lang } from "@constants/Lang";
 import Toast from "react-native-toast-message";
@@ -56,13 +63,73 @@ import { CustomMarkerSheet } from "@components/ui/Organisms/CustomMarkerSheet";
 import Geocoder from "react-native-geocoding";
 import { configuration } from "@constants/configuration";
 Geocoder.init(configuration.GOOGLE_API_KEY); // use a valid API key
+import { placesState } from "@store/places/selector";
+import * as RNLocalize from "react-native-localize";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface MapProps {}
 
 export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const isDark = useColorScheme() === "dark";
   const dispatch = useDispatch();
-  const { userInfos, options, settings } = useSelector(applicationState);
+  const { options, settings, loading } = useSelector(applicationState);
+
+  // Specialties
+  const { specialties } = useSelector(placesState);
+
+  const {
+    data: specialtiesData,
+    isError: specialtiesIsError,
+    isFetching: specialtiesIsFetching,
+    isSuccess: specialtiesIsSuccess,
+    refetch: specialtiesRefetch,
+  } = useGetSpecialtiesQuery({});
+
+  React.useEffect(() => {
+    if (specialtiesIsSuccess) {
+      dispatch(setLoading(false));
+      const specialtiesRes: Specialty[] = specialtiesData as Specialty[];
+      const langCode = RNLocalize.getLocales()[0].languageCode;
+      switch (langCode) {
+        case "fr":
+          const sFr = specialtiesRes.map((specialty) => {
+            return {
+              name: specialty.fr,
+              code: specialty.id,
+            };
+          });
+          dispatch(setSpecialties(sFr));
+          break;
+        case "en":
+          const sEn = specialtiesRes.map((specialty) => {
+            return {
+              name: specialty.en,
+              code: specialty.id,
+            };
+          });
+          dispatch(setSpecialties(sEn));
+          break;
+        default:
+          const sDefault = specialtiesRes.map((specialty) => {
+            return {
+              name: specialty.fr,
+              code: specialty.id,
+            };
+          });
+          dispatch(setSpecialties(sDefault));
+          break;
+      }
+    } else if (specialtiesIsError) {
+      dispatch(setLoading(false));
+    } else if (specialtiesIsFetching) {
+      dispatch(setLoading(true));
+    }
+  }, [
+    specialtiesIsSuccess,
+    specialtiesIsError,
+    specialtiesIsFetching,
+    specialtiesData,
+  ]);
 
   React.useEffect(() => {
     if (options?.place2Nav) {
@@ -211,35 +278,23 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const urlRegex =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/;
 
+  React.useEffect(() => {
+    specialtiesRefetch();
+  }, [addPlaceVisible]);
+
   const handleAddPlace = () => {
-    if (
-      placeName.length > 0 &&
-      rating !== 0 &&
-      priceRange !== 0 &&
-      picture !== "" &&
-      selected?.code !== -1 &&
-      userCoordinates &&
-      userCoordinates
-    ) {
-      dispatch(setLoading(true));
-      addPlace({
-        name: placeName,
-        rating: rating,
-        price_range: priceRange,
-        can_bring_reusable_content: canBringReusableContent,
-        image: picture!,
-        country_speciality: selected?.code ?? -1,
-        lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
-        lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
-        url: urlRegex.test(url) ? url : "",
-      });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: Lang.map.error.oops,
-        text2: Lang.map.error.missing_fields,
-      });
-    }
+    dispatch(setLoading(true));
+    addPlace({
+      name: placeName,
+      rating: rating,
+      price_range: priceRange,
+      can_bring_reusable_content: canBringReusableContent,
+      image: picture!,
+      country_speciality: selected?.code ?? -1,
+      lat: manualMarker ? manualMarker.latitude : userCoordinates!.latitude,
+      lng: manualMarker ? manualMarker.longitude : userCoordinates!.longitude,
+      url: urlRegex.test(url) ? url : "",
+    });
   };
 
   React.useEffect(() => {
@@ -317,6 +372,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         await getCurrentLocation();
       })();
       refetch();
+      specialtiesRefetch();
       return () => null;
     }, [])
   );
@@ -363,7 +419,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     );
   }
 
-  const [data, setData] = React.useState(Lang.country_specialities.countries);
+  const [data, setData] = React.useState(specialties);
   const [selected, setSelected] = React.useState<
     { name: string; code: number } | undefined
   >(undefined);
@@ -481,6 +537,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <CustomMarkerSheet
         setShowDrawer={setShowCustomMarkerDrawer}
         showDrawer={showCustomMarkerDrawer}

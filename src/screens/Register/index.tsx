@@ -9,6 +9,8 @@ import { InformationsScreen } from "./Informations";
 import { CredentialsScreen } from "./Credentials";
 import { JoinGroupScreen } from "./JoinGroup";
 import { CreateGroupScreen } from "./CreateGroup";
+import { Loader } from "@components/ui/Molecules/Loader";
+import { enrollmentState } from "@store/enrollment/selector";
 
 interface RegisterScreenProps {}
 
@@ -18,6 +20,8 @@ export const RegisterScreen: React.FunctionComponent<
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
+
+  const { loading } = useSelector(enrollmentState);
 
   const ref = React.useRef<FlatList>(null);
   const [index, setIndex] = React.useState(0);
@@ -65,6 +69,7 @@ export const RegisterScreen: React.FunctionComponent<
   return (
     <>
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
+      <Loader loading={loading} dark={isDark} />
       <Container
         flex={1}
         alignItems={"center"}

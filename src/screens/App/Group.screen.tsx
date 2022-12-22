@@ -46,6 +46,7 @@ import { EventItem } from "@components/ui/Organisms/EventItem";
 import { useGetEventsQuery } from "@store/places/slice";
 import { FormattedEvent } from "@store/model/events";
 import { Routes } from "@navigation/Routes";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface GroupProps {}
 
@@ -179,6 +180,7 @@ export const Group: React.FunctionComponent<GroupProps> = ({}) => {
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <Container
         style={{
           height: hp("30%"),

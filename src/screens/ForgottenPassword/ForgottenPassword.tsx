@@ -23,11 +23,15 @@ import { Input } from "@components/ui/Atoms/Input";
 import { Spacer } from "@components/common/Spacer";
 import { Button } from "@components/ui/Atoms/Button";
 import { wp } from "@utils/functions";
+import { Loader } from "@components/ui/Molecules/Loader";
+import { useSelector } from "react-redux";
+import { applicationState } from "@store/application/selector";
 
 const ForgottenPassword: React.FC = () => {
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useAppDispatch();
+  const { loading } = useSelector(applicationState);
   const [forgotPassword, server] = useForgottenPasswordMutation();
   // forgotPassword data
   const initialValues: { email: string } = { email: "" };
@@ -64,6 +68,7 @@ const ForgottenPassword: React.FC = () => {
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
       <Container
         flex={1}

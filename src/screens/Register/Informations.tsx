@@ -23,6 +23,8 @@ import Toast from "react-native-toast-message";
 import { FormikHelpers, useFormik } from "formik";
 import { resetRegister, setFirstStep } from "@store/enrollment/slice";
 import { setLoading } from "@store/application/slice";
+import { Loader } from "@components/ui/Molecules/Loader";
+import { applicationState } from "@store/application/selector";
 
 interface InformationsScreenProps {
   nextStep: () => void;
@@ -40,6 +42,7 @@ export const InformationsScreen: React.FunctionComponent<
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
+  const { loading } = useSelector(applicationState);
   // Register infos
   const [modalPP, setModalPP] = React.useState(false);
 
@@ -151,6 +154,7 @@ export const InformationsScreen: React.FunctionComponent<
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <Popup
         visible={modalPP}
         animation={"slide"}

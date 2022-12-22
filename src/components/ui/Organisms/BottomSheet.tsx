@@ -41,6 +41,7 @@ import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
 import { applicationState } from "@store/application/selector";
 import { useFocusEffect } from "@react-navigation/native";
+import { placesState } from "@store/places/selector";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -69,6 +70,8 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   submitComment,
   planRoute,
 }) => {
+  const { specialties } = useSelector(placesState);
+
   const MAX_HEIGHT = SCREEN_HEIGHT * 0.8;
   const THRESHOLD = SCREEN_HEIGHT * 0.79;
   const translateY = useSharedValue(0);
@@ -114,7 +117,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
   });
   const latLng = `${place?.lat},${place?.lng}`;
   const label = `${place?.name} (${
-    Lang.country_specialities.countries.find(
+    specialties.find(
       (country) => country.code === Number(place?.fk_country_speciality ?? "-1")
     )?.name
   })`;
@@ -285,7 +288,7 @@ export const BottomSheet: React.FunctionComponent<BottomSheetProps> = ({
               color={Colors.white}
             >
               {
-                Lang.country_specialities.countries.find(
+                specialties.find(
                   (country) =>
                     country.code ===
                     Number(place?.fk_country_speciality ?? "-1")

@@ -32,6 +32,7 @@ import { Button } from "@components/ui/Atoms/Button";
 import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
 import { onOpen } from "react-native-actions-sheet-picker-serial-luncher";
 import { setGroup as setGroupStore } from "@store/groups/slice";
+import { Loader } from "@components/ui/Molecules/Loader";
 
 interface GroupSettingsProps {}
 
@@ -41,7 +42,7 @@ export const GroupSettings: React.FunctionComponent<
   const isDark = useColorScheme() === "dark";
 
   const dispatch = useDispatch();
-  const { userInfos, settings } = useSelector(applicationState);
+  const { userInfos, settings, loading } = useSelector(applicationState);
 
   const nav = useNavigation();
 
@@ -237,6 +238,7 @@ export const GroupSettings: React.FunctionComponent<
         paddingHorizontal: wp("10%"),
       }}
     >
+      <Loader loading={loading} dark={isDark} />
       <Arrow
         onPress={() => nav.goBack()}
         color={isDark ? dark.text : light.text}

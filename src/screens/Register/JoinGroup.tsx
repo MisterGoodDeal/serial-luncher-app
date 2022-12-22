@@ -26,6 +26,7 @@ import { enrollmentState } from "@store/enrollment/selector";
 import { errorHandler } from "@utils/errors/register";
 import { User } from "@store/model/enrollment";
 import { setGroup as setGroupStore } from "@store/groups/slice";
+import { Loader } from "@components/ui/Molecules/Loader";
 interface JoinGroupScreenProps {
   nextStep: () => void;
   previousStep: () => void;
@@ -42,7 +43,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
   const [getGroup, resultGetGroup] = useGetGroupMutation();
   const [joinGroup, resultJoinGroup] = useJoinGroupMutation();
 
-  const { token } = useSelector(applicationState);
+  const { token, loading } = useSelector(applicationState);
   const { user, groupId } = useSelector(enrollmentState);
 
   const [popup, setPopup] = React.useState(false);
@@ -164,6 +165,7 @@ export const JoinGroupScreen: React.FunctionComponent<JoinGroupScreenProps> = ({
 
   return (
     <KeyboardDismiss>
+      <Loader loading={loading} dark={isDark} />
       <Popup
         visible={popup}
         animation={"slide"}

@@ -164,7 +164,6 @@ export const RootNavigator: React.FC<{}> = () => {
 
   return (
     <>
-      <Loader loading={loading} dark={isDark} />
       {loaded && userInfos.id === -1 && (
         <NavigationContainer linking={linking}>
           <>

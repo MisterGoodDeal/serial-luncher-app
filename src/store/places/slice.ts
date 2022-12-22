@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { endpoint, reducerPath } from "./constants";
+import { endpoint, initialState, reducerPath } from "./constants";
 import {
   CreatePlace,
   PlaceId,
@@ -11,6 +11,8 @@ import {
   StuffedPlace,
   RoutePlannerResponse,
   RoutePlannerRequest,
+  Specialty,
+  SpecialtyStore,
 } from "@store/model/places";
 import { GenericApiReponse, Token } from "@store/model/application";
 import { baseQuery } from "@store/api";
@@ -21,6 +23,7 @@ import {
   FormattedEvent,
 } from "@store/model/events";
 import { Rating } from "@store/model/rating";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const placesApi = createApi({
   reducerPath,
@@ -169,8 +172,26 @@ export const placesApi = createApi({
         },
       }),
     }),
+    getSpecialties: builder.query<GenericApiReponse | Specialty[], {}>({
+      query: () => ({
+        url: `${endpoint.specialties.get}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
+
+export const placesSlice = createSlice({
+  name: "placesSlice",
+  initialState,
+  reducers: {
+    setSpecialties: (state, action: PayloadAction<SpecialtyStore[]>) => {
+      state.specialties = action.payload;
+    },
+  },
+});
+
+export const { setSpecialties } = placesSlice.actions;
 
 export const {
   useGetPlacesQuery,
@@ -189,4 +210,5 @@ export const {
   useLeaveEventMutation,
   useRequestRoutePlanningMutation,
   useCreateRatingMutation,
+  useGetSpecialtiesQuery,
 } = placesApi;

@@ -2,6 +2,7 @@ import { Places } from "@store/model/places";
 
 export const initialState: Places = {
   places: [],
+  specialties: [],
 };
 
 export const reducerPath = "placesApi";
@@ -32,5 +33,8 @@ export const endpoint = {
   },
   rating: {
     create: "rating",
+  },
+  specialties: {
+    get: "specialties",
   },
 };
