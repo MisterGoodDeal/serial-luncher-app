@@ -20,6 +20,7 @@ import {
   EventJoinAndLeave,
   FormattedEvent,
 } from "@store/model/events";
+import { Rating } from "@store/model/rating";
 
 export const placesApi = createApi({
   reducerPath,
@@ -109,6 +110,15 @@ export const placesApi = createApi({
       transformResponse: (response: { data: GenericApiReponse }, meta, arg) =>
         response.data,
     }),
+
+    createRating: builder.mutation<GenericApiReponse, Rating>({
+      query: (body) => ({
+        url: `${endpoint.rating.create}`,
+        method: "POST",
+        body,
+      }),
+    }),
+
     /**
      * Events endpoints
      */
@@ -178,4 +188,5 @@ export const {
   useJoinEventMutation,
   useLeaveEventMutation,
   useRequestRoutePlanningMutation,
+  useCreateRatingMutation,
 } = placesApi;

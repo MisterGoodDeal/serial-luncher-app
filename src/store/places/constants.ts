@@ -30,4 +30,7 @@ export const endpoint = {
     leave: "event/leave",
     get: "events",
   },
+  rating: {
+    create: "rating",
+  },
 };
