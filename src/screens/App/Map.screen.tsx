@@ -53,6 +53,9 @@ import { BottomPicker } from "@components/ui/Molecules/BottomPicker";
 import { vibrate } from "@utils/vibrate";
 import { darkMap } from "@constants/darkMap";
 import { CustomMarkerSheet } from "@components/ui/Organisms/CustomMarkerSheet";
+import Geocoder from "react-native-geocoding";
+import { configuration } from "@constants/configuration";
+Geocoder.init(configuration.GOOGLE_API_KEY); // use a valid API key
 
 interface MapProps {}
 
@@ -89,6 +92,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   const [selectedPlace, setSelectedPlace] = React.useState<StuffedPlace>();
   const [selectedPlaceId, setSelectedPlaceId] = React.useState<number>(-1);
   const [showBottomSheet, setShowBottomSheet] = React.useState(false);
+  const [selectedAddress, setSelectedAddress] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [addComment, commentResult] = useAddCommentMutation();
 
@@ -317,6 +321,15 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
     }, [])
   );
 
+  React.useEffect(() => {
+    if (selectedPlace) {
+      Geocoder.from({
+        lat: selectedPlace.lat,
+        lng: selectedPlace.lng,
+      }).then((json) => setSelectedAddress(json.results[0].formatted_address));
+    }
+  }, [selectedPlace]);
+
   // Récupération de la position actuelle de l'utilisateur
   const [userCoordinates, setUserCoordinates] = React.useState<{
     latitude: number;
@@ -328,7 +341,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
   async function getCurrentLocation() {
     Geolocation.getCurrentPosition(
       async (position) => {
-        let region = {
+        const region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           latitudeDelta: 0.1,
@@ -667,7 +680,7 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
 
           <View
             style={{
-              width: wp("70%"),
+              width: wp("80%"),
             }}
           >
             <Container
@@ -818,7 +831,9 @@ export const Map: React.FunctionComponent<MapProps> = ({}) => {
         setShowDrawer={() => {
           setShowBottomSheet(false);
         }}
-        place={selectedPlace!}
+        place={places?.find((el) => el.id === selectedPlaceId)!}
+        refetch={refetch}
+        address={selectedAddress}
         isDark={isDark}
         comment={comment}
         setComment={setComment}
