@@ -9,7 +9,10 @@ export interface Place {
   fk_country_speciality: string;
   lat: number;
   lng: number;
-  rating: number;
+  rating: number | null;
+  user_rated: {
+    userId: number;
+  }[];
   price_range: number;
   can_bring_reusable_contents: boolean;
   image: string;

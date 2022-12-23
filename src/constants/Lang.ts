@@ -220,7 +220,11 @@ const locales = {
     map: {
       rating: "Note",
       price_range: "Prix",
-      reusable_package: "Apporter emballage réutilisable ?",
+      reusable_package: "Utilise la consigne",
+      add_review: "Ajouter un avis",
+      publish_review: "Publier l'avis",
+      review_already_added: "Vous avez déjà noté ce lieu.",
+      give_review: "Donnez votre avis afin d'aider les autres utilisateurs",
       comments: "Commentaires",
       no_comment: "Aucun commentaire... Soyez le premier !",
       your_comment: "Commentaire... (max. 160 caractères)",
@@ -573,6 +577,10 @@ Si vous souhaitez nous contacter pour comprendre davantage la présente politiqu
     map: {
       rating: "Rating",
       price_range: "Price",
+      add_review: "Add a review",
+      give_review: "Give a review to help other users",
+      publish_review: "Publish review",
+      review_already_added: "You're already rated this place.",
       reusable_package: "Bring reusable package?",
       comments: "Comments",
       no_comment: "No comment... Be the first!",
